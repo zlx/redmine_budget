@@ -1,3 +1,6 @@
+require 'models/project_patch'
+require 'models/role_patch'
+
 Redmine::Plugin.register :espeo_budget do
   name 'Espeo Budget plugin'
   author 'Author name'
@@ -11,5 +14,5 @@ Redmine::Plugin.register :espeo_budget do
     permission :manage_budget, :budget => [:edit, :update]
   end
   
-  menu :project_menu, :budget, { :controller => 'budget', :action => 'show' }, :caption => 'Budget'
+  menu :project_menu, :budget, { :controller => 'budget', :action => 'show' }, :caption => 'Budget', param: :project_id
 end

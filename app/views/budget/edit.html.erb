@@ -1,1 +1,145 @@
-<h2>BudgetController#edit</h2>
+<% include_calendar_headers_tags %>
+<%= javascript_include_tag 'budget', plugin: 'espeo_budget' %>
+
+<h2>Ustawienia budżetu</h2>
+
+<%= form_for :budget, html: { id: 'budget-form' } do |f| %>
+
+<fieldset class="box">
+  <legend><h3>Przyznany budżet godzinowy</h3></legend>
+
+  <table class="list js-project_role_budgets">
+    <thead>
+      <tr>
+        <th>Rola</th>
+        <th>Ilość godzin</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @budget.project_role_budgets.each do |project_role_budget| %>
+        <%= f.fields_for "project_role_budgets[]", project_role_budget do |q| %>
+          <tr>
+            <td class="name">
+              <%= q.hidden_field :id %>
+              <%= q.collection_select :role_id, @roles, :id, :name, {include_blank: true}, class: 'js-project_role_budget-role_id'  %>
+            </td>
+            <td>
+              <%= q.number_field :hours_count, class: 'js-project_role_budget-hours_count', min: 0 %>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+
+      <% new_item = ProjectRoleBudget.new(project: @project) { |x| x.id = Time.now.to_i } %>
+      <%= f.fields_for "project_role_budgets[]", new_item do |q| %>
+        <tr class="js-multiply-container" data-multiply-id="<%= new_item.id %>">
+          <td class="name">
+            <%= link_to '', '#', class: "icon icon-add js-multiply-button" %>
+            <%= q.hidden_field :id, value: "_new" %>
+            <%= q.collection_select :role_id, @roles, :id, :name, {include_blank: true}, class: 'js-project_role_budget-role_id' %>
+          </td>
+          <td>
+            <%= q.number_field :hours_count, class: 'js-project_role_budget-hours_count' , min: 0 %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+
+    <tfoot>
+      <tr>
+        <th>RAZEM</th>
+        <th>
+          <span class="js-project_role_budget-hours_count-sum"><%= @budget.project_role_budgets.map(&:hours_count).reduce(&:+) %></span>
+          godzin
+        </th>
+      </tr>
+    </tfoot>
+  </table>
+</fieldset>
+
+<% Wage::TYPES.each do |type, type_value| %>
+  <fieldset class="box">
+    <legend><h3><%= t(type.to_s.pluralize) %></h3></legend>
+
+    <table class="list js-wages js-<%= type.to_s.pluralize %>">
+      <thead>
+        <tr>
+          <th>Rola</th>
+          <th>Stawka za godzinę</th>
+          <th>Data początkowa stawki (opcjonalnie)</th>
+          <th>Data końcowa stawki (opcjonalnie)</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @budget.send(type.to_s.pluralize).each do |wage| %>
+          <%= f.fields_for "wages[]", wage do |q| %>
+            <tr>
+              <td class="name">
+                <%= q.hidden_field :id %>
+                <%= q.hidden_field :type %>
+                <%= q.collection_select :role_id, @roles, :id, :name, {include_blank: true}, class: "js-wage-role_id" %>
+              </td>
+              <td>
+                <%= q.number_field :price, class: "js-wage-price", min: 0 %>
+              </td>
+              <td>
+                <%= q.text_field :start_date, class: "js-datepicker" %> 
+              </td>
+              <td>
+                <%= q.text_field :end_date, class: "js-datepicker" %> 
+              </td>
+            </tr>
+          <% end %>
+        <% end %>
+
+        <% new_item = Wage.new(project: @project) { |x| x.id = Time.now.to_i } %>
+        <%= f.fields_for "wages[]", new_item do |q| %>
+          <tr class="js-multiply-container" data-multiply-id="<%= new_item.id %>">
+            <td class="name">
+              <%= link_to '', '#', class: "icon icon-add js-multiply-button" %>
+              <%= q.hidden_field :id, value: "_new" %>
+              <%= q.hidden_field :type, value: type_value %>
+              <%= q.collection_select :role_id, @roles, :id, :name, {include_blank: true}, class: "js-wage-role_id" %>
+            </td>
+            <td>
+              <%= q.number_field :price, class: "js-wage-price", min: 0 %>
+            </td>
+            <td>
+              <%= q.text_field :start_date, class: "js-datepicker" %> 
+            </td>
+            <td>
+              <%= q.text_field :end_date, class: "js-datepicker" %> 
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+
+      <tfoot>
+        <tr>
+          <th>RAZEM</th>
+          <th>
+            <span class="js-wage-price-sum"></span> zł
+          </th>
+          <th colspan="2"></th>
+        </tr>  
+      </tfoot>
+    </table>
+  </fieldset>
+<% end %>
+
+<br />
+<hr />
+<br />
+
+<fieldset class="box">
+  <legend><h3>Summary</h3></legend>
+  <strong>
+    Przewidywany profit: <span class="js-profit"></span> zł
+  </strong>
+</fieldset>
+
+<%= submit_tag l(:button_save) %>
+
+<% end %>
