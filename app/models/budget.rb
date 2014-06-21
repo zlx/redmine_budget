@@ -33,7 +33,9 @@ class Budget < ActiveRecord::Base
       project.project_role_budgets.reduce(0) do |sum, role_budget|
         wages = wages.select { |wage| wage.role_id == role_budget.role_id }
         return sum unless wages.present?
-        wage = wages.find { |w| Date.today.between?(w.real_start_date, w.real_end_date) } || (wages.last if Date.today > wages.last.end_date) || wages.first
+        wage = wages.find { |w| Date.today.between?(w.real_start_date, w.real_end_date) }
+        wage ||= (wages.last if Date.today > wages.last.real_start_date)
+        wage ||= wages.first
 
         sum + role_budget.hours_count * wage.price_per_hour
       end
