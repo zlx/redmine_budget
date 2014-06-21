@@ -1,6 +1,9 @@
-en:
-  permission_view_budget: View budget
-  permission_manage_budget: Edit budget
+pl:
+  label_budget: Budżet
+  project_module_budget: Budżet
 
-  income_wages: "Stawki dla klienta"
-  cost_wages: "Koszty"
+  permission_view_budget: Podgląd budżetu
+  permission_manage_budget: Zarządzanie budżetem
+
+  income_wages: Stawki dla klienta
+  cost_wages: Koszty

@@ -30,6 +30,6 @@ class BudgetController < ApplicationController
 
     def find_project
       @project = Project.find(params[:project_id])
-      @budget = Budget.first_or_initialize(project: @project)
+      @budget = Budget.where(project_id: @project.id).first_or_create!
     end
 end

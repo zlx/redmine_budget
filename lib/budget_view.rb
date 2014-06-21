@@ -7,7 +7,7 @@ class BudgetView
     @budget = budget
     @current_date = current_date
 
-    Rails.cache.fetch(budget.cache_key) do
+    Rails.cache.fetch(budget.project) do
       WagePeriod.generate_for_project(budget.project)
       true
     end
