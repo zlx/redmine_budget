@@ -44,7 +44,7 @@ class WagePeriodsTest < ActiveSupport::TestCase
 
     assert_equal 3, max_wages.count
 
-    assert_equal @project.start_date,    max_wages[0].start_date
+    assert_equal @project.custom_start_date,    max_wages[0].start_date
     assert_equal Date.yesterday,         max_wages[0].end_date
     assert_equal 20,                     max_wages[0].income_per_hour
 
@@ -53,7 +53,7 @@ class WagePeriodsTest < ActiveSupport::TestCase
     assert_equal 10,             max_wages[1].income_per_hour
 
     assert_equal Date.tomorrow,          max_wages[2].start_date
-    assert_equal @project.end_date,      max_wages[2].end_date
+    assert_equal @project.custom_end_date,      max_wages[2].end_date
     assert_equal 30,                     max_wages[2].income_per_hour
   end
 end

@@ -51,8 +51,8 @@ class Wage < ActiveRecord::Base
       ORDER BY start_date ASC, end_date ASC
     """.gsub(/:[A-z\_]+/, {
       ":project_id" => project.id,
-      ":project_start_date" => "\"#{project.start_date}\"",
-      ":project_end_date" => "\"#{project.end_date}\"",
+      ":project_start_date" => "\"#{project.custom_start_date}\"",
+      ":project_end_date" => "\"#{project.custom_end_date}\"",
       ":wages_type" => wages_type,
     })
     rows.each do |row|
@@ -64,17 +64,17 @@ class Wage < ActiveRecord::Base
   end
 
   def real_start_date
-    start_date || (project.start_date if project)
+    start_date || (project.custom_start_date if project)
   end
 
   def real_end_date
-    end_date || (project.end_date if project)
+    end_date || (project.custom_end_date if project)
   end
 
   private
     def assert_date_fits_project_date
       %i[start_date end_date].each do |column|
-        if self.send(column) && !self.send(column).between?(project.start_date, project.end_date)
+        if self.send(column) && !self.send(column).between?(project.custom_start_date, project.custom_end_date)
           errors.add(column, "must be between project's start and end date.")
         end
       end
@@ -93,8 +93,8 @@ class Wage < ActiveRecord::Base
           OR COALESCE(wages.end_date, :project_end_date) BETWEEN :start_date AND :end_date
           OR (COALESCE(wages.start_date, :project_start_date) < :start_date AND COALESCE(wages.end_date, :project_end_date) > :end_date)
         """, {
-          project_start_date: (project.start_date if project),
-          project_end_date: (project.end_date if project),
+          project_start_date: (project.custom_start_date if project),
+          project_end_date: (project.custom_end_date if project),
           start_date: real_start_date,
           end_date: real_end_date
         }).exists?
