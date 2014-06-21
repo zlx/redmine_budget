@@ -1,0 +1,19 @@
+/* useful css */
+.inline { display: inline-block; }
+table.width-auto { width: auto; }
+tr.invalid td { background-color: #ffe3e3; }
+
+/* .dl style*/
+.dl dt {
+  font-weight: bold;
+}
+.dl-horizontal dt {
+  display: inline-block;
+  width: 20%;
+  margin-bottom: 10px;
+}
+.dl-horizontal dd {
+  display: inline-block;
+  width: 75%;
+  margin: 0 0 10px;
+}

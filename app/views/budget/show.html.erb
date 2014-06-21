@@ -1,3 +1,103 @@
-<h2>BudgetController#show</h2>
+<% include_calendar_headers_tags %>
+<%= javascript_include_tag 'budget', plugin: 'espeo_budget' %>
+<%= stylesheet_link_tag 'budget', plugin: 'espeo_budget' %>
 
-<%= link_to "Budget settings", edit_project_budget_path(@project) %>
+<% cache(@budget_view.cache_key, expires_in: 1.hour) do %>
+  <h2 class="inline">Budżet projektu</h2>
+  <%= link_to "Ustawienia budżetu", edit_project_budget_path(@project), class: "icon icon-edit" %>
+
+  <dl class="dl dl-horizontal">
+    <dt>Data rozpoczęcia projektu</dt>
+    <dd><%= @project.start_date %></dd>
+
+    <dt>Data zakończenia projektu</dt>
+    <dd><%= @project.end_date %></dd>
+
+    <dt>Planowana ilość godzin</dt>
+    <dd><%= @budget.planned_hours_count %> godzin</dd>
+
+    <dt>Planowany koszt</dt>
+    <dd><%= @budget.planned_cost %> zł</dd>
+
+    <dt>Planowany dochód</dt>
+    <dd><%= @budget.planned_income %> zł</dd>
+
+    <dt>Planowany profit</dt>
+    <dd><%= @budget.planned_profit %> zł</dd>
+  </dl>
+
+  <br />
+  <hr />
+  <br />
+
+  <h2>
+    Stan na dzień <%= @budget_view.current_date %>
+    <form method="GET">
+      <input type="hidden" name="current_date" class="js-budget-datepicker" value="<%= @budget_view.current_date %>" />
+    </form>
+  </h2>
+
+  <dl class="dl dl-horizontal">
+    <dt>Liczba przepracowanych godzin</dt>
+    <dd><%= @budget_view.roles_work.map{ |r| r[:hours_count] }.reduce(&:+).to_i %> godzin</dd>
+
+    <dt>Dochód</dt>
+    <dd><%= @budget_view.roles_work.map{ |r| r[:income] }.reduce(&:+).to_i %> zł</dd>
+
+    <dt>Koszt</dt>
+    <dd><%= @budget_view.roles_work.map{ |r| r[:cost] }.reduce(&:+).to_i %> zł</dd>
+  </dl>
+
+  <br />
+
+  <h3>Podział na role</h3>
+  <table class="list">
+    <thead>
+      <tr>
+        <th>Rola</th>
+        <th>Liczba przepracowanych godzin</th>
+        <th>Koszt</th>
+        <th>Dochód</th>
+        <th>Profit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @budget_view.roles_work.each do |row| %>
+      <tr>
+        <td><%= row[:role].name %></td>
+        <td><%= row[:total_hours_count] %></td>
+        <td><%= row[:total_cost] %></td>
+        <td><%= row[:total_income] %></td>
+        <td><%= row[:total_profit] %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <br />
+  <br />
+
+  <h3>Podział na użytkowników</h3>
+  <table class="list">
+    <thead>
+      <tr>
+        <th>Użytkownik</th>
+        <th>Liczba przepracowanych godzin</th>
+        <th>Koszt</th>
+        <th>Dochód</th>
+        <th>Profit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @budget_view.users_work.each do |row| %>
+      <tr>
+        <td><%= link_to row[:user].name, time_entries_path(user_id: row[:user].id) %></td>
+        <td><%= row[:total_hours_count] %></td>
+        <td><%= row[:total_cost] %></td>
+        <td><%= row[:total_income] %></td>
+        <td><%= row[:total_profit] %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

@@ -27,6 +27,7 @@ function multiplyElement($container, afterClone) {
 
   $clone.insertAfter($container);
   $container.find(".js-multiply-button").remove();
+  $clone.find(".js-multiply-button").first().focus();
 
   if (afterClone) {
     afterClone($clone, $container);
@@ -58,20 +59,20 @@ function installBudgetForm($form) {
     $(".js-wages").each(function(){
       $table = $(this);
 
-      var sum = Array.prototype.reduce.call( $table.find(".js-wage-price").map(function() {
-        var price = +$(this).val(),
+      var sum = Array.prototype.reduce.call( $table.find(".js-wage-price_per_hour").map(function() {
+        var pricePerHour = +$(this).val(),
             roleId = $(this).closest("tr").find("select").val(),
             roleHoursCount = getRoleBudgetHoursCount(roleId);
 
-        return price * roleHoursCount;
+        return pricePerHour * roleHoursCount;
       }), function(x, y){ return x + y; } );
 
-      $table.find(".js-wage-price-sum").html(sum);
+      $table.find(".js-wage-price_per_hour-sum").html(sum);
     });
   }
 
   function recountSummary() {
-    var profit = +$(".js-client_wages .js-wage-price-sum").html() - +$(".js-cost_wages .js-wage-price-sum").html();
+    var profit = +$(".js-income_wages .js-wage-price_per_hour-sum").html() - +$(".js-cost_wages .js-wage-price_per_hour-sum").html();
     $(".js-profit").html(profit);
   }
 
@@ -96,6 +97,7 @@ $(document).ready(function(){
   $(".js-datepicker").datepicker(datepickerOptions);
 
 
+  // budget#edit
   $(document).on('click', '.js-multiply-button', function(event) {
     event.preventDefault();
 
@@ -106,5 +108,15 @@ $(document).ready(function(){
 
   $("#budget-form").each(function(){
     installBudgetForm($(this));
+  });
+
+  // budget#show
+  $(".js-budget-datepicker").each(function(){
+    var $input = $(this);
+
+    $input.datepicker(datepickerOptions);
+    $input.on("change", function(){
+      $input.closest("form").submit();
+    });
   });
 });

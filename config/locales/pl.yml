@@ -1,0 +1,6 @@
+en:
+  permission_view_budget: View budget
+  permission_manage_budget: Edit budget
+
+  income_wages: "Stawki dla klienta"
+  cost_wages: "Koszty"

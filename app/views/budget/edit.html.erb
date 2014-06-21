@@ -1,14 +1,17 @@
 <% include_calendar_headers_tags %>
 <%= javascript_include_tag 'budget', plugin: 'espeo_budget' %>
+<%= stylesheet_link_tag 'budget', plugin: 'espeo_budget' %>
+
 
 <h2>Ustawienia budżetu</h2>
 
 <%= form_for :budget, html: { id: 'budget-form' } do |f| %>
+<% time = Time.now.to_i %>
 
 <fieldset class="box">
   <legend><h3>Przyznany budżet godzinowy</h3></legend>
 
-  <table class="list js-project_role_budgets">
+  <table class="list js-project_role_budgets width-auto">
     <thead>
       <tr>
         <th>Rola</th>
@@ -17,7 +20,7 @@
     </thead>
 
     <tbody>
-      <% @budget.project_role_budgets.each do |project_role_budget| %>
+      <% @form.project_role_budgets.each do |project_role_budget| %>
         <%= f.fields_for "project_role_budgets[]", project_role_budget do |q| %>
           <tr>
             <td class="name">
@@ -31,7 +34,7 @@
         <% end %>
       <% end %>
 
-      <% new_item = ProjectRoleBudget.new(project: @project) { |x| x.id = Time.now.to_i } %>
+      <% new_item = ProjectRoleBudget.new(project: @project) { |x| x.id = @form.next_project_role_budget_uid } %>
       <%= f.fields_for "project_role_budgets[]", new_item do |q| %>
         <tr class="js-multiply-container" data-multiply-id="<%= new_item.id %>">
           <td class="name">
@@ -50,7 +53,7 @@
       <tr>
         <th>RAZEM</th>
         <th>
-          <span class="js-project_role_budget-hours_count-sum"><%= @budget.project_role_budgets.map(&:hours_count).reduce(&:+) %></span>
+          <span class="js-project_role_budget-hours_count-sum"></span>
           godzin
         </th>
       </tr>
@@ -58,7 +61,7 @@
   </table>
 </fieldset>
 
-<% Wage::TYPES.each do |type, type_value| %>
+<% Wage::TYPES.each.each_with_index do |(type, type_value), i| %>
   <fieldset class="box">
     <legend><h3><%= t(type.to_s.pluralize) %></h3></legend>
 
@@ -73,16 +76,16 @@
       </thead>
 
       <tbody>
-        <% @budget.send(type.to_s.pluralize).each do |wage| %>
+        <% @form.send(type.to_s.pluralize).each do |wage| %>
           <%= f.fields_for "wages[]", wage do |q| %>
-            <tr>
+            <tr class="<%= 'invalid' unless wage.valid? %>">
               <td class="name">
                 <%= q.hidden_field :id %>
                 <%= q.hidden_field :type %>
                 <%= q.collection_select :role_id, @roles, :id, :name, {include_blank: true}, class: "js-wage-role_id" %>
               </td>
               <td>
-                <%= q.number_field :price, class: "js-wage-price", min: 0 %>
+                <%= q.number_field :price_per_hour, class: "js-wage-price_per_hour", min: 0 %>
               </td>
               <td>
                 <%= q.text_field :start_date, class: "js-datepicker" %> 
@@ -94,7 +97,7 @@
           <% end %>
         <% end %>
 
-        <% new_item = Wage.new(project: @project) { |x| x.id = Time.now.to_i } %>
+        <% new_item = Wage.new(project: @project) { |x| x.id = @form.next_wage_uid } %>
         <%= f.fields_for "wages[]", new_item do |q| %>
           <tr class="js-multiply-container" data-multiply-id="<%= new_item.id %>">
             <td class="name">
@@ -104,7 +107,7 @@
               <%= q.collection_select :role_id, @roles, :id, :name, {include_blank: true}, class: "js-wage-role_id" %>
             </td>
             <td>
-              <%= q.number_field :price, class: "js-wage-price", min: 0 %>
+              <%= q.number_field :price_per_hour, class: "js-wage-price_per_hour", min: 0 %>
             </td>
             <td>
               <%= q.text_field :start_date, class: "js-datepicker" %> 
@@ -120,7 +123,7 @@
         <tr>
           <th>RAZEM</th>
           <th>
-            <span class="js-wage-price-sum"></span> zł
+            <span class="js-wage-price_per_hour-sum"></span> zł
           </th>
           <th colspan="2"></th>
         </tr>  
@@ -134,7 +137,7 @@
 <br />
 
 <fieldset class="box">
-  <legend><h3>Summary</h3></legend>
+  <legend><h3>Podsumowanie</h3></legend>
   <strong>
     Przewidywany profit: <span class="js-profit"></span> zł
   </strong>

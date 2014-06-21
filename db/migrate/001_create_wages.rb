@@ -3,7 +3,7 @@ class CreateWages < ActiveRecord::Migration
     create_table :wages do |t|
       t.references :project, null: false
       t.references :role, null: false
-      t.integer :price, null: false
+      t.integer :price_per_hour, null: false
       t.date :start_date
       t.date :end_date
       t.integer :type, null: false

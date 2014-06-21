@@ -1,4 +1,4 @@
-module RolePatch
+module RolePatch1
   def self.included(base)
     base.extend         ClassMethods
     base.send :include, InstanceMethods
@@ -19,5 +19,5 @@ module RolePatch
 end
 
 Rails.application.config.to_prepare do
-  Role.send :include, RolePatch
+  Role.send :include, RolePatch1
 end

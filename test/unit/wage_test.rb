@@ -41,7 +41,7 @@ class WageTest < ActiveSupport::TestCase
   private
 
     def wage_dates_valid?(start_date, end_date)
-      other_wage = Wage.new( wage.attributes.slice(*%w[project_id role_id type price]) )
+      other_wage = Wage.new( wage.attributes.slice(*%w[project_id role_id type price_per_hour]) )
       other_wage.start_date = (start_date.to_date if start_date)
       other_wage.end_date = (end_date.to_date if end_date)
       other_wage.valid?

@@ -1,5 +1,5 @@
-require 'models/project_patch'
-require 'models/role_patch'
+require 'models/project_patch_1'
+require 'models/role_patch_1'
 
 Redmine::Plugin.register :espeo_budget do
   name 'Espeo Budget plugin'
