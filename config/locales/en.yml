@@ -1,3 +1,5 @@
 en:
   permission_view_budget: View budget
   permission_manage_budget: Edit budget
+
+  error_custom_project_dates_are_required: You have to fill in the project's start and end dates.
