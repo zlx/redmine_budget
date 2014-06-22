@@ -8,4 +8,4 @@ pl:
   income_wages: Stawki dla klienta
   cost_wages: Koszty
 
-  error_custom_project_dates_are_required: Musisz najpierw wypełnić datę początkową i końcową projektu.
+  error_custom_project_dates_are_required: Aby przejść do budżetu, musisz najpierw ustawić datę początkową i końcową projektu.

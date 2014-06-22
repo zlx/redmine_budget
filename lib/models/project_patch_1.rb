@@ -8,6 +8,8 @@ module ProjectPatch1
       has_many :project_role_budgets, inverse_of: :project, dependent: :delete_all
       has_many :wages, inverse_of: :project, dependent: :delete_all
       has_many :wage_periods, inverse_of: :project, dependent: :delete_all
+
+      after_create :copy_budget_from_parent
     end
   end
 
@@ -16,7 +18,25 @@ module ProjectPatch1
   end
   
   module InstanceMethods
-    
+    def copy_budget_from_parent
+      project = self
+
+      if parent
+        project.wages = []
+        parent.wages.find_each do |row|
+          project.wages << Wage.new(row.attributes) do |new_row|
+            new_row.project = project
+          end
+        end
+
+        project.project_role_budgets = []
+        parent.project_role_budgets.find_each do |row|
+          project.project_role_budgets << ProjectRoleBudget.new(row.attributes) do |new_row|
+            new_row.project = project
+          end
+        end
+      end
+    end
   end
 end
 
