@@ -59,12 +59,19 @@ function installBudgetForm($form) {
     $(".js-wages").each(function(){
       $table = $(this);
 
+      var roles = {};
+
       var sum = Array.prototype.reduce.call( $table.find(".js-wage-price_per_hour").map(function() {
         var pricePerHour = +$(this).val(),
             roleId = $(this).closest("tr").find("select").val(),
             roleHoursCount = getRoleBudgetHoursCount(roleId);
 
-        return pricePerHour * roleHoursCount;
+        if (roles[roleId]) {
+          return 0;
+        } else {
+          roles[roleId] = true;
+          return pricePerHour * roleHoursCount;
+        }
       }), function(x, y){ return x + y; } );
 
       $table.find(".js-wage-price_per_hour-sum").html(sum);
