@@ -14,20 +14,20 @@ class WagePeriodsTest < ActiveSupport::TestCase
     Wage.create! [
       {
         project: @project,
-        type: Wage::TYPES[:income_wage],
+        type: Wage::TYPES[:income],
         price_per_hour: 10,
         role: @cheaper_role
       },
       {
         project: @project,
-        type: Wage::TYPES[:income_wage],
+        type: Wage::TYPES[:income],
         price_per_hour: 30,
         role: @role,
         start_date: Date.tomorrow
       },
       {
         project: @project,
-        type: Wage::TYPES[:income_wage],
+        type: Wage::TYPES[:income],
         price_per_hour: 20,
         role: @role,
         end_date: Date.yesterday

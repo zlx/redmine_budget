@@ -3,8 +3,8 @@ class Wage < ActiveRecord::Base
 
   # #type is enum-like field
   TYPES = {
-    :income_wage => 1,
-    :cost_wage => 2
+    :income => 1,
+    :cost => 2
   }
 
   self.inheritance_column = nil
@@ -20,28 +20,20 @@ class Wage < ActiveRecord::Base
 
   # Define #income_wages, #cost_wages scopes
   TYPES.keys.each do |type|
-    scope type.to_s.pluralize, -> { where(type: TYPES[type]) }
+    scope "#{type.to_s}_wages", -> { where(type: TYPES[type]) }
   end
 
-  # Gets all wages for given project, grouped by user_id and ordered by date.
-  def self.get_project_wages(project, wages_type)
+  # Gets all wages for given project, grouped by role_id and ordered by date.
+  def self.get_project_wages_collection_by_role_id(project, wages_type)
     rows = self.connection.select_all """
       SELECT
         wages.id AS wage_id,
         roles.id AS role_id,
-        members.user_id AS user_id,
         wages.price_per_hour AS price_per_hour,
         COALESCE(wages.start_date, :project_start_date) AS start_date,
         COALESCE(wages.end_date, :project_end_date) AS end_date
 
       FROM roles
-
-      INNER JOIN members
-        ON  members.project_id = :project_id
-
-      INNER JOIN member_roles
-        ON  member_roles.member_id = members.id
-        AND member_roles.role_id = roles.id
 
       INNER JOIN wages AS wages
         ON  wages.role_id = roles.id
@@ -59,7 +51,7 @@ class Wage < ActiveRecord::Base
       row['start_date'] = Date.parse row['start_date']
       row['end_date'] = Date.parse row['end_date']
     end.group_by do |row|
-      row['user_id']
+      row['role_id']
     end
   end
 

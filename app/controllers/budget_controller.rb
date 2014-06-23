@@ -6,7 +6,7 @@ class BudgetController < ApplicationController
 
   def show
     current_date = params[:current_date] ? Date.parse(params[:current_date]) : Date.today
-    @budget_view = BudgetView.new(@budget, current_date)
+    @budget_calculator = BudgetCalculator.new(@budget, current_date)
   end
 
   def edit

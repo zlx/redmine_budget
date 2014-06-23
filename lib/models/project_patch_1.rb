@@ -18,6 +18,10 @@ module ProjectPatch1
   end
   
   module InstanceMethods
+    def cache_key
+      "#{super}/#{updated_on.to_s}"
+    end
+
     def copy_budget_from_parent
       project = self
 

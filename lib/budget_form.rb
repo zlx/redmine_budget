@@ -61,8 +61,8 @@ class BudgetForm
       wage
     end
 
-    @cost_wages = wages.select { |wage| wage.type == Wage::TYPES[:cost_wage] }
-    @income_wages = wages.select { |wage| wage.type == Wage::TYPES[:income_wage] }
+    @cost_wages = wages.select { |wage| wage.type == Wage::TYPES[:cost] }
+    @income_wages = wages.select { |wage| wage.type == Wage::TYPES[:income] }
 
     begin
       Wage.transaction do
