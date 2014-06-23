@@ -11,13 +11,13 @@ class Budget < ActiveRecord::Base
   end
 
   delegate :planned_hours_count, to: :calculator
-  delegate :planned_income, to: :calculator
-  delegate :planned_cost, to: :calculator
-  delegate :planned_profit, to: :calculator
   delegate :worked_hours_count, to: :calculator
   delegate :worked_income, to: :calculator
   delegate :worked_cost, to: :calculator
   delegate :worked_profit, to: :calculator
+  delegate :total_income, to: :calculator
+  delegate :total_cost, to: :calculator
+  delegate :total_profit, to: :calculator
 
   private
     def calculator

@@ -1,22 +1,22 @@
 require File.expand_path('../../test_helper', __FILE__)
 
 class WagePeriodsTest < ActiveSupport::TestCase
-  fixtures :projects, :roles, :wages
+  fixtures :users, :projects, :roles, :wages
 
   def setup
     @user = User.first
     @project = Project.first
     @project.wages.delete_all
-    @cheaper_role = Role.find(1)
-    @role = Role.find(2)
-    @member = Member.create! user: @user, project: @project, roles: [@cheaper_role, @role]
+    @role = Role.find(1)
+    @member = Member.create! user: @user, project: @project, roles: [@role]
+    @budget = Budget.create! project: @project
 
     Wage.create! [
       {
         project: @project,
         type: Wage::TYPES[:income],
         price_per_hour: 10,
-        role: @cheaper_role
+        role: @role
       },
       {
         project: @project,
@@ -34,12 +34,13 @@ class WagePeriodsTest < ActiveSupport::TestCase
       }
     ]
 
-    Project.any_instance.stubs(:start_date).returns 1.month.ago.to_date
-    Project.any_instance.stubs(:end_date).returns 1.month.from_now.to_date
+    Project.any_instance.stubs(:custom_start_date).returns 1.month.ago.to_date
+    Project.any_instance.stubs(:custom_end_date).returns 1.month.from_now.to_date
+    
+    WagePeriod.generate_for_project(@project)
   end
 
   test '#generate_for_project generates all needed MaxWages' do
-    WagePeriod.generate_for_project(@project)
     max_wages = WagePeriod.all
 
     assert_equal 3, max_wages.count

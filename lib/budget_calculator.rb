@@ -44,23 +44,23 @@ class BudgetCalculator
     @planned_hours_count ||= works_by_role.map{ |r| r[:planned_hours_count] }.reduce(&:+).to_i
   end
 
-  def planned_income
-    @planned_income ||= works_by_role.map{ |r| r[:planned_income] }.reduce(&:+).to_i
+  def total_income
+    @total_income ||= works_by_role.map{ |r| r[:total_income] }.reduce(&:+).to_i
   end
 
-  def planned_cost
-    @planned_cost ||= works_by_role.map{ |r| r[:planned_cost] }.reduce(&:+).to_i
+  def total_cost
+    @total_cost ||= works_by_role.map{ |r| r[:total_cost] }.reduce(&:+).to_i
   end
 
-  def planned_profit
-    @planned_profit ||= planned_income - planned_cost
+  def total_profit
+    @total_profit ||= total_income - total_cost
   end
 
   def works_by_role
     @works_by_role ||= Role.connection.select_all(get_works_sql)
       .group_by { |row| row['role_id'].to_i }
       .map do |role_id, rows|
-        planned_work = planned_works_by_role[role_id]
+        planned_work = planned_works_by_role[role_id] || {}
 
         {
           role: Role.find(role_id),
@@ -71,18 +71,18 @@ class BudgetCalculator
           worked_profit: ( worked_profit = worked_income - worked_cost ),
           worked_hours_count: ( worked_hours_count = rows.map { |x| x['hours_count'].to_i }.reduce(&:+).to_i ),
 
-          planned_hours_count: ( planned_hours_count = planned_work[:planned_hours_count] ),
-          planned_income_per_hour: ( planned_income_per_hour = planned_work[:planned_income_per_hour] ),
-          planned_cost_per_hour: ( planned_cost_per_hour = planned_work[:planned_cost_per_hour] ),
+          planned_hours_count: ( planned_hours_count = planned_work[:planned_hours_count].to_i ),
+          planned_income_per_hour: ( planned_income_per_hour = planned_work[:planned_income_per_hour].to_i ),
+          planned_cost_per_hour: ( planned_cost_per_hour = planned_work[:planned_cost_per_hour].to_i ),
 
           remaining_hours_count: ( remaining_hours_count = planned_hours_count - worked_hours_count ),
-          remaining_cost: ( remaining_cost = worked_cost + remaining_hours_count * planned_cost_per_hour ),
-          remaining_income: ( remaining_income = worked_income + remaining_hours_count * planned_income_per_hour ),
+          remaining_income: ( remaining_income = remaining_hours_count * planned_income_per_hour ),
+          remaining_cost: ( remaining_cost = remaining_hours_count * planned_cost_per_hour ),
           remaining_profit: ( remaining_profit = remaining_income - remaining_cost ),
 
-          planned_cost: ( worked_cost + remaining_cost ), 
-          planned_income: ( worked_income + remaining_income ), 
-          planned_profit: ( worked_profit + remaining_profit ), 
+          total_income: ( worked_income + remaining_income ), 
+          total_cost: ( worked_cost + remaining_cost ), 
+          total_profit: ( worked_profit + remaining_profit ), 
         }
       end
   end

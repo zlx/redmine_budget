@@ -37,20 +37,24 @@ class WagePeriod < ActiveRecord::Base
       date_periods.map do |(start_date, end_date)|
         next if end_date < start_date
 
-        find_wage_for_period = lambda do |wage| 
-          start_date.between?(wage['start_date'], wage['end_date']) && end_date.between?(wage['start_date'], wage['end_date'])
+        find_wage_for_period = lambda do |wages| 
+          wages.select do |wage|
+            start_date.between?(wage['start_date'], wage['end_date']) && end_date.between?(wage['start_date'], wage['end_date'])
+          end.sort_by do |wage|
+            wage['price_per_hour']
+          end.last
         end
 
-        period_income_wage = role_income_wages.find(&find_wage_for_period)
-        period_cost_wage = role_cost_wages.find(&find_wage_for_period)
+        period_income_wage = find_wage_for_period.call(role_income_wages)
+        period_cost_wage = find_wage_for_period.call(role_cost_wages)
 
         next if !period_income_wage && !period_cost_wage
 
         WagePeriod.new(
           project_id: project.id,
           role_id: role_id,
-          cost_per_hour: (period_cost_wage['price_per_hour'] if period_cost_wage) || 0,
           income_per_hour: (period_income_wage['price_per_hour'] if period_income_wage) || 0,
+          cost_per_hour: (period_cost_wage['price_per_hour'] if period_cost_wage) || 0,
           start_date: start_date,
           end_date: end_date
         )
