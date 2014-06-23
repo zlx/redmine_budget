@@ -14,7 +14,7 @@ class BudgetView
   end
 
   def cache_key
-    [budget.cache_key, current_date]
+    [budget.project.cache_key, budget.cache_key, current_date]
   end
 
   def roles_work

@@ -3,7 +3,8 @@
 <%= stylesheet_link_tag 'budget', plugin: 'espeo_budget' %>
 
 
-<h2>Ustawienia budżetu</h2>
+<h2 class="inline">Ustawienia budżetu</h2>
+<%= link_to "Wróć do budżetu", project_budget_path(@project), class: "icon icon-cancel" %>
 
 <%= form_for :budget, html: { id: 'budget-form' } do |f| %>
 <% time = Time.now.to_i %>
