@@ -1,6 +1,14 @@
 <% include_calendar_headers_tags %>
 <%= javascript_include_tag 'budget', plugin: 'espeo_budget' %>
 <%= stylesheet_link_tag 'budget', plugin: 'espeo_budget' %>
+<%
+  worked_hours_count_by_role_id = Hash[@budget_calculator.works_by_role.map do |r| 
+    [ r[:role].id, r[:worked_hours_count] ] 
+  end]
+%>
+<script type="text/javascript">
+  window.workedHoursCount = <%= worked_hours_count_by_role_id.to_json.html_safe %>;
+</script>
 
 
 <h2 class="inline">Ustawienia budżetu</h2>
@@ -89,10 +97,10 @@
                 <%= q.number_field :price_per_hour, class: "js-wage-price_per_hour", min: 0 %>
               </td>
               <td>
-                <%= q.text_field :start_date, class: "js-datepicker" %> 
+                <%= q.text_field :start_date, class: "js-datepicker js-wage-start_date", placeholder: @project.custom_start_date %> 
               </td>
               <td>
-                <%= q.text_field :end_date, class: "js-datepicker" %> 
+                <%= q.text_field :end_date, class: "js-datepicker js-wage-end_date", placeholder: @project.custom_end_date %> 
               </td>
             </tr>
           <% end %>
@@ -111,10 +119,10 @@
               <%= q.number_field :price_per_hour, class: "js-wage-price_per_hour", min: 0 %>
             </td>
             <td>
-              <%= q.text_field :start_date, class: "js-datepicker" %> 
+              <%= q.text_field :start_date, class: "js-datepicker js-wage-start_date", placeholder: @project.custom_start_date %> 
             </td>
             <td>
-              <%= q.text_field :end_date, class: "js-datepicker" %> 
+              <%= q.text_field :end_date, class: "js-datepicker js-wage-end_date", placeholder: @project.custom_end_date %> 
             </td>
           </tr>
         <% end %>

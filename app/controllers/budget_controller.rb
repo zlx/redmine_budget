@@ -12,14 +12,14 @@ class BudgetController < ApplicationController
   def edit
     @roles = Role.sorted
     @form = BudgetForm.new(@budget, params[:budget])
+    @budget_calculator = BudgetCalculator.new(@budget)
   end
 
   def update
     edit
+
     if @form.save
       redirect_to edit_project_budget_path(@project), notice: l(:notice_successful_update)
-      # @form = BudgetForm.new(@budget)
-      # render :edit
     else
       flash.now[:error] = @form.error.message if @form.error
       render :edit

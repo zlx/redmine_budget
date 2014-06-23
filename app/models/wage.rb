@@ -17,6 +17,7 @@ class Wage < ActiveRecord::Base
   validates_numericality_of :price_per_hour, inclusion: { greater_than: 0 }
   validate :assert_start_date_is_before_end_date
   validate :assert_date_doesnt_intercept_other_wages
+  validate :assert_date_fits_project_date
 
   # Define #income_wages, #cost_wages scopes
   TYPES.keys.each do |type|
