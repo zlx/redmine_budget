@@ -1,6 +1,7 @@
-require 'models/project_patch_1'
-require 'models/role_patch_1'
-require 'models/time_entry_patch_1'
+require 'espeo_budget/models/mailer_patch'
+require 'espeo_budget/models/project_patch'
+require 'espeo_budget/models/role_patch'
+require 'espeo_budget/models/time_entry_patch'
 require 'espeo_budget/hooks'
 
 Redmine::Plugin.register :espeo_budget do

@@ -21,6 +21,13 @@
 <% time = Time.now.to_i %>
 
 <fieldset class="box">
+  <legend><h3><%= t(:budget_settings) %></h3></legend>
+  <p>
+    <label for="budget-warning_percent_threshold"><%= t(:warning_percent_threshold_html, input: (f.number_field :warning_percent_threshold, id: "budget-warning_percent_threshold")) %></label>
+  </p>
+</fieldset>
+
+<fieldset class="box">
   <legend><h3><%= t(:roles_hour_budgets) %></h3></legend>
 
   <table class="list js-project_role_budgets width-auto">

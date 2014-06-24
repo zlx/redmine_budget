@@ -72,7 +72,9 @@ class BudgetForm
         Wage.where(project_id: budget.project.id).delete_all
         wages.each(&:save!)
 
-        budget.new_record? ? budget.save! : budget.touch
+        budget.attributes = params.slice(*%w[warning_percent_threshold])
+        budget.updated_at = Time.now
+        budget.save!
       end
     rescue ActiveRecord::RecordInvalid => e
       @error = e

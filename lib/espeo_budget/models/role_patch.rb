@@ -1,4 +1,4 @@
-module RolePatch1
+module EspeoBudget::Models::RolePatch
   def self.included(base)
     base.extend         ClassMethods
     base.send :include, InstanceMethods
@@ -20,5 +20,5 @@ module RolePatch1
 end
 
 Rails.application.config.to_prepare do
-  Role.send :include, RolePatch1
+  Role.send :include, EspeoBudget::Models::RolePatch
 end
