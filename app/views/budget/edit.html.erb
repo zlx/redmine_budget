@@ -1,14 +1,17 @@
 <% include_calendar_headers_tags %>
 <%= javascript_include_tag 'budget', plugin: 'espeo_budget' %>
 <%= stylesheet_link_tag 'budget', plugin: 'espeo_budget' %>
-<%
-  worked_hours_count_by_role_id = Hash[@budget_calculator.works_by_role.map do |r| 
-    [ r[:role].id, r[:worked_hours_count] ] 
-  end]
-%>
-<script type="text/javascript">
-  window.workedHoursCount = <%= worked_hours_count_by_role_id.to_json.html_safe %>;
-</script>
+
+<% cache(@budget_calculator.cache_key, expires_in: 1.hour) do %>
+  <%
+    worked_roles = Hash[@budget_calculator.works_by_role.map do |r| 
+      [ r[:role].id, r ] 
+    end]
+  %>
+  <script type="text/javascript">
+    window.workedRoles = <%= worked_roles.to_json.html_safe %>;
+  </script>
+<% end %>
 
 
 <h2 class="inline"><%= t(:budget_settings) %></h2>
@@ -74,7 +77,7 @@
   <fieldset class="box">
     <legend><h3><%= t("#{type.to_s}_wages") %></h3></legend>
 
-    <table class="list js-wages js-<%= "#{type.to_s}_wages" %>">
+    <table class="list js-wages js-<%= "#{type.to_s}_wages" %>" data-wages-type="<%= type.to_s %>">
       <thead>
         <tr>
           <th><%= t(:role) %></th>
