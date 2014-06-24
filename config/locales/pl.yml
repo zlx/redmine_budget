@@ -8,4 +8,42 @@ pl:
   income_wages: Stawki dla klienta
   cost_wages: Koszty
 
+  budget_settings: Ustawienia budżetu
+  go_back_to_budget: Wróć do budżetu
+  roles_hour_budgets: Przyznany budżet godzinowy
+  in_summary: Razem
+  summary: Podsumowanie
+  wage_price_per_hour: Stawka za godzinę
+  wage_start_date: Data początkowa stawki (opcjonalnie)
+  wage_end_date: Data końcowa stawki (opcjonalnie)
+  wages_currency: zł
+  planned_profit: Przewidywany zysk
+  role: Rola
+  user: Użytkownik
+
+  project_budget: Budżet projektu
+  state_at_date: "Stan na dzień %{date}"
+  roles_breakdown: Podział na role
+  users_breakdown: Podział na użytkowników
+
+  hours_count: Liczba godzin
+  income: Dochód
+  cost: Koszt
+  profit: Zysk
+
+  planned_hours_count: Planowana liczba godzin
+  planned_income: Planowany dochód
+  planned_cost: Planowany koszt
+  planned_profit: Planowany zysk
+
+  worked_hours_count: Przepracowana liczba godzin
+  worked_income: Przepracowany dochód
+  worked_cost: Przepracowany koszt
+  worked_profit: Przepracowany zysk
+
+  total_hours_count: Całkowita liczba godzin
+  total_income: Całkowity dochód
+  total_cost: Całkowity koszt
+  total_profit: Całkowity zysk
+
   error_custom_project_dates_are_required: Aby przejść do budżetu, musisz najpierw ustawić datę początkową i końcową projektu.

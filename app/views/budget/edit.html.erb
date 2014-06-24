@@ -11,20 +11,20 @@
 </script>
 
 
-<h2 class="inline">Ustawienia budżetu</h2>
-<%= link_to "Wróć do budżetu", project_budget_path(@project), class: "icon icon-cancel" %>
+<h2 class="inline"><%= t(:budget_settings) %></h2>
+<%= link_to t(:go_back_to_budget), project_budget_path(@project), class: "icon icon-cancel" %>
 
 <%= form_for :budget, html: { id: 'budget-form' } do |f| %>
 <% time = Time.now.to_i %>
 
 <fieldset class="box">
-  <legend><h3>Przyznany budżet godzinowy</h3></legend>
+  <legend><h3><%= t(:roles_hour_budgets) %></h3></legend>
 
   <table class="list js-project_role_budgets width-auto">
     <thead>
       <tr>
-        <th>Rola</th>
-        <th>Ilość godzin</th>
+        <th><%= t(:role) %></th>
+        <th><%= t(:hours_count) %></th>
       </tr>
     </thead>
 
@@ -60,10 +60,10 @@
 
     <tfoot>
       <tr>
-        <th>RAZEM</th>
+        <th><%= t(:in_summary).upcase %></th>
         <th>
           <span class="js-project_role_budget-hours_count-sum"></span>
-          godzin
+          <%= t(:field_hours).downcase %>
         </th>
       </tr>
     </tfoot>
@@ -77,10 +77,10 @@
     <table class="list js-wages js-<%= "#{type.to_s}_wages" %>">
       <thead>
         <tr>
-          <th>Rola</th>
-          <th>Stawka za godzinę</th>
-          <th>Data początkowa stawki (opcjonalnie)</th>
-          <th>Data końcowa stawki (opcjonalnie)</th>
+          <th><%= t(:role) %></th>
+          <th><%= t(:wage_price_per_hour) %></th>
+          <th><%= t(:wage_start_date) %></th>
+          <th><%= t(:wage_end_date) %></th>
         </tr>
       </thead>
 
@@ -130,9 +130,9 @@
 
       <tfoot>
         <tr>
-          <th>RAZEM</th>
+          <th><%= t(:in_summary) %></th>
           <th>
-            <span class="js-wage-price_per_hour-sum"></span> zł
+            <span class="js-wage-price_per_hour-sum"></span> <%= t(:wages_currency) %>
           </th>
           <th colspan="2"></th>
         </tr>  
@@ -146,9 +146,9 @@
 <br />
 
 <fieldset class="box">
-  <legend><h3>Podsumowanie</h3></legend>
+  <legend><h3><%= t(:summary) %></h3></legend>
   <strong>
-    Przewidywany profit: <span class="js-profit"></span> zł
+    <%= t(:planned_profit) %>: <span class="js-profit"></span> <%= t(:wages_currency) %>
   </strong>
 </fieldset>
 

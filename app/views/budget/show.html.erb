@@ -3,27 +3,27 @@
 <%= stylesheet_link_tag 'budget', plugin: 'espeo_budget' %>
 
 <% cache(@budget_calculator.cache_key, expires_in: 1.hour) do %>
-  <h2 class="inline">Budżet projektu</h2>
-  <%= link_to "Ustawienia budżetu", edit_project_budget_path(@project), class: "icon icon-edit" %>
+  <h2 class="inline"><%= t(:project_budget) %></h2>
+  <%= link_to t(:budget_settings), edit_project_budget_path(@project), class: "icon icon-edit" %>
 
   <dl class="dl dl-horizontal">
-    <dt>Data rozpoczęcia projektu</dt>
+    <dt><%= t(:project_start_date) %></dt>
     <dd><%= @project.custom_start_date %></dd>
 
-    <dt>Data zakończenia projektu</dt>
+    <dt><%= t(:project_end_date) %></dt>
     <dd><%= @project.custom_end_date %></dd>
 
-    <dt>Planowana ilość godzin</dt>
+    <dt><%= t(:planned_hours_count) %></dt>
     <dd><%= @budget.planned_hours_count %> godzin</dd>
 
-    <dt>Planowany dochód</dt>
-    <dd><%= @budget.total_income %> zł</dd>
+    <dt><%= t(:planned_income) %></dt>
+    <dd><%= @budget.total_income %> <%= t(:wages_currency) %></dd>
     
-    <dt>Planowany koszt</dt>
-    <dd><%= @budget.total_cost %> zł</dd>
+    <dt><%= t(:planned_cost) %></dt>
+    <dd><%= @budget.total_cost %> <%= t(:wages_currency) %></dd>
 
-    <dt>Planowany zysk</dt>
-    <dd><%= @budget.total_profit %> zł</dd>
+    <dt><%= t(:planned_profit) %></dt>
+    <dd><%= @budget.total_profit %> <%= t(:wages_currency) %></dd>
   </dl>
 
   <br />
@@ -31,37 +31,37 @@
   <br />
 
   <h2>
-    Stan na dzień <%= @budget_calculator.current_date %>
+    <%= t(:state_at_date, date: @budget_calculator.current_date) %>
     <form method="GET">
       <input type="hidden" name="current_date" class="js-budget-datepicker" value="<%= @budget_calculator.current_date %>" />
     </form>
   </h2>
 
   <dl class="dl dl-horizontal">
-    <dt>Liczba przepracowanych godzin</dt>
-    <dd><%= @budget_calculator.worked_hours_count %> godzin</dd>
+    <dt><%= t(:worked_hours_count) %></dt>
+    <dd><%= @budget_calculator.worked_hours_count %> <%= t(:field_hours).downcase %></dd>
 
-    <dt>Dochód</dt>
-    <dd><%= @budget_calculator.worked_income %> zł</dd>
+    <dt><%= t(:income) %></dt>
+    <dd><%= @budget_calculator.worked_income %> <%= t(:wages_currency) %></dd>
 
-    <dt>Koszt</dt>
-    <dd><%= @budget_calculator.worked_cost %> zł</dd>
+    <dt><%= t(:cost) %></dt>
+    <dd><%= @budget_calculator.worked_cost %> <%= t(:wages_currency) %></dd>
 
-    <dt>Zysk</dt>
-    <dd><%= @budget_calculator.worked_profit %> zł</dd>
+    <dt><%= t(:profit) %></dt>
+    <dd><%= @budget_calculator.worked_profit %> <%= t(:wages_currency) %></dd>
   </dl>
 
   <br />
 
-  <h3>Podział na role</h3>
+  <h3><%= t(:roles_breakdown) %></h3>
   <table class="list">
     <thead>
       <tr>
-        <th>Rola</th>
-        <th>Liczba przepracowanych godzin</th>
-        <th>Dochód</th>
-        <th>Koszt</th>
-        <th>Zysk</th>
+        <th><%= t(:role) %></th>
+        <th><%= t(:worked_hours_count) %></th>
+        <th><%= t(:income) %></th>
+        <th><%= t(:cost) %></th>
+        <th><%= t(:profit) %></th>
       </tr>
     </thead>
     <tbody>
@@ -80,15 +80,15 @@
   <br />
   <br />
 
-  <h3>Podział na użytkowników</h3>
+  <h3><%= t(:users_breakdown) %></h3>
   <table class="list">
     <thead>
       <tr>
-        <th>Użytkownik</th>
-        <th>Liczba przepracowanych godzin</th>
-        <th>Dochód</th>
-        <th>Koszt</th>
-        <th>Zysk</th>
+        <th><%= t(:user) %></th>
+        <th><%= t(:worked_hours_count) %></th>
+        <th><%= t(:income) %></th>
+        <th><%= t(:cost) %></th>
+        <th><%= t(:profit) %></th>
       </tr>
     </thead>
     <tbody>

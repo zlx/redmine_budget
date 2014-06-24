@@ -1,5 +1,49 @@
-en:
-  permission_view_budget: View budget
-  permission_manage_budget: Edit budget
+pl:
+  label_budget: Budget
+  project_module_budget: Budget
 
-  error_custom_project_dates_are_required: You have to fill in the project's start and end dates.
+  permission_view_budget: View budget
+  permission_manage_budget: Manage budget
+
+  # income_wages: Stawki dla klienta
+  # cost_wages: Koszty
+
+  # budget_settings: Ustawienia budżetu
+  # go_back_to_budget: Wróć do budżetu
+  roles_hour_budgets: Planned hours for roles
+  # in_summary: Razem
+  # summary: Podsumowanie
+  wage_price_per_hour: Price per hour
+  wage_start_date: Wage's start date (optionally)
+  wage_end_date: Wage's end date (optionally)
+  wages_currency: zł
+  # planned_profit: Przewidywany zysk
+  # role: Rola
+  # user: Użytkownik
+
+  project_budget: Project's budget
+  state_at_date: "Budget's state on %{date}"
+  # roles_breakdown: Podział na role
+  # users_breakdown: Podział na użytkowników
+
+  # hours_count: Liczba godzin
+  # income: Dochód
+  # cost: Koszt
+  # profit: Zysk
+
+  # planned_hours_count: Planowana liczba godzin
+  # planned_income: Planowany dochód
+  # planned_cost: Planowany koszt
+  # planned_profit: Planowany zysk
+
+  # worked_hours_count: Przepracowana liczba godzin
+  # worked_income: Przepracowany dochód
+  # worked_cost: Przepracowany koszt
+  # worked_profit: Przepracowany zysk
+
+  # total_hours_count: Całkowita liczba godzin
+  # total_income: Całkowity dochód
+  # total_cost: Całkowity koszt
+  # total_profit: Całkowity zysk
+
+  error_custom_project_dates_are_required: Before you access the project's budget, you have to fill in the project's start and end dates.
