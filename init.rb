@@ -1,7 +1,7 @@
-require 'espeo_budget/models/budget'
-require 'espeo_budget/models/project_role_budget'
-require 'espeo_budget/models/wage'
-require 'espeo_budget/models/wage_period'
+# require 'espeo_budget/models/budget'
+# require 'espeo_budget/models/project_role_budget'
+# require 'espeo_budget/models/wage'
+# require 'espeo_budget/models/wage_period'
 
 require 'espeo_budget/models/mailer_patch'
 require 'espeo_budget/models/project_patch'

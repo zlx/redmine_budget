@@ -7,7 +7,7 @@ class BudgetCalculator
     @budget = budget
     @current_date = current_date
 
-    Rails.cache.fetch(budget.project) do
+    Rails.cache.fetch(budget.cache_key) do
       WagePeriod.generate_for_project(budget.project)
       true
     end
@@ -21,7 +21,7 @@ class BudgetCalculator
       budget.cache_key, 
       current_date, 
       (recent_project_time_entry.updated_on if recent_project_time_entry)
-    ].join("//")
+    ].join("#")
   end
 
   def worked_hours_count

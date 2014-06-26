@@ -22,3 +22,7 @@ Projekt -> Ustawienia -> Ustawienia budżetu
   * gdy ktoś doda wpis w dzienniku dla określonej daty, brana pod uwagę jest stawka dla tamtej daty (nawet, jeśli zdążyła się zmienić w międzyczasie)
   * gdy ktoś zostanie odsunięty od projektu, godziny jakie przepracował w projekcie (jego wpisy z dziennika w tym projekcie) nadal są brane pod uwagę w budżecie
   * gdy tworzony jest podprojekt, ustawienia budżetu powinny zostać dla niego zduplikowane
+
+
+= Requirements
+1. Imagemagick (`apt-get install imagemagick`)

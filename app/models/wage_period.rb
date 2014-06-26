@@ -1,4 +1,4 @@
-require_dependency "espeo_budget/models/wage"
+# require_dependency "espeo_budget/models/wage"
 
 # This is a "helper table" which is generated from `wages` table.
 # It's only for the usage of BudgetView.
