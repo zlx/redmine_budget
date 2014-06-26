@@ -2,13 +2,13 @@
 <%= project_budget_url(@budget.project) %>
 
 <%= t(:current_project_budget_stats) %>
-<% %i[planned_hours_count
-      worked_hours_count
-      worked_income
-      total_income
-      worked_cost
-      total_cost
-      worked_profit
-      total_profit].each do |attr_name| %>
+<% [:planned_hours_count,
+    :worked_hours_count,
+    :worked_income,
+    :total_income,
+    :worked_cost,
+    :total_cost,
+    :worked_profit,
+    :total_profit].each do |attr_name| %>
 - <%= t(attr_name) %>: <%= @budget.send(attr_name) %>
 <% end %>

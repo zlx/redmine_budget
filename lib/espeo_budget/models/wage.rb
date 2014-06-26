@@ -66,7 +66,7 @@ class Wage < ActiveRecord::Base
 
   private
     def assert_date_fits_project_date
-      %i[start_date end_date].each do |column|
+      [:start_date, :end_date].each do |column|
         if self.send(column) && project.custom_start_date && project.custom_end_date && !self.send(column).between?(project.custom_start_date, project.custom_end_date)
           errors.add(column, "must be between project's start and end date.")
         end

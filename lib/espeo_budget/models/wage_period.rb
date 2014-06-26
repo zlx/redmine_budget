@@ -1,3 +1,5 @@
+require_dependency "espeo_budget/models/wage"
+
 # This is a "helper table" which is generated from `wages` table.
 # It's only for the usage of BudgetView.
 # 
@@ -66,7 +68,7 @@ class WagePeriod < ActiveRecord::Base
     # (that is: when their role_id, cost_per_hour and income_per_hour are identical).
     # If yes, then let's just extend the start_date of one of them and remove the other one.
     wage_periods = wage_periods.each_cons(2).map do |wage_one, wage_two|
-      attributes = %w[role_id cost_per_hour income_per_hour]
+      attributes = %w(role_id cost_per_hour income_per_hour)
       if wage_one.attributes.slice(*attributes).values == wage_two.attributes.slice(*attributes).values && (wage_one.end_date + 1.day) == wage_two.start_date
         wage_two.start_date = wage_one.start_date
         wage_one.start_date = wage_one.end_date = nil # mark as removed

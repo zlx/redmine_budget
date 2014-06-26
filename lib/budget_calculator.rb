@@ -116,7 +116,7 @@ class BudgetCalculator
             planned_hours_count: budget.hours_count
           }
 
-          %i[cost income].each do |wages_type|
+          [:cost, :income].each do |wages_type|
             wages = all_wages_by_date.select { |wage| wage.type == Wage::TYPES[wages_type] && wage.role_id == budget.role_id }
 
             price_per_hour = if wages.present?

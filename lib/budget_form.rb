@@ -42,7 +42,7 @@ class BudgetForm
         x.id = (row_params['id'] if row_params['id'].to_i > 0) || next_project_role_budget_uid
       end
 
-      project_role_budget.attributes = row_params.slice(*%w[role_id hours_count])
+      project_role_budget.attributes = row_params.slice(*%w(role_id hours_count))
       project_role_budget
     end
 
@@ -57,7 +57,7 @@ class BudgetForm
         x.id = (row_params['id'] if row_params['id'].to_i > 0) || next_wage_uid
       end
 
-      wage.attributes = row_params.slice(*%w[role_id type price_per_hour start_date end_date])
+      wage.attributes = row_params.slice(*%w(role_id type price_per_hour start_date end_date))
       wage
     end
 
@@ -72,7 +72,7 @@ class BudgetForm
         Wage.where(project_id: budget.project.id).delete_all
         wages.each(&:save!)
 
-        budget.attributes = params.slice(*%w[warning_percent_threshold])
+        budget.attributes = params.slice(*%w(warning_percent_threshold))
         budget.updated_at = Time.now
         budget.save!
       end

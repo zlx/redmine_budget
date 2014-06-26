@@ -1,3 +1,5 @@
+require_dependency "espeo_budget/models/wage"
+
 class Budget < ActiveRecord::Base
   unloadable
 
