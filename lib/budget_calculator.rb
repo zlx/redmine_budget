@@ -28,6 +28,10 @@ class BudgetCalculator
     ].join("#")
   end
 
+  def planned_hours_count
+    @planned_hours_count ||= works_by_role.map{ |r| r[:planned_hours_count] }.reduce(&:+).to_i
+  end
+
   def worked_hours_count
     @worked_hours_count ||= works_by_role.map{ |r| r[:worked_hours_count] }.reduce(&:+).to_i
   end
@@ -44,8 +48,8 @@ class BudgetCalculator
     worked_income - worked_cost
   end
 
-  def planned_hours_count
-    @planned_hours_count ||= works_by_role.map{ |r| r[:planned_hours_count] }.reduce(&:+).to_i
+  def total_hours_count
+    @total_hours_count ||= works_by_role.map{ |r| r[:total_hours_count] }.reduce(&:+).to_i
   end
 
   def total_income
@@ -80,11 +84,12 @@ class BudgetCalculator
           planned_income_per_hour: ( planned_income_per_hour = planned_work[:planned_income_per_hour].to_i ),
           planned_cost_per_hour: ( planned_cost_per_hour = planned_work[:planned_cost_per_hour].to_i ),
 
-          remaining_hours_count: ( remaining_hours_count = planned_hours_count - worked_hours_count ),
+          remaining_hours_count: ( remaining_hours_count = [planned_hours_count - worked_hours_count, 0].max ),
           remaining_income: ( remaining_income = remaining_hours_count * planned_income_per_hour ),
           remaining_cost: ( remaining_cost = remaining_hours_count * planned_cost_per_hour ),
           remaining_profit: ( remaining_profit = remaining_income - remaining_cost ),
 
+          total_hours_count: ( worked_hours_count + remaining_hours_count ), 
           total_income: ( worked_income + remaining_income ), 
           total_cost: ( worked_cost + remaining_cost ), 
           total_profit: ( worked_profit + remaining_profit ), 

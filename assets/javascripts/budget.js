@@ -52,7 +52,7 @@ function installBudgetForm($form) {
     var $select = $(".js-project_role_budget-role_id[value=" + +roleId + "]").last(),
         hoursCount = +$select.closest("tr").find(".js-project_role_budget-hours_count").val() || 0;
 
-    return hoursCount - (+(workedRoles[roleId] || {}).worked_hours_count || 0);
+    return Math.max(0, hoursCount - (+(workedRoles[roleId] || {}).worked_hours_count || 0));
   }
 
   function getCurrentPricePerHourForRole(roleId, wagesType) {

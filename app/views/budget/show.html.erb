@@ -16,13 +16,16 @@
     <dt><%= t(:planned_hours_count) %></dt>
     <dd><%= @budget.planned_hours_count %> godzin</dd>
 
-    <dt><%= t(:planned_income) %></dt>
+    <dt><%= t(:total_hours_count) %></dt>
+    <dd><%= @budget.total_hours_count %> godzin</dd>
+
+    <dt><%= t(:total_income) %></dt>
     <dd><%= @budget.total_income %> <%= t(:wages_currency) %></dd>
     
-    <dt><%= t(:planned_cost) %></dt>
+    <dt><%= t(:total_cost) %></dt>
     <dd><%= @budget.total_cost %> <%= t(:wages_currency) %></dd>
 
-    <dt><%= t(:planned_profit) %></dt>
+    <dt><%= t(:total_profit) %></dt>
     <dd><%= @budget.total_profit %> <%= t(:wages_currency) %></dd>
   </dl>
 
@@ -58,6 +61,7 @@
     <thead>
       <tr>
         <th><%= t(:role) %></th>
+        <th><%= t(:planned_hours_count) %></th>
         <th><%= t(:worked_hours_count) %></th>
         <th><%= t(:income) %></th>
         <th><%= t(:cost) %></th>
@@ -68,6 +72,7 @@
       <% @budget_calculator.works_by_role.each do |row| %>
       <tr>
         <td><%= row[:role].name %></td>
+        <td><%= row[:planned_hours_count] %></td>
         <td><%= row[:worked_hours_count] %></td>
         <td><%= row[:worked_income] %></td>
         <td><%= row[:worked_cost] %></td>
