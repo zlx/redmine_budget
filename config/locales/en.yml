@@ -11,7 +11,7 @@ en:
   # budget_settings: Ustawienia budżetu
   # go_back_to_budget: Wróć do budżetu
   roles_hour_budgets: Planned hours for roles
-  # in_summary: Razem
+  in_summary: In summary
   # summary: Podsumowanie
   wage_price_per_hour: Price per hour
   wage_start_date: Wage's start date (optionally)
