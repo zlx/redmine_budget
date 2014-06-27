@@ -7,10 +7,14 @@ class BudgetCalculator
     @budget = budget
     @current_date = current_date
 
-    Rails.cache.fetch(budget.cache_key) do
+    Rails.cache.fetch(wage_periods_cache_key) do
       WagePeriod.generate_for_project(budget.project)
       true
     end
+  end
+
+  def wage_periods_cache_key
+    [budget.project, budget, budget.project.custom_start_date, budget.project.custom_end_date]
   end
 
   def cache_key
@@ -37,7 +41,7 @@ class BudgetCalculator
   end
 
   def worked_profit
-    @worked_profit ||= worked_income - worked_cost
+    worked_income - worked_cost
   end
 
   def planned_hours_count
@@ -53,9 +57,10 @@ class BudgetCalculator
   end
 
   def total_profit
-    @total_profit ||= total_income - total_cost
+    total_income - total_cost
   end
 
+  # Get all roles from this budget and their budget statistics.
   def works_by_role
     @works_by_role ||= Role.connection.select_all(get_works_sql)
       .group_by { |row| row['role_id'].to_i }
@@ -87,6 +92,7 @@ class BudgetCalculator
       end
   end
 
+  # Get all users of this project and their budget statistics.
   def works_by_user
     @works_by_user ||= User.connection.select_all(get_works_sql)
       .select { |row| row['user_id'].present? }
@@ -106,6 +112,11 @@ class BudgetCalculator
 
   private
 
+    # For all given roles, get current cost and income wages (for the @current_date).
+    # Returns Hash(:role_id => {:role_id, 
+    #                           :planned_hours_count, 
+    #                           :planned_cost_per_hour, 
+    #                           :planned_income_per_hour}).
     def planned_works_by_role
       @planned_works_by_role ||= begin
         all_wages_by_date = budget.project.wages.order("start_date ASC, end_date ASC").to_a
