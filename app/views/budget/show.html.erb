@@ -99,7 +99,7 @@
     <tbody>
       <% @budget_calculator.works_by_user.each do |row| %>
       <tr>
-        <td><%= link_to row[:user].name, time_entries_path(user_id: row[:user].id) %></td>
+        <td><%= link_to row[:user].name, time_entries_path(user_id: row[:user].id, project_id: @project.id) %></td>
         <td><%= row[:worked_hours_count] %></td>
         <td><%= row[:worked_income] %></td>
         <td><%= row[:worked_cost] %></td>
