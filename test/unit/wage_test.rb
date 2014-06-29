@@ -15,8 +15,8 @@ class WageTest < ActiveSupport::TestCase
     Project.any_instance.stubs(:custom_start_date).returns 20.days.ago.to_date
     Project.any_instance.stubs(:custom_end_date).returns 20.days.from_now.to_date
 
-    wage.start_date = 7.days.ago
-    wage.end_date = 7.days.from_now
+    wage.start_date = 7.days.ago.to_date
+    wage.end_date = 7.days.from_now.to_date
     wage.save!
 
     assert !given_wage_dates_are_valid?(nil, nil)
@@ -30,7 +30,7 @@ class WageTest < ActiveSupport::TestCase
     assert given_wage_dates_are_valid?(10.days.from_now, 14.days.from_now)
 
     wage.start_date = nil
-    wage.end_date = 7.days.from_now
+    wage.end_date = 7.days.from_now.to_date
     wage.save!
 
     assert !given_wage_dates_are_valid?(nil, 10.days.from_now)

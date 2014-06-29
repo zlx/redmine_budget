@@ -80,7 +80,7 @@ class WagePeriod < ActiveRecord::Base
 
     # Finally, destroy previous wage_periods and save the new ones.
     self.transaction do
-      project.wage_periods.delete_all
+      project.wage_periods.reload.delete_all
       wage_periods.each(&:save!)
     end
   end

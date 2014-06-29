@@ -1,7 +1,7 @@
 require File.expand_path('../../test_helper', __FILE__)
 
 class BudgetCalculatorTest < ActiveSupport::TestCase
-  fixtures :projects, :roles, :wages
+  fixtures :projects, :roles, :wages, :users
 
   def setup
     @user = User.first
@@ -59,7 +59,7 @@ class BudgetCalculatorTest < ActiveSupport::TestCase
         role: @role,
         project: @project,
         activity: @activity,
-        hours: 20,
+        hours: 20.5,
         spent_on: Date.yesterday,
       },
       {
@@ -83,12 +83,18 @@ class BudgetCalculatorTest < ActiveSupport::TestCase
     WagePeriod.generate_for_project(@project)
   end
 
-  test '#works_by_role returns rows correctly' do
+  test "WagePeriods are generated correctly" do
+    periods = WagePeriod.all
+
+    assert_equal 3, periods.count
+  end
+
+  test 'counts correctly all attributes and returns correct #works_by_role rows also' do
     calc = BudgetCalculator.new(@budget)
 
-    assert_equal 60, calc.worked_hours_count
-    assert_equal 20*20 + 10*10 + 30*30, calc.worked_income
-    assert_equal 10*5, calc.worked_cost
+    assert_equal 20.5 + 10 + 30, calc.worked_hours_count
+    assert_equal 20.5 * 20 + 10 * 10 + 30 * 30, calc.worked_income
+    assert_equal 10 * 5, calc.worked_cost
     assert_equal calc.worked_income - calc.worked_cost, calc.worked_profit
 
     row = calc.works_by_role.find { |r| r[:role] == @role }
@@ -97,7 +103,7 @@ class BudgetCalculatorTest < ActiveSupport::TestCase
     assert_equal 30, row[:planned_income_per_hour]
     assert_equal 0, row[:planned_cost_per_hour]
 
-    assert_equal 50, row[:remaining_hours_count]
+    assert_equal 49.5, row[:remaining_hours_count]
     assert_equal row[:remaining_hours_count] * row[:planned_income_per_hour], row[:remaining_income]
     assert_equal row[:remaining_hours_count] * row[:planned_cost_per_hour], row[:remaining_cost]
     assert_equal row[:remaining_income] - row[:remaining_cost], row[:remaining_profit]

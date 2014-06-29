@@ -29,19 +29,19 @@ class BudgetCalculator
   end
 
   def planned_hours_count
-    @planned_hours_count ||= works_by_role.map{ |r| r[:planned_hours_count] }.reduce(&:+).to_i
+    @planned_hours_count ||= works_by_role.map{ |r| r[:planned_hours_count] }.reduce(&:+).to_f
   end
 
   def worked_hours_count
-    @worked_hours_count ||= works_by_role.map{ |r| r[:worked_hours_count] }.reduce(&:+).to_i
+    @worked_hours_count ||= works_by_role.map{ |r| r[:worked_hours_count] }.reduce(&:+).to_f
   end
 
   def worked_income
-    @worked_income ||= works_by_role.map{ |r| r[:worked_income] }.reduce(&:+).to_i
+    @worked_income ||= works_by_role.map{ |r| r[:worked_income] }.reduce(&:+).to_f
   end
 
   def worked_cost
-    @worked_cost ||= works_by_role.map{ |r| r[:worked_cost] }.reduce(&:+).to_i
+    @worked_cost ||= works_by_role.map{ |r| r[:worked_cost] }.reduce(&:+).to_f
   end
 
   def worked_profit
@@ -49,15 +49,15 @@ class BudgetCalculator
   end
 
   def total_hours_count
-    @total_hours_count ||= works_by_role.map{ |r| r[:total_hours_count] }.reduce(&:+).to_i
+    @total_hours_count ||= works_by_role.map{ |r| r[:total_hours_count] }.reduce(&:+).to_f
   end
 
   def total_income
-    @total_income ||= works_by_role.map{ |r| r[:total_income] }.reduce(&:+).to_i
+    @total_income ||= works_by_role.map{ |r| r[:total_income] }.reduce(&:+).to_f
   end
 
   def total_cost
-    @total_cost ||= works_by_role.map{ |r| r[:total_cost] }.reduce(&:+).to_i
+    @total_cost ||= works_by_role.map{ |r| r[:total_cost] }.reduce(&:+).to_f
   end
 
   def total_profit
@@ -75,14 +75,14 @@ class BudgetCalculator
           role: Role.find(role_id),
           periods: rows,
 
-          worked_cost: ( worked_cost = rows.map { |x| x['cost'].to_i }.reduce(&:+).to_i ),
-          worked_income: ( worked_income = rows.map { |x| x['income'].to_i }.reduce(&:+).to_i ),
+          worked_cost: ( worked_cost = rows.map { |x| x['cost'].to_f }.reduce(&:+).to_f ),
+          worked_income: ( worked_income = rows.map { |x| x['income'].to_f }.reduce(&:+).to_f ),
           worked_profit: ( worked_profit = worked_income - worked_cost ),
-          worked_hours_count: ( worked_hours_count = rows.map { |x| x['hours_count'].to_i }.reduce(&:+).to_i ),
+          worked_hours_count: ( worked_hours_count = rows.map { |x| x['hours_count'].to_f }.reduce(&:+).to_f ),
 
-          planned_hours_count: ( planned_hours_count = planned_work[:planned_hours_count].to_i ),
-          planned_income_per_hour: ( planned_income_per_hour = planned_work[:planned_income_per_hour].to_i ),
-          planned_cost_per_hour: ( planned_cost_per_hour = planned_work[:planned_cost_per_hour].to_i ),
+          planned_hours_count: ( planned_hours_count = planned_work[:planned_hours_count].to_f ),
+          planned_income_per_hour: ( planned_income_per_hour = planned_work[:planned_income_per_hour].to_f ),
+          planned_cost_per_hour: ( planned_cost_per_hour = planned_work[:planned_cost_per_hour].to_f ),
 
           remaining_hours_count: ( remaining_hours_count = [planned_hours_count - worked_hours_count, 0].max ),
           remaining_income: ( remaining_income = remaining_hours_count * planned_income_per_hour ),
@@ -107,10 +107,10 @@ class BudgetCalculator
           user: User.find(user_id),
           periods: rows,
 
-          worked_cost: ( worked_cost = rows.map { |x| x['cost'].to_i }.reduce(&:+) ),
-          worked_income: ( worked_income = rows.map { |x| x['income'].to_i }.reduce(&:+) ),
+          worked_cost: ( worked_cost = rows.map { |x| x['cost'].to_f }.reduce(&:+) ),
+          worked_income: ( worked_income = rows.map { |x| x['income'].to_f }.reduce(&:+) ),
           worked_profit: worked_income - worked_cost,
-          worked_hours_count: rows.map { |x| x['hours_count'].to_i }.reduce(&:+),
+          worked_hours_count: rows.map { |x| x['hours_count'].to_f }.reduce(&:+),
         }
       end
   end
@@ -142,7 +142,7 @@ class BudgetCalculator
               wage.price_per_hour
             end
 
-            row["planned_#{wages_type}_per_hour".to_sym] = price_per_hour.to_i
+            row["planned_#{wages_type}_per_hour".to_sym] = price_per_hour.to_f
           end
 
           [row[:role_id], row]
@@ -153,6 +153,8 @@ class BudgetCalculator
     def get_works_sql
       """
         SELECT
+          wp.id wage_period_id,
+          te.id time_entry_id,
           wp.role_id,
           te.user_id,
           (wp.cost_per_hour * SUM(te.hours)) cost,
@@ -170,7 +172,7 @@ class BudgetCalculator
         WHERE 
           wp.project_id = :project_id
 
-        GROUP BY wp.id
+        GROUP BY wp.id, te.id
       """.gsub(/:[A-z\_]+/, {
         ":project_id" => budget.project_id,
         ":current_date" => @current_date
