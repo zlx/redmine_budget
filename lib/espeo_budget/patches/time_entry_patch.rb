@@ -1,4 +1,4 @@
-module EspeoBudget::Models::TimeEntryPatch
+module EspeoBudget::Patches::TimeEntryPatch
   def self.included(base)
     base.extend         ClassMethods
     base.send :include, InstanceMethods
@@ -19,5 +19,5 @@ module EspeoBudget::Models::TimeEntryPatch
 end
 
 Rails.application.config.to_prepare do
-  TimeEntry.send :include, EspeoBudget::Models::TimeEntryPatch
+  TimeEntry.send :include, EspeoBudget::Patches::TimeEntryPatch
 end

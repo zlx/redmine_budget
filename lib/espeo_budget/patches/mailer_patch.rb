@@ -1,4 +1,4 @@
-module EspeoBudget::Models::MailerPatch
+module EspeoBudget::Patches::MailerPatch
   def self.included(base)
     base.extend         ClassMethods
     base.send :include, InstanceMethods
@@ -25,5 +25,5 @@ module EspeoBudget::Models::MailerPatch
 end
 
 Rails.application.config.to_prepare do
-  Mailer.send :include, EspeoBudget::Models::MailerPatch
+  Mailer.send :include, EspeoBudget::Patches::MailerPatch
 end

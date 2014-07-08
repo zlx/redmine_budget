@@ -1,4 +1,4 @@
-module EspeoBudget::Models::ProjectPatch
+module EspeoBudget::Patches::ProjectPatch
   def self.included(base)
     base.extend         ClassMethods
     base.send :include, InstanceMethods
@@ -45,5 +45,5 @@ module EspeoBudget::Models::ProjectPatch
 end
 
 Rails.application.config.to_prepare do
-  Project.send :include, EspeoBudget::Models::ProjectPatch
+  Project.send :include, EspeoBudget::Patches::ProjectPatch
 end
