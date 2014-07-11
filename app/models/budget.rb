@@ -50,7 +50,7 @@ class Budget < ActiveRecord::Base
   end
 
   # Members of this project, that can :manage_budget
-  def managing_users
+  def users_with_manage_budget_permission
     project.members.select do |member|
       member.roles.map(&:permissions).flatten.include? :manage_budget
     end.map(&:user)

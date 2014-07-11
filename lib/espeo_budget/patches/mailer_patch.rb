@@ -18,7 +18,7 @@ module EspeoBudget::Patches::MailerPatch
         project_name: budget.project.name,
         percent_threshold: budget.used_costs_percentage
 
-      mail :to => budget.managing_users.map(&:mail),
+      mail :to => budget.users_with_manage_budget_permission.map(&:mail),
            :subject => @subject
     end
   end
