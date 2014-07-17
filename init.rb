@@ -7,7 +7,7 @@ require 'espeo_budget/hooks'
 Redmine::Plugin.register :espeo_budget do
   name 'Espeo Budget plugin'
   author 'espeo@jtom.me'
-  description 'This is a plugin for Redmine'
+  description 'Plan the budget of your project - plan its\' roles, manhours, costs and incomes, and see it all in a nice summary view!'
   version '1.0.0'
   url 'http://espeo.pl'
   author_url 'http://jtom.me'
