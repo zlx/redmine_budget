@@ -1,11 +1,14 @@
 class BudgetCalculator
   unloadable
 
-  attr_reader :budget, :current_date
+  attr_reader :budget, :start_date, :end_date
 
-  def initialize(budget, current_date = nil)
+  def initialize(budget, params = {})
     @budget = budget
-    @current_date = current_date
+    @start_date = params[:start_date] if params[:start_date].present?
+    @end_date = params[:end_date] if params[:end_date].present?
+    @start_date ||= budget.project.custom_start_date
+    @end_date ||= budget.project.custom_end_date
 
     Rails.cache.fetch(wage_periods_cache_key) do
       WagePeriod.generate_for_project(budget.project)
@@ -23,7 +26,8 @@ class BudgetCalculator
     [
       budget.project.cache_key,
       budget.cache_key, 
-      current_date, 
+      start_date, 
+      end_date, 
       (recent_project_time_entry.updated_on if recent_project_time_entry)
     ].join("#")
   end
@@ -66,7 +70,7 @@ class BudgetCalculator
 
   # Get all roles from this budget and their budget statistics.
   def works_by_role
-    @works_by_role ||= Role.connection.select_all(get_works_sql)
+    @works_by_role ||= Role.connection.select_all(get_works_sql(start_date, end_date))
       .group_by { |row| row['role_id'].to_i }
       .map do |role_id, rows|
         planned_work = planned_works_by_role[role_id] || {}
@@ -99,7 +103,7 @@ class BudgetCalculator
 
   # Get all users of this project and their budget statistics.
   def works_by_user
-    @works_by_user ||= User.connection.select_all(get_works_sql)
+    @works_by_user ||= User.connection.select_all(get_works_sql(start_date, end_date))
       .select { |row| row['user_id'].present? }
       .group_by { |row| row['user_id'] }
       .map do |user_id, rows|
@@ -115,9 +119,30 @@ class BudgetCalculator
       end
   end
 
+  # Get budget statistics (cost, income, profit) grouped by month.
+  # Return value: ["April 2014" => {:cost, :income, :profit}, ...]
+  def works_by_month
+    Hash[(start_date..end_date).group_by do |date|
+      [date.year, date.month].join "-"
+    end.values.map(&:first).map do |month_date|
+      stats = Role.connection.select_all(get_works_sql(month_date.beginning_of_month, month_date.end_of_month)).reduce({
+        cost: 0,
+        income: 0,
+        profit: 0
+      }) do |memo, row|
+        memo[:cost] += row['cost'].to_f
+        memo[:income] += row['income'].to_f
+        memo[:profit] += memo[:income] - memo[:cost]
+        memo
+      end
+
+      [month_date, stats]
+    end]
+  end
+
   private
 
-    # For all given roles, get current cost and income wages (for the @current_date).
+    # For all given roles, get current cost and income wages (for the [start_date, end_date] period).
     # Returns Hash(:role_id => {:role_id, 
     #                           :planned_hours_count, 
     #                           :planned_cost_per_hour, 
@@ -150,7 +175,7 @@ class BudgetCalculator
       end
     end
 
-    def get_works_sql
+    def get_works_sql(start_date, end_date)
       """
         SELECT
           wp.id wage_period_id,
@@ -167,7 +192,8 @@ class BudgetCalculator
           ON te.role_id = wp.role_id
           AND te.project_id = wp.project_id
           AND te.spent_on BETWEEN wp.start_date AND wp.end_date
-          #{"AND te.spent_on <= ':current_date'" if @current_date}
+          #{"AND te.spent_on >= ':start_date'" if @start_date}
+          #{"AND te.spent_on <= ':end_date'" if @end_date}
 
         WHERE 
           wp.project_id = :project_id
@@ -175,7 +201,8 @@ class BudgetCalculator
         GROUP BY wp.id, te.id
       """.gsub(/:[A-z\_]+/, {
         ":project_id" => budget.project_id,
-        ":current_date" => @current_date
+        ":start_date" => start_date,
+        ":end_date" => end_date
       })
     end
 end

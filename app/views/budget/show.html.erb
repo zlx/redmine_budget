@@ -34,9 +34,12 @@
   <br />
 
   <h2>
-    <%= t(:state_at_date, date: @budget_calculator.current_date) %>
     <form method="GET">
-      <input type="hidden" name="current_date" class="js-budget-datepicker" value="<%= @budget_calculator.current_date %>" />
+      <%= t(:budget_state_for_dates_html, 
+              :start_date => (text_field_tag('start_date', @budget_calculator.start_date, :size => 11) +  calendar_for('start_date')),
+              :end_date => (text_field_tag('end_date', @budget_calculator.end_date, :size => 11) +  calendar_for('end_date'))
+          ) %>
+      <button type="submit"><%= t(:submit_budget_date) %></button>
     </form>
   </h2>
 
@@ -56,7 +59,7 @@
 
   <br />
 
-  <h3><%= t(:roles_breakdown) %></h3>
+  <h3><%= t(:budget_roles_breakdown) %></h3>
   <table class="list">
     <thead>
       <tr>
@@ -85,7 +88,7 @@
   <br />
   <br />
 
-  <h3><%= t(:users_breakdown) %></h3>
+  <h3><%= t(:budget_users_breakdown) %></h3>
   <table class="list">
     <thead>
       <tr>
@@ -106,6 +109,31 @@
         <td><%= row[:worked_profit] %></td>
       </tr>
       <% end %>
+    </tbody>
+  </table>
+
+  <br>
+  <br>
+  
+  <h3><%= t(:budget_months_breakdown) %></h3>
+  <table class="list">
+    <thead>
+      <tr>
+        <th><%= t(:month) %></th>
+        <th><%= t(:income) %></th>
+        <th><%= t(:cost) %></th>
+        <th><%= t(:profit) %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @budget_calculator.works_by_month.each do |month_date, row| %>
+      <tr>
+        <td><%= month_name(month_date.month) + month_date.strftime(" %Y") %></td>
+        <td><%= row[:income] %></td>
+        <td><%= row[:cost] %></td>
+        <td><%= row[:profit] %></td>
+      </tr>
+      <% end %>      
     </tbody>
   </table>
 <% end %>

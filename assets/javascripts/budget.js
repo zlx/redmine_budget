@@ -149,14 +149,4 @@ $(document).ready(function(){
   $("#budget-form").each(function(){
     installBudgetForm($(this));
   });
-
-  // budget#show
-  $(".js-budget-datepicker").each(function(){
-    var $input = $(this);
-
-    $input.datepicker(datepickerOptions);
-    $input.on("change", function(){
-      $input.closest("form").submit();
-    });
-  });
 });

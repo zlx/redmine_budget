@@ -5,8 +5,7 @@ class BudgetController < ApplicationController
   before_filter :authorize
 
   def show
-    current_date = params[:current_date] ? Date.parse(params[:current_date]) : Date.today
-    @budget_calculator = BudgetCalculator.new(@budget, current_date)
+    @budget_calculator = BudgetCalculator.new(@budget, budget_params)
   end
 
   def edit
@@ -33,5 +32,12 @@ class BudgetController < ApplicationController
       redirect_to @project, flash: { error: l(:error_custom_project_dates_are_required) } unless @project.custom_start_date && @project.custom_end_date
       
       @budget = Budget.where(project_id: @project.id).first_or_create!
+    end
+
+    def budget_params
+      budget_params = {}
+      budget_params[:start_date] = Date.parse(params[:start_date]) if params[:start_date].present?
+      budget_params[:end_date] = params[:end_date].present? ? Date.parse(params[:end_date]) : Date.today
+      budget_params
     end
 end

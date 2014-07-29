@@ -22,14 +22,17 @@ en:
   # user: Użytkownik
 
   project_budget: Project's budget
-  state_at_date: "Budget's state on %{date}"
-  # roles_breakdown: Podział na role
-  # users_breakdown: Podział na użytkowników
+  budget_state_for_dates_html: "Budget's state for date period %{start_date} - %{end_date}"
+  submit_budget_date: "Change date"
+  # budget_roles_breakdown: Podział na role
+  # budget_users_breakdown: Podział na użytkowników
+  # budget_months_breakdown: Podział na miesiące
 
   # hours_count: Liczba godzin
   # income: Dochód
   # cost: Koszt
   # profit: Zysk
+  # month: Miesiąc
 
   # planned_hours_count: Planowana liczba godzin
   # planned_income: Planowany dochód
