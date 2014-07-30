@@ -132,9 +132,9 @@ class BudgetCalculator
       }) do |memo, row|
         memo[:cost] += row['cost'].to_f
         memo[:income] += row['income'].to_f
-        memo[:profit] += memo[:income] - memo[:cost]
         memo
       end
+      stats[:profit] = stats[:income] - stats[:cost]
 
       [month_date, stats]
     end]
