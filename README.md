@@ -40,3 +40,9 @@ In polish for now only, sorry.
 2. Copy this plugin's contents or check out this repository into `/redmine/plugins/espeo_budget` directory.
 
 3. Run `bundle exec rake redmine:plugins:migrate`.
+
+4. (optional) If you want e-mail notifications when your project budget is going to end, add a rake task to your crontab (`crontab -e`):
+```
+# Run espeo_budget:send_warnings task every working day once per hour between 6am and 8pm.
+0 6-20 * * 1-5 $REDMINE_PATH/bin/rake espeo_budget:send_warnings RAILS_ENV=production
+```
