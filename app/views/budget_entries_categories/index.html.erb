@@ -1,0 +1,29 @@
+<%= stylesheet_link_tag 'budget', plugin: 'espeo_budget' %>
+
+<h2 class="inline"><%= t(:budget_entries_categories) %></h2>
+<%= link_to t(:go_back_to_budget), project_budget_path(@project), class: "icon icon-cancel" %>
+
+<% %w[cost income].each do |entry_type| %>
+  <table class="list">
+    <caption>
+      <%= t("#{entry_type}_entries_categories") %>
+    </caption>
+    <thead>
+      <tr>
+        <th><%= t(:name) %></th>
+        <th><%= t(:actions) %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @project.budget_entries_categories.send(entry_type.pluralize).each do |entries_category| %>
+        <tr>
+          <td><%= entries_category.name %></td>
+          <td>
+            <%= link_to t(:edit), entries_category %>
+            <%= link_to t(:delete), entries_category, method: :delets %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

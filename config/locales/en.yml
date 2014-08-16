@@ -56,5 +56,9 @@ en:
   current_project_budget_stats: "Current project's budget statistics"
 
   # budget_entries: 
+  budget_entries_categories: "Budget Entries' categories"
   # costs_category:
   # incomes_category: 
+  manage_budget_entries_categories: "Manage categories"
+  # cost_entries_categories:
+  # income_entries_categories:

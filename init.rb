@@ -14,7 +14,8 @@ Redmine::Plugin.register :espeo_budget do
 
   project_module :budget do
     permission :view_budget, :budget => :show
-    permission :manage_budget, :budget => [:edit, :update]
+    permission :manage_budget, :budget => [:edit, :update], 
+                               :budget_entries_categories => [:index]
   end
   
   menu :project_menu, :budget, { :controller => 'budget', :action => 'show' }, :caption => :label_budget, param: :project_id

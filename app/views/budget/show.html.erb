@@ -135,8 +135,14 @@
     </tbody>
   </table>
 
-  <h3><%= t(:budget_entries) %></h3>
+  <br /><br />
+
+  <h3 class="inline"><%= t(:budget_entries) %></h3>
+  <%= link_to t(:manage_budget_entries_categories), project_budget_entries_categories_path(@project), class: "icon icon-edit" %>
+
   <% %w[cost income].each do |entry_type| %>
+    <br />
+
     <table class="list">
       <caption><%= t(entry_type.pluralize) %></caption>
       <thead>
