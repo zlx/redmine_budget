@@ -140,6 +140,10 @@ class BudgetCalculator
     end]
   end
 
+  def entries_by_category(entry_type)
+    []
+  end
+
   private
 
     # For all given roles, get current cost and income wages (for the [start_date, end_date] period).

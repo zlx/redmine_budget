@@ -47,13 +47,13 @@
     <dt><%= t(:worked_hours_count) %></dt>
     <dd><%= @budget_calculator.worked_hours_count %> <%= t(:field_hours).downcase %></dd>
 
-    <dt><%= t(:income) %></dt>
+    <dt><%= t(:worked_income) %></dt>
     <dd><%= @budget_calculator.worked_income %> <%= t(:wages_currency) %></dd>
 
-    <dt><%= t(:cost) %></dt>
+    <dt><%= t(:worked_cost) %></dt>
     <dd><%= @budget_calculator.worked_cost %> <%= t(:wages_currency) %></dd>
 
-    <dt><%= t(:profit) %></dt>
+    <dt><%= t(:worked_profit) %></dt>
     <dd><%= @budget_calculator.worked_profit %> <%= t(:wages_currency) %></dd>
   </dl>
 
@@ -85,8 +85,7 @@
     </tbody>
   </table>
 
-  <br />
-  <br />
+  <br /><br />
 
   <h3><%= t(:budget_users_breakdown) %></h3>
   <table class="list">
@@ -112,8 +111,7 @@
     </tbody>
   </table>
 
-  <br>
-  <br>
+  <br /><br />
   
   <h3><%= t(:budget_months_breakdown) %></h3>
   <table class="list">
@@ -136,4 +134,28 @@
       <% end %>      
     </tbody>
   </table>
+
+  <h3><%= t(:budget_entries) %></h3>
+  <% %w[cost income].each do |entry_type| %>
+    <table class="list">
+      <caption><%= t(entry_type.pluralize) %></caption>
+      <thead>
+        <tr>
+          <th><%= t("#{entry_type.pluralize}_category") %></th>
+          <th><%= t("planned_#{entry_type}") %></th>
+          <th><%= t("worked_#{entry_type}") %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @budget_calculator.entries_by_category(entry_type).each do |entries_category| %>
+          <tr>
+            <td><%= entries_category.name %></td>
+            <td><%= entries_category.planned_amount %></td>
+            <td><%= entries_category.worked_amount %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+
 <% end %>

@@ -36,8 +36,11 @@ class BudgetController < ApplicationController
 
     def budget_params
       budget_params = {}
-      budget_params[:start_date] = Date.parse(params[:start_date]) if params[:start_date].present?
-      budget_params[:end_date] = params[:end_date].present? ? Date.parse(params[:end_date]) : Date.today
+      begin
+        budget_params[:start_date] = Date.parse(params[:start_date]) if params[:start_date].present?
+        budget_params[:end_date] = params[:end_date].present? ? Date.parse(params[:end_date]) : Date.today
+      rescue ArgumentError => e
+      end
       budget_params
     end
 end

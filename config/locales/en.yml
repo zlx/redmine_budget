@@ -54,3 +54,7 @@ en:
   warning_percent_threshold_html: "Warn about usage of budget resources, when it exceeds %{input}% of planned costs."
   budget_threshold_warning_subject: "[%{project_name}] %{percent_threshold}% of budget costs have been used!"
   current_project_budget_stats: "Current project's budget statistics"
+
+  # budget_entries: 
+  # costs_category:
+  # incomes_category: 
