@@ -5,49 +5,49 @@ en:
   permission_view_budget: View budget
   permission_manage_budget: Manage budget
 
-  # income_wages: Stawki dla klienta
-  # cost_wages: Koszty
+  # income_wages:
+  # cost_wages:
 
-  # budget_settings: Ustawienia budżetu
-  # go_back_to_budget: Wróć do budżetu
+  # budget_settings:
+  go_back_to_budget: Go back to budget
   roles_hour_budgets: Planned hours for roles
   in_summary: In summary
-  # summary: Podsumowanie
+  # summary:
   wage_price_per_hour: Price per hour
   wage_start_date: Wage's start date (optionally)
   wage_end_date: Wage's end date (optionally)
   wages_currency: zł
-  # planned_profit: Przewidywany zysk
-  # role: Rola
-  # user: Użytkownik
+  # planned_profit:
+  # role:
+  # user:
 
   project_budget: Project's budget
   budget_state_for_dates_html: "Budget's state for date period %{start_date} - %{end_date}"
   submit_budget_date: "Change date"
-  # budget_roles_breakdown: Podział na role
-  # budget_users_breakdown: Podział na użytkowników
-  # budget_months_breakdown: Podział na miesiące
+  # budget_roles_breakdown:
+  # budget_users_breakdown:
+  # budget_months_breakdown:
 
-  # hours_count: Liczba godzin
-  # income: Dochód
-  # cost: Koszt
-  # profit: Zysk
-  # month: Miesiąc
+  # hours_count:
+  # income:
+  # cost:
+  # profit:
+  # month:
 
-  # planned_hours_count: Planowana liczba godzin
-  # planned_income: Planowany dochód
-  # planned_cost: Planowany koszt
-  # planned_profit: Planowany zysk
+  # planned_hours_count:
+  # planned_income:
+  # planned_cost:
+  # planned_profit:
 
-  # worked_hours_count: Przepracowana liczba godzin
-  # worked_income: Przepracowany dochód
-  # worked_cost: Przepracowany koszt
-  # worked_profit: Przepracowany zysk
+  # worked_hours_count:
+  # worked_income:
+  # worked_cost:
+  # worked_profit:
 
-  # total_hours_count: Całkowita liczba godzin
-  # total_income: Całkowity dochód
-  # total_cost: Całkowity koszt
-  # total_profit: Całkowity zysk
+  # total_hours_count:
+  # total_income:
+  # total_cost:
+  # total_profit:
 
   error_custom_project_dates_are_required: "Before you access the project's budget, you have to fill in the project's start and end dates."
 
@@ -62,3 +62,13 @@ en:
   manage_budget_entries_categories: "Manage categories"
   # cost_entries_categories:
   # income_entries_categories:
+  # add_new_category:
+  go_back_to_budget_entries_categories: Go back to categories
+  no_entries_categories_yet: There are no budget entries' categories yet here. Create one first.
+  entries_category_default_values: "%{netto_amount} zł netto, %{tax}% of tax"
+
+  # new_budget_entries_category:
+  field_netto_amount: Netto
+  field_tax: Tax percentage
+  budget_entries_category_successful_create: "Budget entries' category has been successfully created."
+  budget_entries_category_successful_update: "Budget entries' category has been successfully updated."

@@ -7,6 +7,51 @@ class BudgetEntriesCategoriesController < ApplicationController
   def index
   end
 
+  def new
+    @category = BudgetEntriesCategory.new({
+      project: @project
+    })
+  end
+
+  def create
+    send :new
+
+    @category.safe_attributes = params[:category]
+    if @category.save
+      flash[:notice] = t :budget_entries_category_successful_create
+      redirect_to project_budget_entries_categories_path(@project)
+    else
+      render :action => 'new'
+    end
+  end
+
+  def edit
+    @category = BudgetEntriesCategory.find(params[:id])
+  end
+
+  def update
+    send :edit
+
+    @category.safe_attributes = params[:category]
+    if @category.save
+      flash[:notice] = t :budget_entries_category_successful_update
+      redirect_to project_budget_entries_categories_path(@project)
+    else
+      render :action => 'edit'
+    end
+  end
+
+  def destroy
+    @category = BudgetEntriesCategory.find(params[:id])
+
+    begin
+      @category.reload.destroy
+    rescue ::ActiveRecord::RecordNotFound # raised by #reload if category no longer exists
+    end
+
+    redirect_back_or_default project_budget_entries_categories_path(@project)
+  end
+
   private
 
     def find_project

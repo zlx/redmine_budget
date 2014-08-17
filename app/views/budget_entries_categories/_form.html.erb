@@ -1,0 +1,15 @@
+<%= error_messages_for 'category' %>
+
+<div class="box tabular">
+  <p><%= f.text_field :name, :required => true, :size => 60 %></p>
+  <p><%= f.number_field :netto_amount, step: 0.01, min: 0 %></p>
+  <p><%= f.number_field :tax, step: 0.01, min: 0 %>%</p>
+  <p>
+    <label><%= t(:budget_entry_type) %></label>
+    <% BudgetEntry::ENTRY_TYPES.each do |name, key| %>
+      <label class="inline">
+        <%= f.radio_button :entry_type, key, :size => 60 %> <%= t(name) %>
+      </label>
+    <% end %>
+  </p>
+</div>

@@ -2,28 +2,43 @@
 
 <h2 class="inline"><%= t(:budget_entries_categories) %></h2>
 <%= link_to t(:go_back_to_budget), project_budget_path(@project), class: "icon icon-cancel" %>
+<%= link_to t(:add_new_category), new_project_budget_entries_category_path(@project), class: "icon icon-add" %>
 
-<% %w[cost income].each do |entry_type| %>
+<% BudgetEntry::ENTRY_TYPES.keys.map(&:to_s).each do |entry_type| %>
+  <% entries_categories = @project.budget_entries_categories.send(entry_type.pluralize) %>
+
   <table class="list">
     <caption>
       <%= t("#{entry_type}_entries_categories") %>
     </caption>
-    <thead>
-      <tr>
-        <th><%= t(:name) %></th>
-        <th><%= t(:actions) %></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @project.budget_entries_categories.send(entry_type.pluralize).each do |entries_category| %>
+    <% if entries_categories.present? %>
+      <thead>
         <tr>
-          <td><%= entries_category.name %></td>
-          <td>
-            <%= link_to t(:edit), entries_category %>
-            <%= link_to t(:delete), entries_category, method: :delets %>
-          </td>
+          <th width="40%"><%= t(:name) %></th>
+          <th><%= t(:default_values) %></th>
+          <th width="10%"><%= t(:actions) %></th>
         </tr>
-      <% end %>
-    </tbody>
+      </thead>
+      <tbody>
+        <% entries_categories.each do |entries_category| %>
+          <tr>
+            <td><%= entries_category.name %></td>
+            <td><%= t(:entries_category_default_values, netto_amount: entries_category.netto_amount, tax: entries_category.tax) %></td>
+            <td>
+              <%= link_to t(:edit), [:edit, @project, entries_category], class: "icon icon-edit" %>
+              <%= link_to t(:delete), [@project, entries_category], class: "icon icon-del", method: :delete %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    <% else %>
+      <tr>
+        <td>
+          <%= t(:no_entries_categories_yet) %>
+        </td>
+      </tr>
+    <% end %>
   </table>
+
+  <br>
 <% end %>
