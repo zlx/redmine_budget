@@ -33,18 +33,32 @@ pl:
   cost: Koszt
   profit: Zysk
   month: Miesiąc
+  incomes: Dochody
+  costs: Koszty
 
   planned_hours_count: Planowana liczba godzin
   planned_income: Planowany dochód
   planned_cost: Planowany koszt
   planned_profit: Planowany zysk
 
-  real_hours_count: Przepracowana liczba godzin
-  real_income: Przepracowany dochód
-  real_cost: Przepracowany koszt
-  real_profit: Przepracowany zysk
+  real_hours_count: Realna liczba godzin pracy
+  real_hours_income: Realny dochód (z godzin pracy) 
+  real_hours_cost: Realny koszt (z godzin pracy)
+  real_hours_profit: Realny zysk (z godzin pracy)
+  real_entries_income: Realny dochód (z wpisów budżetu)
+  real_entries_cost: Realny koszt (z wpisów budżetu)
+  real_entries_profit: Realny zysk (z wpisów budżetu)
+  real_income: Realny dochód całkowity
+  real_cost: Realny koszt całkowity
+  real_profit: Realny zysk całkowity
 
   total_hours_count: Całkowita liczba godzin
+  total_hours_income: Całkowity dochód (z godzin pracy) 
+  total_hours_cost: Całkowity koszt (z godzin pracy)
+  total_hours_profit: Całkowity zysk (z godzin pracy)
+  total_entries_income: Całkowity dochód (z wpisów budżetu)
+  total_entries_cost: Całkowity koszt (z wpisów budżetu)
+  total_entries_profit: Całkowity zysk (z wpisów budżetu)
   total_income: Całkowity dochód
   total_cost: Całkowity koszt
   total_profit: Całkowity zysk
@@ -54,3 +68,39 @@ pl:
   warning_percent_threshold_html: "Powiadom o zużyciu budżetu, kiedy %{input}% planowanych kosztów zostanie wykorzystanych."
   budget_threshold_warning_subject: "[%{project_name}] %{percent_threshold}% budżetu na koszty zostało wykorzystane!"
   current_project_budget_stats: "Obecne statystyki budżetu"
+
+  budget_entries: Wpisy do budżetu
+  add_new_budget_entry: Dodaj nowy wpis
+  add_new_income: Dodaj nowy dochód
+  add_new_cost: Dodaj nowy koszt
+  budget_entries_categories: Kategorie wpisów budżetu
+  costs_category: Kategoria kosztów
+  incomes_category: Kategoria zysków
+  manage_budget_entries_categories: Zarządzaj kategoriami
+  cost_entries_categories: Kategorie kosztów
+  income_entries_categories: Kategorie zysków
+  add_new_category: Dodaj nową kategorię
+  go_back_to_budget_entries_categories: Wróć do kategorii
+  default_values: Domyślne wartości
+  no_entries_categories_yet: Budżet tego projektu nie ma jeszcze zdefiniowanych kategorii wpisów budżetu.
+  budget_entries_category_default_values: "%{netto_amount} zł netto + %{tax}% VAT"
+  budget_entry_details_amounts_html: "<strong>%{netto_amount} zł netto + %{tax}% VAT = %{brutto_amount} zł brutto.</strong> %{deposit_amount} zł zaliczki."
+  budget_entry_details_author_html: "Stworzone przez %{user} dnia %{created_on}."
+  budget_entry_details_issue_html: "Powiązane z zagadnieniem %{issue_id}."
+  toggle_budget_entries: "Pokaż/schowaj wpisy"
+  actions: Opcje
+
+  new_budget_entries_category: Nowa kategoria wpisów budżetu
+  edit_budget_entries_category: Edytuj kategorię wpisów budżetu
+  field_netto_amount: Netto [zł]
+  field_tax: VAT [%]
+  field_deposit_amount: Zaliczka [zł]
+  field_planned: Wpis planowany?
+  budget_entry_type: Typ kategorii
+  budget_entries_category_successful_create: Kategoria wpisów budżetu została dodana.
+  budget_entries_category_successful_update: Kategoria wpisów budżetu została zaktualizowana.
+
+  new_budget_entry: Dodaj wpis budżetu
+  edit_budget_entry: Edytuj wpis budżetu
+  budget_entry_successful_create: Wpis budżetu został dodany.
+  budget_entry_successful_update: Wpis budżetu został zaktualizowany.

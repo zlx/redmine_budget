@@ -14,7 +14,7 @@
     <% if entries_categories.present? %>
       <thead>
         <tr>
-          <th width="40%"><%= t(:name) %></th>
+          <th width="40%"><%= t(:field_name) %></th>
           <th><%= t(:default_values) %></th>
           <th width="10%"><%= t(:actions) %></th>
         </tr>
@@ -25,8 +25,8 @@
             <td><%= entries_category.name %></td>
             <td><%= t(:budget_entries_category_default_values, netto_amount: entries_category.netto_amount, tax: entries_category.tax) %></td>
             <td>
-              <%= link_to t(:edit), [:edit, @project, entries_category], class: "icon icon-edit" %>
-              <%= link_to t(:delete), [@project, entries_category], class: "icon icon-del", method: :delete %>
+              <%= link_to t(:button_edit), [:edit, @project, entries_category], class: "icon icon-edit" %>
+              <%= link_to t(:button_delete), [@project, entries_category], class: "icon icon-del", method: :delete %>
             </td>
           </tr>
         <% end %>

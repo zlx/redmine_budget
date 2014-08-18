@@ -33,6 +33,8 @@ en:
   # cost:
   # profit:
   # month:
+  # incomes:
+  # costs:
 
   # planned_hours_count:
   # planned_income:
@@ -40,14 +42,26 @@ en:
   # planned_profit:
 
   # real_hours_count:
-  # real_income:
-  # real_cost:
-  # real_profit:
+  real_hours_income: Real income (timelog entries)
+  real_hours_cost: Real cost (timelog entries)
+  real_hours_profit: Real profit (timelog entries)
+  real_entries_income: Real income (budget entries)
+  real_entries_cost: Real cost (budget entries)
+  real_entries_profit: Real profit (budget entries)
+  real_income: Total real income
+  real_cost: Total real cost
+  real_profit: Total real profit
 
   # total_hours_count:
-  # total_income:
-  # total_cost:
-  # total_profit:
+  total_hours_income: Total income (timelog entries)
+  total_hours_cost: Total cost (timelog entries)
+  total_hours_profit: Total profit (timelog entries)
+  total_entries_income: Total income (budget entries)
+  total_entries_cost: Total cost (budget entries)
+  total_entries_profit: Total profit (budget entries)
+  total_income: Total income (all)
+  total_cost: Total cost (all)
+  total_profit: Total profit (all)
 
   error_custom_project_dates_are_required: "Before you access the project's budget, you have to fill in the project's start and end dates."
 
@@ -57,6 +71,8 @@ en:
 
   # budget_entries: 
   add_new_budget_entry: Add new budget entry
+  # add_new_income: 
+  # add_new_cost: 
   budget_entries_categories: "Budget Entries' categories"
   # costs_category:
   # incomes_category: 
@@ -65,19 +81,26 @@ en:
   # income_entries_categories:
   # add_new_category:
   go_back_to_budget_entries_categories: Go back to categories
+  # default_values: 
   no_entries_categories_yet: This project's budget has no budget entries' categories for this type yet. Create one first.
   budget_entries_category_default_values: "%{netto_amount} zł netto + %{tax}% tax"
   budget_entry_details_amounts_html: "<strong>%{netto_amount} zł netto + %{tax}% tax = %{brutto_amount} zł brutto.</strong> %{deposit_amount} zł of deposit."
   budget_entry_details_author_html: "Created by %{user} on %{created_on}."
   budget_entry_details_issue_html: "Related to the issue %{issue_id}."
+  toggle_budget_entries: "Show/hide entries"
+  # actions: 
 
   # new_budget_entries_category:
+  # edit_budget_entries_category:
   field_netto_amount: Netto [zł]
   field_tax: Tax percentage [%]
   field_deposit_amount: Deposit [zł]
   field_planned: Planned entry?
+  # budget_entry_type:
   budget_entries_category_successful_create: "Budget entries' category has been successfully created."
   budget_entries_category_successful_update: "Budget entries' category has been successfully updated."
 
+  # new_budget_entry:
+  # edit_budget_entry: 
   budget_entry_successful_create: "Budget entry has been successfully created."
   budget_entry_successful_update: "Budget entry has been successfully updated."

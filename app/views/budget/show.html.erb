@@ -208,7 +208,7 @@
               <td>
                 <%= entries_category.name %>
                 <%= link_to "", new_project_budget_entry_path(@project, entry_type: entry_type, budget_entry: { category_id: entries_category.id }), :class => "icon icon-add", :title => t(:add_new_budget_entry) %>
-                <%= link_to "Show entries", "#", :class => "icon icon-zoom-in js-toggle-budget-entries-rows", :data => { :category_id => entries_category.id } if entries_category.budget_entries.present? %>
+                <%= link_to t(:toggle_budget_entries), "#", :class => "icon icon-zoom-in js-toggle-budget-entries-rows", :data => { :category_id => entries_category.id } if entries_category.budget_entries.present? %>
               </td>
               <td><%= entries_category.planned_amount %></td>
               <td><%= entries_category.real_amount %></td>
