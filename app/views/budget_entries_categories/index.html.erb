@@ -4,7 +4,7 @@
 <%= link_to t(:go_back_to_budget), project_budget_path(@project), class: "icon icon-cancel" %>
 <%= link_to t(:add_new_category), new_project_budget_entries_category_path(@project), class: "icon icon-add" %>
 
-<% BudgetEntry::ENTRY_TYPES.keys.map(&:to_s).each do |entry_type| %>
+<% BudgetEntriesCategory::ENTRY_TYPES.keys.map(&:to_s).each do |entry_type| %>
   <% entries_categories = @project.budget_entries_categories.send(entry_type.pluralize) %>
 
   <table class="list">
@@ -23,7 +23,7 @@
         <% entries_categories.each do |entries_category| %>
           <tr>
             <td><%= entries_category.name %></td>
-            <td><%= t(:entries_category_default_values, netto_amount: entries_category.netto_amount, tax: entries_category.tax) %></td>
+            <td><%= t(:budget_entries_category_default_values, netto_amount: entries_category.netto_amount, tax: entries_category.tax) %></td>
             <td>
               <%= link_to t(:edit), [:edit, @project, entries_category], class: "icon icon-edit" %>
               <%= link_to t(:delete), [@project, entries_category], class: "icon icon-del", method: :delete %>
@@ -33,9 +33,7 @@
       </tbody>
     <% else %>
       <tr>
-        <td>
-          <%= t(:no_entries_categories_yet) %>
-        </td>
+        <td><%= t(:no_entries_categories_yet) %></td>
       </tr>
     <% end %>
   </table>

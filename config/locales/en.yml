@@ -56,6 +56,7 @@ en:
   current_project_budget_stats: "Current project's budget statistics"
 
   # budget_entries: 
+  add_new_budget_entry: Add new budget entry
   budget_entries_categories: "Budget Entries' categories"
   # costs_category:
   # incomes_category: 
@@ -64,11 +65,18 @@ en:
   # income_entries_categories:
   # add_new_category:
   go_back_to_budget_entries_categories: Go back to categories
-  no_entries_categories_yet: There are no budget entries' categories yet here. Create one first.
-  entries_category_default_values: "%{netto_amount} zł netto, %{tax}% of tax"
+  no_entries_categories_yet: This project's budget has no budget entries' categories for this type yet. Create one first.
+  budget_entries_category_default_values: "%{netto_amount} zł netto + %{tax}% tax"
+  budget_entry_details_amounts_html: "<strong>%{netto_amount} zł netto + %{tax}% tax = %{brutto_amount} zł brutto.</strong> %{deposit_amount} zł of deposit."
+  budget_entry_details_author_html: "Created by %{user} on %{created_on}."
+  budget_entry_details_issue_html: "Related to the issue %{issue_id}."
 
   # new_budget_entries_category:
-  field_netto_amount: Netto
-  field_tax: Tax percentage
+  field_netto_amount: Netto [zł]
+  field_tax: Tax percentage [%]
+  field_deposit_amount: Deposit [zł]
   budget_entries_category_successful_create: "Budget entries' category has been successfully created."
   budget_entries_category_successful_update: "Budget entries' category has been successfully updated."
+
+  budget_entry_successful_create: "Budget entry has been successfully created."
+  budget_entry_successful_update: "Budget entry has been successfully updated."

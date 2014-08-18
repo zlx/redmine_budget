@@ -122,11 +122,6 @@ function installBudgetForm($form) {
     recountSummary();
   });
 
-  $form.on("change", "select, input", function(){
-    recountWagesSummary();
-    recountSummary();
-  });
-
   recountProjectRoleBudgetsSummary();
   recountWagesSummary();
   recountSummary();

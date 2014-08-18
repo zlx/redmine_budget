@@ -1,0 +1,33 @@
+<%= error_messages_for 'budget_entry' %>
+
+<div class="box tabular">
+  <p><%= f.select :category_id, f.object.project.budget_entries_categories.map { |cat| [cat.name, cat.id] }, required: true %></p>
+  
+  <p><%= f.text_field :name, :required => true, :size => 60 %></p>
+
+  <p><%= f.number_field :netto_amount, step: 0.01 %></p>
+
+  <p><%= f.number_field :tax, step: 0.01, min: 0 %>%</p>
+
+  <p><%= f.number_field :deposit_amount, step: 0.01 %></p>
+
+  <p><%= f.select :user_id, principals_options_for_select(f.object.project.users, f.object.user), :required => true %></p>
+
+  <p>
+    <%= f.text_field(:created_on, :size => 10, :required => true) %>
+    <%= calendar_for('budget_entry_created_on') %>
+  </p>
+
+  <p>
+    <%= f.text_field :issue_id, :size => 6 %>
+    <span id="budget_entry_issue"><%= h("#{@budget_entry.issue.tracker.name} ##{@budget_entry.issue.id}: #{@budget_entry.issue.subject}") if @budget_entry.issue %></span>
+  </p>
+</div>
+
+<%= javascript_tag do %>
+  observeAutocompleteField('budget_entry_issue_id', '<%= escape_javascript auto_complete_issues_path(:project_id => @project, :scope => (@project ? nil : 'all'))%>', {
+    select: function(event, ui) {
+      $('#budget_entry_issue').text(ui.item.label);
+    }
+  });
+<% end %>

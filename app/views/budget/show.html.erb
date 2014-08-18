@@ -4,7 +4,7 @@
 
 <% cache(@budget_calculator.cache_key, expires_in: 1.hour) do %>
   <h2 class="inline"><%= t(:project_budget) %></h2>
-  <%= link_to t(:budget_settings), edit_project_budget_path(@project), class: "icon icon-edit" %>
+  <%= link_to t(:budget_settings), edit_project_budget_path(@project), :class => "icon icon-edit" %>
 
   <dl class="dl dl-horizontal">
     <dt><%= t(:project_start_date) %></dt>
@@ -138,29 +138,65 @@
   <br /><br />
 
   <h3 class="inline"><%= t(:budget_entries) %></h3>
-  <%= link_to t(:manage_budget_entries_categories), project_budget_entries_categories_path(@project), class: "icon icon-edit" %>
+  <%= link_to t(:manage_budget_entries_categories), project_budget_entries_categories_path(@project), :class => "icon icon-edit" %>
+  <%= link_to t(:add_new_budget_entry), new_project_budget_entry_path(@project), :class => "icon icon-add" %>
 
-  <% %w[cost income].each do |entry_type| %>
+  <% BudgetEntriesCategory::ENTRY_TYPES.keys.map(&:to_s).each do |entry_type| %>
+    <% entries_categories = @budget_calculator.entries_by_category(entry_type) %>
+    <% entries_categories = @project.budget_entries_categories.send(entry_type.pluralize) %>
     <br />
 
     <table class="list">
       <caption><%= t(entry_type.pluralize) %></caption>
-      <thead>
-        <tr>
-          <th><%= t("#{entry_type.pluralize}_category") %></th>
-          <th><%= t("planned_#{entry_type}") %></th>
-          <th><%= t("worked_#{entry_type}") %></th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @budget_calculator.entries_by_category(entry_type).each do |entries_category| %>
+
+      <% if entries_categories.present? %>
+        <thead>
           <tr>
-            <td><%= entries_category.name %></td>
-            <td><%= entries_category.planned_amount %></td>
-            <td><%= entries_category.worked_amount %></td>
+            <th><%= t("#{entry_type.pluralize}_category") %></th>
+            <th><%= t("planned_#{entry_type}") %></th>
+            <th><%= t("worked_#{entry_type}") %></th>
           </tr>
-        <% end %>
-      </tbody>
+        </thead>
+        <tbody>
+          <% entries_categories.each do |entries_category| %>
+            <tr>
+              <td>
+                <%= entries_category.name %>
+                <%= link_to "", new_project_budget_entry_path(@project, budget_entry: { category_id: entries_category.id }), :class => "icon icon-add", :title => t(:add_new_budget_entry) %>
+              </td>
+              <td><%= entries_category.budget_entries.planned.map(&:netto_amount).sum %></td>
+              <td><%= entries_category.budget_entries.worked.map(&:netto_amount).sum %></td>
+            </tr>
+            <% entries_category.budget_entries.each do |entry| %>
+              <tr>
+                <td>
+                  <%= entry.name %>
+                  <%= link_to '', [:edit, @project, entry], :class => "icon icon-edit", :title => t(:button_edit) %>
+                  <%= link_to '', [@project, entry], :class => "icon icon-del", :method => :delete, :title => t(:button_delete) %>
+                </td>
+                <td colspan="2" class="alignleft">
+                  <% t_values = {
+                    netto_amount: entry.netto_amount,
+                    tax: entry.tax,
+                    brutto_amount: entry.brutto_amount,
+                    user: link_to(entry.user.name, user_path(entry.user)),
+                    created_on: entry.created_on,
+                    deposit_amount: entry.deposit_amount,
+                    issue_id: link_to("\##{entry.issue_id}", issue_path(entry.issue_id))
+                  } %>
+                  <%= t :budget_entry_details_amounts_html, t_values %> <br>
+                  <%= t :budget_entry_details_author_html, t_values %> <br>
+                  <%= t :budget_entry_details_issue_html, t_values %>
+                </td>
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+      <% else %>
+        <tr>
+          <td><%= t(:no_entries_categories_yet) %></td>
+        </tr>
+      <% end %>
     </table>
   <% end %>
 

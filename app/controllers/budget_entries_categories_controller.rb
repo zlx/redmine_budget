@@ -11,12 +11,12 @@ class BudgetEntriesCategoriesController < ApplicationController
     @category = BudgetEntriesCategory.new({
       project: @project
     })
+    @category.safe_attributes = params[:category]
   end
 
   def create
     send :new
 
-    @category.safe_attributes = params[:category]
     if @category.save
       flash[:notice] = t :budget_entries_category_successful_create
       redirect_to project_budget_entries_categories_path(@project)
@@ -27,12 +27,12 @@ class BudgetEntriesCategoriesController < ApplicationController
 
   def edit
     @category = BudgetEntriesCategory.find(params[:id])
+    @category.safe_attributes = params[:category]
   end
 
   def update
     send :edit
 
-    @category.safe_attributes = params[:category]
     if @category.save
       flash[:notice] = t :budget_entries_category_successful_update
       redirect_to project_budget_entries_categories_path(@project)
@@ -43,11 +43,7 @@ class BudgetEntriesCategoriesController < ApplicationController
 
   def destroy
     @category = BudgetEntriesCategory.find(params[:id])
-
-    begin
-      @category.reload.destroy
-    rescue ::ActiveRecord::RecordNotFound # raised by #reload if category no longer exists
-    end
+    @category.destroy
 
     redirect_back_or_default project_budget_entries_categories_path(@project)
   end
