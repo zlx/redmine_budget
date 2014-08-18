@@ -147,14 +147,17 @@
     <br />
 
     <table class="list">
-      <caption><%= t(entry_type.pluralize) %></caption>
+      <caption>
+        <%= t(entry_type.pluralize) %>
+        <%= link_to t("add_new_#{entry_type}"), new_project_budget_entry_path(@project, entry_type: entry_type), :class => "icon icon-add" %>
+      </caption>
 
       <% if entries_categories.present? %>
         <thead>
           <tr>
-            <th><%= t("#{entry_type.pluralize}_category") %></th>
-            <th><%= t("planned_#{entry_type}") %></th>
-            <th><%= t("worked_#{entry_type}") %></th>
+            <th width="40%"><%= t("#{entry_type.pluralize}_category") %></th>
+            <th width="30%"><%= t("planned_#{entry_type}") %></th>
+            <th width="30%"><%= t("worked_#{entry_type}") %></th>
           </tr>
         </thead>
         <tbody>
@@ -162,13 +165,14 @@
             <tr>
               <td>
                 <%= entries_category.name %>
-                <%= link_to "", new_project_budget_entry_path(@project, budget_entry: { category_id: entries_category.id }), :class => "icon icon-add", :title => t(:add_new_budget_entry) %>
+                <%= link_to "", new_project_budget_entry_path(@project, entry_type: entry_type, budget_entry: { category_id: entries_category.id }), :class => "icon icon-add", :title => t(:add_new_budget_entry) %>
+                <%= link_to "Show entries", "#", :class => "icon icon-zoom-in js-toggle-budget-entries-rows", :data => { :category_id => entries_category.id } if entries_category.budget_entries.present? %>
               </td>
               <td><%= entries_category.budget_entries.planned.map(&:netto_amount).sum %></td>
               <td><%= entries_category.budget_entries.worked.map(&:netto_amount).sum %></td>
             </tr>
             <% entries_category.budget_entries.each do |entry| %>
-              <tr>
+              <tr class="budget-entry budget-entry-for-<%= entry.category_id %>">
                 <td>
                   <%= entry.name %>
                   <%= link_to '', [:edit, @project, entry], :class => "icon icon-edit", :title => t(:button_edit) %>

@@ -10,6 +10,11 @@ class BudgetEntriesController < ApplicationController
       user: User.current
     })
     @budget_entry.safe_attributes = params[:budget_entry]
+
+    @budget_entries_categories = @project.budget_entries_categories
+    if params[:entry_type]
+      @budget_entries_categories = @budget_entries_categories.where(entry_type: BudgetEntriesCategory::ENTRY_TYPES.stringify_keys[params[:entry_type]])
+    end
   end
 
   def create

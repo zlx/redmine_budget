@@ -1,7 +1,11 @@
 <%= error_messages_for 'budget_entry' %>
 
+<script type="text/javascript">
+  window._budgetEntriesCategories = <%= Hash[@budget_entries_categories.map{|c| [c.id, c.attributes]}].to_json.html_safe %>;
+</script>
+
 <div class="box tabular">
-  <p><%= f.select :category_id, f.object.project.budget_entries_categories.map { |cat| [cat.name, cat.id] }, required: true %></p>
+  <p><%= f.select :category_id, @budget_entries_categories.map { |cat| [cat.name, cat.id] }, required: true %></p>
   
   <p><%= f.text_field :name, :required => true, :size => 60 %></p>
 

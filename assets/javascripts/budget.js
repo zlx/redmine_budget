@@ -52,7 +52,7 @@ function installBudgetForm($form) {
     var $select = $(".js-project_role_budget-role_id[value=" + +roleId + "]").last(),
         hoursCount = +$select.closest("tr").find(".js-project_role_budget-hours_count").val() || 0;
 
-    return Math.max(0, hoursCount - (+(workedRoles[roleId] || {}).worked_hours_count || 0));
+    return Math.max(0, hoursCount - (+(window._workedRoles[roleId] || {}).worked_hours_count || 0));
   }
 
   function getCurrentPricePerHourForRole(roleId, wagesType) {
@@ -101,7 +101,7 @@ function installBudgetForm($form) {
           return 0;
         } else {
           roles[roleId] = true;
-          workedCash = (+(workedRoles[roleId] || {})["worked_" + wagesType] || 0);
+          workedCash = (+(window._workedRoles[roleId] || {})["worked_" + wagesType] || 0);
 
           return workedCash + getCurrentPricePerHourForRole(roleId, wagesType) * getRemainingPlannedHoursCountForRole(roleId);
         }
@@ -132,6 +132,17 @@ $(document).ready(function(){
   $(".js-datepicker").datepicker(datepickerOptions);
 
 
+  // budget#show - budget entries tables
+  $(".js-toggle-budget-entries-rows").click(function toggleBudgetEntriesRows(event) {
+    event.preventDefault();
+
+    var budgetEntriesCategoryId = + $(this).data("categoryId");
+
+    $("tr.budget-entry-for-" + budgetEntriesCategoryId).toggle();
+  });
+  $("tr.budget-entry").hide()
+
+
   // budget#edit
   $(document).on('click', '.js-multiply-button', function(event) {
     event.preventDefault();
@@ -139,6 +150,22 @@ $(document).ready(function(){
     var $container = $(this).closest(".js-multiply-container");
     multiplyElement($container);
   });
+
+
+  // budget_entries#new, #edit
+  $("#budget_entry_category_id").on("change", function updateBudgetEntryDefaults() {
+    var actualId = + $(this).val();
+    var selectedCategory = window._budgetEntriesCategories[actualId];
+
+    if (selectedCategory) {
+      if (selectedCategory.netto_amount) {
+        $("#budget_entry_netto_amount").val( selectedCategory.netto_amount );
+      }
+      if (selectedCategory.tax) {
+        $("#budget_entry_tax").val( selectedCategory.tax );
+      }
+    }
+  }).change();
 
 
   $("#budget-form").each(function(){
