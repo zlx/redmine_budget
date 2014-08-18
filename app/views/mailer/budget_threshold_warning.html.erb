@@ -4,12 +4,12 @@
 <h4><%= t(:current_project_budget_stats) %></h4>
 <p>
   <% [:planned_hours_count,
-      :worked_hours_count,
-      :worked_income,
+      :real_hours_count,
+      :real_income,
       :total_income,
-      :worked_cost,
+      :real_cost,
       :total_cost,
-      :worked_profit,
+      :real_profit,
       :total_profit].each do |attr_name| %>
     <strong><%= t(attr_name) %></strong>: <%= @budget.send(attr_name) %><br />
   <% end %>

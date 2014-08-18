@@ -16,7 +16,7 @@ pl:
   wage_price_per_hour: Stawka za godzinę
   wage_start_date: Data początkowa stawki (opcjonalnie)
   wage_end_date: Data końcowa stawki (opcjonalnie)
-  wages_currency: zł
+  budget_currency: zł
   planned_profit: Przewidywany zysk
   role: Rola
   user: Użytkownik
@@ -39,10 +39,10 @@ pl:
   planned_cost: Planowany koszt
   planned_profit: Planowany zysk
 
-  worked_hours_count: Przepracowana liczba godzin
-  worked_income: Przepracowany dochód
-  worked_cost: Przepracowany koszt
-  worked_profit: Przepracowany zysk
+  real_hours_count: Przepracowana liczba godzin
+  real_income: Przepracowany dochód
+  real_cost: Przepracowany koszt
+  real_profit: Przepracowany zysk
 
   total_hours_count: Całkowita liczba godzin
   total_income: Całkowity dochód

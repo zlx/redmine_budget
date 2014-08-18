@@ -21,6 +21,14 @@ class BudgetEntriesCategory < ActiveRecord::Base
 
   safe_attributes 'name', 'netto_amount', 'tax', 'entry_type'
 
+  def planned_amount
+    budget_entries.planned.map(&:netto_amount).sum
+  end
+
+  def real_amount
+    budget_entries.real.map(&:netto_amount).sum
+  end
+
   private
 
     def set_defaults

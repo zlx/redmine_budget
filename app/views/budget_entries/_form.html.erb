@@ -26,6 +26,10 @@
     <%= f.text_field :issue_id, :size => 6 %>
     <span id="budget_entry_issue"><%= h("#{@budget_entry.issue.tracker.name} ##{@budget_entry.issue.id}: #{@budget_entry.issue.subject}") if @budget_entry.issue %></span>
   </p>
+
+  <p>
+    <%= f.check_box :planned %>
+  </p>
 </div>
 
 <%= javascript_tag do %>

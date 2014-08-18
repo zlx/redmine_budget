@@ -21,6 +21,8 @@ class BudgetEntriesController < ApplicationController
     send :new
 
     if @budget_entry.save
+      @project.budget.touch if @project.budget
+
       flash[:notice] = t :budget_entry_successful_create
       redirect_to project_budget_path(@project)
     else
@@ -31,12 +33,16 @@ class BudgetEntriesController < ApplicationController
   def edit
     @budget_entry = BudgetEntry.find(params[:id])
     @budget_entry.safe_attributes = params[:budget_entry]
+
+    @budget_entries_categories = @project.budget_entries_categories
   end
 
   def update
     send :edit
 
     if @budget_entry.save
+      @project.budget.touch if @project.budget
+
       flash[:notice] = t :budget_entry_successful_update
       redirect_to project_budget_path(@project)
     else
@@ -47,6 +53,8 @@ class BudgetEntriesController < ApplicationController
   def destroy
     @budget_entry = BudgetEntry.find(params[:id])
     @budget_entry.destroy
+
+    @project.budget.touch if @project.budget
 
     redirect_back_or_default project_budget_path(@project)
   end

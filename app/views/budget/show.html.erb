@@ -19,14 +19,34 @@
     <dt><%= t(:total_hours_count) %></dt>
     <dd><%= @budget.total_hours_count %> godzin</dd>
 
+    <dt><%= t(:total_hours_income) %></dt>
+    <dd><%= @budget.total_hours_income %> <%= t(:budget_currency) %></dd>
+    
+    <dt><%= t(:total_hours_cost) %></dt>
+    <dd><%= @budget.total_hours_cost %> <%= t(:budget_currency) %></dd>
+
+    <dt><%= t(:total_hours_profit) %></dt>
+    <dd><%= @budget.total_hours_profit %> <%= t(:budget_currency) %></dd>
+
+
+    <dt><%= t(:total_entries_income) %></dt>
+    <dd><%= @budget.total_entries_income %> <%= t(:budget_currency) %></dd>
+    
+    <dt><%= t(:total_entries_cost) %></dt>
+    <dd><%= @budget.total_entries_cost %> <%= t(:budget_currency) %></dd>
+
+    <dt><%= t(:total_entries_profit) %></dt>
+    <dd><%= @budget.total_entries_profit %> <%= t(:budget_currency) %></dd>
+
+
     <dt><%= t(:total_income) %></dt>
-    <dd><%= @budget.total_income %> <%= t(:wages_currency) %></dd>
+    <dd><%= @budget.total_income %> <%= t(:budget_currency) %></dd>
     
     <dt><%= t(:total_cost) %></dt>
-    <dd><%= @budget.total_cost %> <%= t(:wages_currency) %></dd>
+    <dd><%= @budget.total_cost %> <%= t(:budget_currency) %></dd>
 
     <dt><%= t(:total_profit) %></dt>
-    <dd><%= @budget.total_profit %> <%= t(:wages_currency) %></dd>
+    <dd><%= @budget.total_profit %> <%= t(:budget_currency) %></dd>
   </dl>
 
   <br />
@@ -44,17 +64,37 @@
   </h2>
 
   <dl class="dl dl-horizontal">
-    <dt><%= t(:worked_hours_count) %></dt>
-    <dd><%= @budget_calculator.worked_hours_count %> <%= t(:field_hours).downcase %></dd>
+    <dt><%= t(:real_hours_count) %></dt>
+    <dd><%= @budget_calculator.real_hours_count %> <%= t(:field_hours).downcase %></dd>
 
-    <dt><%= t(:worked_income) %></dt>
-    <dd><%= @budget_calculator.worked_income %> <%= t(:wages_currency) %></dd>
+    <dt><%= t(:real_hours_income) %></dt>
+    <dd><%= @budget_calculator.real_hours_income %> <%= t(:budget_currency) %></dd>
 
-    <dt><%= t(:worked_cost) %></dt>
-    <dd><%= @budget_calculator.worked_cost %> <%= t(:wages_currency) %></dd>
+    <dt><%= t(:real_hours_cost) %></dt>
+    <dd><%= @budget_calculator.real_hours_cost %> <%= t(:budget_currency) %></dd>
 
-    <dt><%= t(:worked_profit) %></dt>
-    <dd><%= @budget_calculator.worked_profit %> <%= t(:wages_currency) %></dd>
+    <dt><%= t(:real_hours_profit) %></dt>
+    <dd><%= @budget_calculator.real_hours_profit %> <%= t(:budget_currency) %></dd>
+
+
+    <dt><%= t(:real_entries_income) %></dt>
+    <dd><%= @budget_calculator.real_entries_income %> <%= t(:budget_currency) %></dd>
+
+    <dt><%= t(:real_entries_cost) %></dt>
+    <dd><%= @budget_calculator.real_entries_cost %> <%= t(:budget_currency) %></dd>
+
+    <dt><%= t(:real_entries_profit) %></dt>
+    <dd><%= @budget_calculator.real_entries_profit %> <%= t(:budget_currency) %></dd>
+
+
+    <dt><%= t(:real_income) %></dt>
+    <dd><%= @budget_calculator.real_income %> <%= t(:budget_currency) %></dd>
+
+    <dt><%= t(:real_cost) %></dt>
+    <dd><%= @budget_calculator.real_cost %> <%= t(:budget_currency) %></dd>
+
+    <dt><%= t(:real_profit) %></dt>
+    <dd><%= @budget_calculator.real_profit %> <%= t(:budget_currency) %></dd>
   </dl>
 
   <br />
@@ -65,7 +105,7 @@
       <tr>
         <th><%= t(:role) %></th>
         <th><%= t(:planned_hours_count) %></th>
-        <th><%= t(:worked_hours_count) %></th>
+        <th><%= t(:real_hours_count) %></th>
         <th><%= t(:income) %></th>
         <th><%= t(:cost) %></th>
         <th><%= t(:profit) %></th>
@@ -76,10 +116,10 @@
       <tr>
         <td><%= row[:role].name %></td>
         <td><%= row[:planned_hours_count] %></td>
-        <td><%= row[:worked_hours_count] %></td>
-        <td><%= row[:worked_income] %></td>
-        <td><%= row[:worked_cost] %></td>
-        <td><%= row[:worked_profit] %></td>
+        <td><%= row[:real_hours_count] %></td>
+        <td><%= row[:real_income] %></td>
+        <td><%= row[:real_cost] %></td>
+        <td><%= row[:real_profit] %></td>
       </tr>
       <% end %>
     </tbody>
@@ -92,7 +132,7 @@
     <thead>
       <tr>
         <th><%= t(:user) %></th>
-        <th><%= t(:worked_hours_count) %></th>
+        <th><%= t(:real_hours_count) %></th>
         <th><%= t(:income) %></th>
         <th><%= t(:cost) %></th>
         <th><%= t(:profit) %></th>
@@ -102,10 +142,10 @@
       <% @budget_calculator.works_by_user.each do |row| %>
       <tr>
         <td><%= link_to row[:user].name, time_entries_path(user_id: row[:user].id, project_id: @project.id) %></td>
-        <td><%= row[:worked_hours_count] %></td>
-        <td><%= row[:worked_income] %></td>
-        <td><%= row[:worked_cost] %></td>
-        <td><%= row[:worked_profit] %></td>
+        <td><%= row[:real_hours_count] %></td>
+        <td><%= row[:real_income] %></td>
+        <td><%= row[:real_cost] %></td>
+        <td><%= row[:real_profit] %></td>
       </tr>
       <% end %>
     </tbody>
@@ -135,7 +175,9 @@
     </tbody>
   </table>
 
-  <br /><br />
+  <br />
+  <hr>
+  <br />
 
   <h3 class="inline"><%= t(:budget_entries) %></h3>
   <%= link_to t(:manage_budget_entries_categories), project_budget_entries_categories_path(@project), :class => "icon icon-edit" %>
@@ -157,7 +199,7 @@
           <tr>
             <th width="40%"><%= t("#{entry_type.pluralize}_category") %></th>
             <th width="30%"><%= t("planned_#{entry_type}") %></th>
-            <th width="30%"><%= t("worked_#{entry_type}") %></th>
+            <th width="30%"><%= t("real_#{entry_type}") %></th>
           </tr>
         </thead>
         <tbody>
@@ -168,8 +210,8 @@
                 <%= link_to "", new_project_budget_entry_path(@project, entry_type: entry_type, budget_entry: { category_id: entries_category.id }), :class => "icon icon-add", :title => t(:add_new_budget_entry) %>
                 <%= link_to "Show entries", "#", :class => "icon icon-zoom-in js-toggle-budget-entries-rows", :data => { :category_id => entries_category.id } if entries_category.budget_entries.present? %>
               </td>
-              <td><%= entries_category.budget_entries.planned.map(&:netto_amount).sum %></td>
-              <td><%= entries_category.budget_entries.worked.map(&:netto_amount).sum %></td>
+              <td><%= entries_category.planned_amount %></td>
+              <td><%= entries_category.real_amount %></td>
             </tr>
             <% entries_category.budget_entries.each do |entry| %>
               <tr class="budget-entry budget-entry-for-<%= entry.category_id %>">
@@ -183,14 +225,14 @@
                     netto_amount: entry.netto_amount,
                     tax: entry.tax,
                     brutto_amount: entry.brutto_amount,
-                    user: link_to(entry.user.name, user_path(entry.user)),
+                    user: (link_to(entry.user.name, user_path(entry.user)) if entry.user_id),
                     created_on: entry.created_on,
                     deposit_amount: entry.deposit_amount,
-                    issue_id: link_to("\##{entry.issue_id}", issue_path(entry.issue_id))
+                    issue_id: (link_to("\##{entry.issue_id}", issue_path(entry.issue_id)) if entry.issue_id)
                   } %>
                   <%= t :budget_entry_details_amounts_html, t_values %> <br>
                   <%= t :budget_entry_details_author_html, t_values %> <br>
-                  <%= t :budget_entry_details_issue_html, t_values %>
+                  <%= t :budget_entry_details_issue_html, t_values if entry.issue_id %>
                 </td>
               </tr>
             <% end %>

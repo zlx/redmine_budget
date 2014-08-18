@@ -92,10 +92,10 @@ class BudgetCalculatorTest < ActiveSupport::TestCase
   test 'counts correctly all attributes and returns correct #works_by_role rows also' do
     calc = BudgetCalculator.new(@budget)
 
-    assert_equal 20.5 + 10 + 30, calc.worked_hours_count
-    assert_equal 20.5 * 20 + 10 * 10 + 30 * 30, calc.worked_income
-    assert_equal 10 * 5, calc.worked_cost
-    assert_equal calc.worked_income - calc.worked_cost, calc.worked_profit
+    assert_equal 20.5 + 10 + 30, calc.real_hours_count
+    assert_equal 20.5 * 20 + 10 * 10 + 30 * 30, calc.real_income
+    assert_equal 10 * 5, calc.real_cost
+    assert_equal calc.real_income - calc.real_cost, calc.real_profit
 
     row = calc.works_by_role.find { |r| r[:role] == @role }
 
@@ -108,8 +108,8 @@ class BudgetCalculatorTest < ActiveSupport::TestCase
     assert_equal row[:remaining_hours_count] * row[:planned_cost_per_hour], row[:remaining_cost]
     assert_equal row[:remaining_income] - row[:remaining_cost], row[:remaining_profit]
 
-    assert_equal row[:worked_income] + row[:remaining_income], row[:total_income]
-    assert_equal row[:worked_cost] + row[:remaining_cost], row[:total_cost]
-    assert_equal row[:worked_profit] + row[:remaining_profit], row[:total_profit]
+    assert_equal row[:real_income] + row[:remaining_income], row[:total_income]
+    assert_equal row[:real_cost] + row[:remaining_cost], row[:total_cost]
+    assert_equal row[:real_profit] + row[:remaining_profit], row[:total_profit]
   end
 end

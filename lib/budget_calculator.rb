@@ -36,32 +36,94 @@ class BudgetCalculator
     @planned_hours_count ||= works_by_role.map{ |r| r[:planned_hours_count] }.reduce(&:+).to_f
   end
 
-  def worked_hours_count
-    @worked_hours_count ||= works_by_role.map{ |r| r[:worked_hours_count] }.reduce(&:+).to_f
+  def real_hours_count
+    @real_hours_count ||= works_by_role.map{ |r| r[:real_hours_count] }.reduce(&:+).to_f
   end
 
-  def worked_income
-    @worked_income ||= works_by_role.map{ |r| r[:worked_income] }.reduce(&:+).to_f
+  def real_hours_income
+    @real_hours_income ||= works_by_role.map{ |r| r[:real_income] }.reduce(&:+).to_f
   end
 
-  def worked_cost
-    @worked_cost ||= works_by_role.map{ |r| r[:worked_cost] }.reduce(&:+).to_f
+  def real_hours_cost
+    @real_hours_cost ||= works_by_role.map{ |r| r[:real_cost] }.reduce(&:+).to_f
   end
 
-  def worked_profit
-    worked_income - worked_cost
+  def real_hours_profit
+    real_hours_income - real_hours_cost
+  end
+
+  def real_entries_income
+    budget_entries.joins(:category)
+      .where("budget_entries_categories.entry_type = ?", BudgetEntriesCategory::ENTRY_TYPES[:income])
+      .real
+      .map(&:netto_amount)
+      .sum
+  end
+
+  def real_entries_cost
+    budget_entries.joins(:category)
+      .where("budget_entries_categories.entry_type = ?", BudgetEntriesCategory::ENTRY_TYPES[:cost])
+      .real
+      .map(&:netto_amount)
+      .sum
+  end
+
+  def real_entries_profit
+    real_entries_income - real_entries_cost
+  end
+
+  def real_income
+    real_hours_income + real_entries_income
+  end
+
+  def real_cost
+    real_hours_cost + real_entries_cost
+  end
+
+  def real_profit
+    real_income - real_cost
   end
 
   def total_hours_count
     @total_hours_count ||= works_by_role.map{ |r| r[:total_hours_count] }.reduce(&:+).to_f
   end
 
+  def total_hours_income
+    @total_hours_income ||= works_by_role.map{ |r| r[:total_income] }.reduce(&:+).to_f
+  end
+
+  def total_hours_cost
+    @total_hours_cost ||= works_by_role.map{ |r| r[:total_cost] }.reduce(&:+).to_f
+  end
+
+  def total_hours_profit
+    total_hours_income - total_hours_cost
+  end
+
+  def total_entries_income
+    budget_entries.joins(:category)
+      .where("budget_entries_categories.entry_type = ?", BudgetEntriesCategory::ENTRY_TYPES[:income])
+      .map(&:netto_amount)
+      .sum
+  end
+
+  def total_entries_cost
+    budget_entries.joins(:category)
+      .where("budget_entries_categories.entry_type = ?", BudgetEntriesCategory::ENTRY_TYPES[:cost])
+      .map(&:netto_amount)
+      .sum
+  end
+
+  def total_entries_profit
+    total_entries_income - total_entries_cost
+  end
+
   def total_income
-    @total_income ||= works_by_role.map{ |r| r[:total_income] }.reduce(&:+).to_f
+    total_hours_income + total_entries_income
   end
 
   def total_cost
-    @total_cost ||= works_by_role.map{ |r| r[:total_cost] }.reduce(&:+).to_f
+    total_hours_cost + total_entries_cost
   end
 
   def total_profit
@@ -79,24 +141,24 @@ class BudgetCalculator
           role: Role.find(role_id),
           periods: rows,
 
-          worked_cost: ( worked_cost = rows.map { |x| x['cost'].to_f }.reduce(&:+).to_f ),
-          worked_income: ( worked_income = rows.map { |x| x['income'].to_f }.reduce(&:+).to_f ),
-          worked_profit: ( worked_profit = worked_income - worked_cost ),
-          worked_hours_count: ( worked_hours_count = rows.map { |x| x['hours_count'].to_f }.reduce(&:+).to_f ),
+          real_cost: ( real_cost = rows.map { |x| x['cost'].to_f }.reduce(&:+).to_f ),
+          real_income: ( real_income = rows.map { |x| x['income'].to_f }.reduce(&:+).to_f ),
+          real_profit: ( real_profit = real_income - real_cost ),
+          real_hours_count: ( real_hours_count = rows.map { |x| x['hours_count'].to_f }.reduce(&:+).to_f ),
 
           planned_hours_count: ( planned_hours_count = planned_work[:planned_hours_count].to_f ),
           planned_income_per_hour: ( planned_income_per_hour = planned_work[:planned_income_per_hour].to_f ),
           planned_cost_per_hour: ( planned_cost_per_hour = planned_work[:planned_cost_per_hour].to_f ),
 
-          remaining_hours_count: ( remaining_hours_count = [planned_hours_count - worked_hours_count, 0].max ),
+          remaining_hours_count: ( remaining_hours_count = [planned_hours_count - real_hours_count, 0].max ),
           remaining_income: ( remaining_income = remaining_hours_count * planned_income_per_hour ),
           remaining_cost: ( remaining_cost = remaining_hours_count * planned_cost_per_hour ),
           remaining_profit: ( remaining_profit = remaining_income - remaining_cost ),
 
-          total_hours_count: ( worked_hours_count + remaining_hours_count ), 
-          total_income: ( worked_income + remaining_income ), 
-          total_cost: ( worked_cost + remaining_cost ), 
-          total_profit: ( worked_profit + remaining_profit ), 
+          total_hours_count: ( real_hours_count + remaining_hours_count ), 
+          total_income: ( real_income + remaining_income ), 
+          total_cost: ( real_cost + remaining_cost ), 
+          total_profit: ( real_profit + remaining_profit ), 
         }
       end
   end
@@ -111,10 +173,10 @@ class BudgetCalculator
           user: User.find(user_id),
           periods: rows,
 
-          worked_cost: ( worked_cost = rows.map { |x| x['cost'].to_f }.reduce(&:+) ),
-          worked_income: ( worked_income = rows.map { |x| x['income'].to_f }.reduce(&:+) ),
-          worked_profit: worked_income - worked_cost,
-          worked_hours_count: rows.map { |x| x['hours_count'].to_f }.reduce(&:+),
+          real_cost: ( real_cost = rows.map { |x| x['cost'].to_f }.reduce(&:+) ),
+          real_income: ( real_income = rows.map { |x| x['income'].to_f }.reduce(&:+) ),
+          real_profit: real_income - real_cost,
+          real_hours_count: rows.map { |x| x['hours_count'].to_f }.reduce(&:+),
         }
       end
   end
@@ -142,6 +204,11 @@ class BudgetCalculator
 
   def entries_by_category(entry_type)
     []
+  end
+
+  def budget_entries
+    budget.project.budget_entries
+      .where("budget_entries.created_on BETWEEN ? AND ?", start_date, end_date)
   end
 
   private

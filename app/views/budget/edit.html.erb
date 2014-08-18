@@ -4,12 +4,12 @@
 
 <% cache(@budget_calculator.cache_key, expires_in: 1.hour) do %>
   <%
-    worked_roles = Hash[@budget_calculator.works_by_role.map do |r| 
+    real_roles = Hash[@budget_calculator.works_by_role.map do |r| 
       [ r[:role].id, r ] 
     end]
   %>
   <script type="text/javascript">
-    window._workedRoles = <%= worked_roles.to_json.html_safe %>;
+    window._realRoles = <%= real_roles.to_json.html_safe %>;
   </script>
 <% end %>
 
@@ -142,7 +142,7 @@
         <tr>
           <th><%= t(:in_summary) %></th>
           <th>
-            <span class="js-wage-price_per_hour-sum"></span> <%= t(:wages_currency) %>
+            <span class="js-wage-price_per_hour-sum"></span> <%= t(:budget_currency) %>
           </th>
           <th colspan="2"></th>
         </tr>  
@@ -158,7 +158,7 @@
 <fieldset class="box">
   <legend><h3><%= t(:summary) %></h3></legend>
   <strong>
-    <%= t(:planned_profit) %>: <span class="js-profit"></span> <%= t(:wages_currency) %>
+    <%= t(:planned_profit) %>: <span class="js-profit"></span> <%= t(:budget_currency) %>
   </strong>
 </fieldset>
 

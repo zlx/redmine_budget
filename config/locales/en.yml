@@ -16,7 +16,7 @@ en:
   wage_price_per_hour: Price per hour
   wage_start_date: Wage's start date (optionally)
   wage_end_date: Wage's end date (optionally)
-  wages_currency: zł
+  budget_currency: zł
   # planned_profit:
   # role:
   # user:
@@ -39,10 +39,10 @@ en:
   # planned_cost:
   # planned_profit:
 
-  # worked_hours_count:
-  # worked_income:
-  # worked_cost:
-  # worked_profit:
+  # real_hours_count:
+  # real_income:
+  # real_cost:
+  # real_profit:
 
   # total_hours_count:
   # total_income:
@@ -75,6 +75,7 @@ en:
   field_netto_amount: Netto [zł]
   field_tax: Tax percentage [%]
   field_deposit_amount: Deposit [zł]
+  field_planned: Planned entry?
   budget_entries_category_successful_create: "Budget entries' category has been successfully created."
   budget_entries_category_successful_update: "Budget entries' category has been successfully updated."
 

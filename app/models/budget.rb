@@ -12,20 +12,31 @@ class Budget < ActiveRecord::Base
   end
 
   delegate :planned_hours_count, to: :calculator
-  delegate :planned_income, to: :calculator
-  delegate :planned_cost, to: :calculator
-  delegate :planned_profit, to: :calculator
-  delegate :worked_hours_count, to: :calculator
-  delegate :worked_income, to: :calculator
-  delegate :worked_cost, to: :calculator
-  delegate :worked_profit, to: :calculator
+
+  delegate :real_hours_count, to: :calculator
+  delegate :real_hours_income, to: :calculator
+  delegate :real_hours_cost, to: :calculator
+  delegate :real_hours_profit, to: :calculator
+  delegate :real_entries_income, to: :calculator
+  delegate :real_entries_cost, to: :calculator
+  delegate :real_entries_profit, to: :calculator
+  delegate :real_income, to: :calculator
+  delegate :real_cost, to: :calculator
+  delegate :real_profit, to: :calculator
+
   delegate :total_hours_count, to: :calculator
+  delegate :total_hours_income, to: :calculator
+  delegate :total_hours_cost, to: :calculator
+  delegate :total_hours_profit, to: :calculator
+  delegate :total_entries_income, to: :calculator
+  delegate :total_entries_cost, to: :calculator
+  delegate :total_entries_profit, to: :calculator
   delegate :total_income, to: :calculator
   delegate :total_cost, to: :calculator
   delegate :total_profit, to: :calculator
 
   def used_costs_percentage
-    (worked_cost.to_f / total_cost * 100).round
+    (real_cost.to_f / total_cost * 100).round
   end
 
   def should_warn_about_threshold?
