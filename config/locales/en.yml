@@ -48,9 +48,12 @@ en:
   real_entries_income: Real income (budget entries)
   real_entries_cost: Real cost (budget entries)
   real_entries_profit: Real profit (budget entries)
-  real_income: Total real income
-  real_cost: Total real cost
-  real_profit: Total real profit
+  real_income: Real income
+  real_cost: Real cost
+  real_profit: Real profit
+  all_real_income: Total real income
+  all_real_cost: Total real cost
+  all_real_profit: Total real profit
 
   # total_hours_count:
   total_hours_income: Total income (timelog entries)
@@ -59,9 +62,12 @@ en:
   total_entries_income: Total income (budget entries)
   total_entries_cost: Total cost (budget entries)
   total_entries_profit: Total profit (budget entries)
-  total_income: Total income (all)
-  total_cost: Total cost (all)
-  total_profit: Total profit (all)
+  total_income: Total income
+  total_cost: Total cost
+  total_profit: Total profit
+  all_total_income: Total income (all)
+  all_total_cost: Total cost (all)
+  all_total_profit: Total profit (all)
 
   error_custom_project_dates_are_required: "Before you access the project's budget, you have to fill in the project's start and end dates."
 

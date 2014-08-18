@@ -187,7 +187,7 @@ class BudgetCalculator
     Hash[(start_date..end_date).group_by do |date|
       [date.year, date.month].join "-"
     end.values.map(&:first).map do |month_date|
-      stats = Role.connection.select_all(get_works_sql(month_date.beginning_of_month, month_date.end_of_month)).reduce({
+      stat = Role.connection.select_all(get_works_sql(month_date.beginning_of_month, month_date.end_of_month)).reduce({
         cost: 0,
         income: 0,
         profit: 0
@@ -196,14 +196,34 @@ class BudgetCalculator
         memo[:income] += row['income'].to_f
         memo
       end
-      stats[:profit] = stats[:income] - stats[:cost]
+      stat[:profit] = stat[:income] - stat[:cost]
 
-      [month_date, stats]
+      [month_date, stat]
     end]
   end
 
+  def stats_by_month
+    stats = works_by_month
+
+    budget_entries.select do |entry|
+      !entry.planned?
+    end.each do |entry|
+      if stat = stats[ entry.created_on.beginning_of_month ]
+        if entry.cost?
+          stat[:cost] += entry.netto_amount
+        elsif entry.income?
+          stat[:income] += entry.netto_amount
+        end
+        
+        stat[:profit] = stat[:income] - stat[:cost]
+      end
+    end
+
+    stats
+  end
+
   def entries_by_category(entry_type)
-    []
+    budget.project.budget_entries_categories.send(entry_type.pluralize)
   end
 
   def budget_entries

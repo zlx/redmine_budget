@@ -48,9 +48,12 @@ pl:
   real_entries_income: Realny dochód (z wpisów budżetu)
   real_entries_cost: Realny koszt (z wpisów budżetu)
   real_entries_profit: Realny zysk (z wpisów budżetu)
-  real_income: Realny dochód całkowity
-  real_cost: Realny koszt całkowity
-  real_profit: Realny zysk całkowity
+  real_income: Realny dochód
+  real_cost: Realny koszt
+  real_profit: Realny zysk
+  all_real_income: Realny dochód całkowity
+  all_real_cost: Realny koszt całkowity
+  all_real_profit: Realny zysk całkowity
 
   total_hours_count: Całkowita liczba godzin
   total_hours_income: Całkowity dochód (z godzin pracy) 
@@ -62,6 +65,9 @@ pl:
   total_income: Całkowity dochód
   total_cost: Całkowity koszt
   total_profit: Całkowity zysk
+  all_total_income: Całkowity dochód
+  all_total_cost: Całkowity koszt
+  all_total_profit: Całkowity zysk
 
   error_custom_project_dates_are_required: Aby przejść do budżetu, musisz najpierw ustawić datę początkową i końcową projektu.
 

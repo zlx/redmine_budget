@@ -35,6 +35,14 @@ class BudgetEntry < ActiveRecord::Base
     netto_amount * (1 + tax * 100)
   end
 
+  def cost?
+    category.entry_type == BudgetEntriesCategory::ENTRY_TYPES[:cost]
+  end
+
+  def income?
+    category.entry_type == BudgetEntriesCategory::ENTRY_TYPES[:income]
+  end
+
   private
 
     def set_defaults

@@ -3,7 +3,10 @@ class BudgetEntriesCategory < ActiveRecord::Base
 
   unloadable
 
-  ENTRY_TYPES = Wage::TYPES.dup
+  ENTRY_TYPES = {
+    :income => 1,
+    :cost => 2
+  }
 
   belongs_to :project, inverse_of: :budget_entries
   has_many :budget_entries, inverse_of: :category, foreign_key: :category_id, dependent: :delete_all

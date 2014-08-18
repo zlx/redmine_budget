@@ -39,13 +39,13 @@
     <dd><%= @budget.total_entries_profit %> <%= t(:budget_currency) %></dd>
 
 
-    <dt><%= t(:total_income) %></dt>
+    <dt><%= t(:all_total_income) %></dt>
     <dd><%= @budget.total_income %> <%= t(:budget_currency) %></dd>
     
-    <dt><%= t(:total_cost) %></dt>
+    <dt><%= t(:all_total_cost) %></dt>
     <dd><%= @budget.total_cost %> <%= t(:budget_currency) %></dd>
 
-    <dt><%= t(:total_profit) %></dt>
+    <dt><%= t(:all_total_profit) %></dt>
     <dd><%= @budget.total_profit %> <%= t(:budget_currency) %></dd>
   </dl>
 
@@ -87,13 +87,13 @@
     <dd><%= @budget_calculator.real_entries_profit %> <%= t(:budget_currency) %></dd>
 
 
-    <dt><%= t(:real_income) %></dt>
+    <dt><%= t(:all_real_income) %></dt>
     <dd><%= @budget_calculator.real_income %> <%= t(:budget_currency) %></dd>
 
-    <dt><%= t(:real_cost) %></dt>
+    <dt><%= t(:all_real_cost) %></dt>
     <dd><%= @budget_calculator.real_cost %> <%= t(:budget_currency) %></dd>
 
-    <dt><%= t(:real_profit) %></dt>
+    <dt><%= t(:all_real_profit) %></dt>
     <dd><%= @budget_calculator.real_profit %> <%= t(:budget_currency) %></dd>
   </dl>
 
@@ -164,7 +164,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @budget_calculator.works_by_month.each do |month_date, row| %>
+      <% @budget_calculator.stats_by_month.each do |month_date, row| %>
       <tr>
         <td><%= month_name(month_date.month) + month_date.strftime(" %Y") %></td>
         <td><%= row[:income] %></td>
@@ -185,7 +185,6 @@
 
   <% BudgetEntriesCategory::ENTRY_TYPES.keys.map(&:to_s).each do |entry_type| %>
     <% entries_categories = @budget_calculator.entries_by_category(entry_type) %>
-    <% entries_categories = @project.budget_entries_categories.send(entry_type.pluralize) %>
     <br />
 
     <table class="list">
