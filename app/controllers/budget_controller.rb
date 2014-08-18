@@ -4,6 +4,8 @@ class BudgetController < ApplicationController
   before_filter :find_project
   before_filter :authorize
 
+  helper :custom_fields
+
   def show
     @budget_calculator = BudgetCalculator.new(@budget, budget_params)
   end
