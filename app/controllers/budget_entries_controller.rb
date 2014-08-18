@@ -3,6 +3,9 @@ class BudgetEntriesController < ApplicationController
 
   before_filter :find_project
   before_filter :authorize
+  
+  helper :custom_fields
+  include CustomFieldsHelper
 
   def new
     @budget_entry = BudgetEntry.new({

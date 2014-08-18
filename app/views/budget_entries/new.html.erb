@@ -5,7 +5,7 @@
 <h2 class="inline"><%= t(:new_budget_entry) %></h2>
 <%= link_to t(:go_back_to_budget), project_budget_path(@project), class: "icon icon-cancel" %>
 
-<%= labelled_form_for @budget_entry, :url => project_budget_entries_path(@project) do |f| %>
+<%= labelled_form_for @budget_entry, :url => project_budget_entries_path(@project), :html => { :multipart => true } do |f| %>
   <%= render :partial => 'form', :locals => { :f => f } %>
   <%= submit_tag l(:button_create) %>
 <% end %>

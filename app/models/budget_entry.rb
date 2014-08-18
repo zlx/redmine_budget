@@ -8,6 +8,8 @@ class BudgetEntry < ActiveRecord::Base
   belongs_to :issue
   belongs_to :user
 
+  acts_as_customizable
+
   validates_presence_of :project, :category, :name
   validates_numericality_of :tax, :deposit_amount, inclusion: { greater_than: 0 }
   validate :assert_date_fits_project_date
@@ -17,7 +19,17 @@ class BudgetEntry < ActiveRecord::Base
   scope :planned, -> { where(planned: true) }
   scope :real, -> { where(planned: false) }
 
-  safe_attributes 'name', 'netto_amount', 'tax', 'deposit_amount', 'user_id', 'created_on', 'category_id', 'issue_id', 'planned'
+  safe_attributes 'name', 
+    'netto_amount', 
+    'tax', 
+    'deposit_amount', 
+    'user_id', 
+    'created_on', 
+    'category_id', 
+    'issue_id', 
+    'planned',
+    'custom_field_values',
+    'custom_fields'
 
   def brutto_amount
     netto_amount * (1 + tax * 100)

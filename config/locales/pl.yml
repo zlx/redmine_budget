@@ -69,7 +69,7 @@ pl:
   budget_threshold_warning_subject: "[%{project_name}] %{percent_threshold}% budżetu na koszty zostało wykorzystane!"
   current_project_budget_stats: "Obecne statystyki budżetu"
 
-  budget_entries: Wpisy do budżetu
+  budget_entries: Wpisy budżetu
   add_new_budget_entry: Dodaj nowy wpis
   add_new_income: Dodaj nowy dochód
   add_new_cost: Dodaj nowy koszt

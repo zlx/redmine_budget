@@ -20,4 +20,10 @@ Redmine::Plugin.register :espeo_budget do
   end
   
   menu :project_menu, :budget, { :controller => 'budget', :action => 'show' }, :caption => :label_budget, param: :project_id
+
+  CustomFieldsHelper::CUSTOM_FIELDS_TABS << {
+    :name => 'BudgetEntryCustomField', 
+    :partial => 'custom_fields/index',
+    :label => :budget_entries
+  }
 end

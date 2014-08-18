@@ -30,6 +30,10 @@
   <p>
     <%= f.check_box :planned %>
   </p>
+
+  <% f.object.custom_field_values.each do |value| %>
+    <p><%= custom_field_tag_with_label :budget_entry, value %></p>
+  <% end %>
 </div>
 
 <%= javascript_tag do %>
