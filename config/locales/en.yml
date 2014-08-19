@@ -8,7 +8,7 @@ en:
   # income_wages:
   # cost_wages:
 
-  # budget_settings:
+  budget_settings: Settings of hours' budget
   go_back_to_budget: Go back to budget
   roles_hour_budgets: Planned hours for roles
   in_summary: In summary

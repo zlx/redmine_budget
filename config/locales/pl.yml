@@ -8,7 +8,7 @@ pl:
   income_wages: Stawki dla klienta
   cost_wages: Koszty
 
-  budget_settings: Ustawienia budżetu
+  budget_settings: Ustawienia budżetu godzinnego
   go_back_to_budget: Wróć do budżetu
   roles_hour_budgets: Przyznany budżet godzinowy
   in_summary: Razem
