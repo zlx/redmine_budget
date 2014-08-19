@@ -6,6 +6,10 @@
 
 <div class="box tabular">
   <p><%= f.select :category_id, @budget_entries_categories.map { |cat| [cat.name, cat.id] }, required: true %></p>
+
+  <p>
+    <%= f.check_box :planned %>
+  </p>
   
   <p><%= f.text_field :name, :required => true, :size => 60 %></p>
 
@@ -25,10 +29,6 @@
   <p>
     <%= f.text_field :issue_id, :size => 6 %>
     <span id="budget_entry_issue"><%= h("#{@budget_entry.issue.tracker.name} ##{@budget_entry.issue.id}: #{@budget_entry.issue.subject}") if @budget_entry.issue %></span>
-  </p>
-
-  <p>
-    <%= f.check_box :planned %>
   </p>
 
   <% f.object.custom_field_values.each do |value| %>

@@ -207,7 +207,7 @@
     <% entries_categories = @budget_calculator.entries_by_category(entry_type) %>
     <br />
 
-    <table class="list">
+    <table class="list list-border">
       <caption>
         <%= t(entry_type.pluralize) %>
         <%= link_to t("add_new_#{entry_type}"), new_project_budget_entry_path(@project, entry_type: entry_type), :class => "icon icon-add" %>
@@ -239,7 +239,10 @@
                   <%= link_to '', [:edit, @project, entry], :class => "icon icon-edit", :title => t(:button_edit) %>
                   <%= link_to '', [@project, entry], :class => "icon icon-del", :method => :delete, :title => t(:button_delete) %>
                 </td>
-                <td colspan="2" class="alignleft">
+                <% if !entry.planned? %>
+                  <td></td>
+                <% end %>
+                <td class="alignleft">
                   <% t_values = {
                     netto_amount: entry.netto_amount,
                     tax: entry.tax,
@@ -263,6 +266,9 @@
                   </ul>
                   <% end %>
                 </td>
+                <% if entry.planned? %>
+                  <td></td>
+                <% end %>
               </tr>
             <% end %>
           <% end %>

@@ -26,3 +26,7 @@ table.list caption {
   font-weight: bold;
   text-align: center;
 }
+
+table.list-border th, table.list-border td {
+  border: 1px solid #eee;
+}

@@ -93,7 +93,7 @@ pl:
   default_values: Domyślne wartości
   no_entries_categories_yet: Budżet tego projektu nie ma jeszcze zdefiniowanych kategorii wpisów budżetu.
   budget_entries_category_default_values: "%{netto_amount} zł netto + %{tax}% VAT"
-  budget_entry_details_amounts_html: "<strong>%{netto_amount} zł netto + %{tax}% VAT = %{brutto_amount} zł brutto.</strong> %{deposit_amount} zł zaliczki."
+  budget_entry_details_amounts_html: "<strong>%{netto_amount} zł netto</strong>."
   budget_entry_details_author_html: "Stworzone przez %{user} dnia %{created_on}."
   budget_entry_details_issue_html: "Powiązane z zagadnieniem %{issue_id}."
   toggle_budget_entries: "Pokaż/schowaj wpisy"
@@ -104,7 +104,7 @@ pl:
   field_netto_amount: Netto [zł]
   field_tax: VAT [%]
   field_deposit_amount: Zaliczka [zł]
-  field_planned: Wpis planowany?
+  field_planned: Wpis planowany
   budget_entry_type: Typ kategorii
   budget_entries_category_successful_create: Kategoria wpisów budżetu została dodana.
   budget_entries_category_successful_update: Kategoria wpisów budżetu została zaktualizowana.
