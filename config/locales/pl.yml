@@ -33,6 +33,7 @@ pl:
   budget_stats_entries: Wpisy budżetu
   budget_stats_all: W sumie (godziny + wpisy)
   toggle: "pokaż / schowaj"
+  no_budget_users: Nie znaleźliśmy żadnych wpisów w dzienniku dla tego projektu w zadanym okresie czasowym.
 
   hours_count: Liczba godzin
   income: Dochód

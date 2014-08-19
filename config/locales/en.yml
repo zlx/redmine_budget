@@ -33,6 +33,7 @@ en:
   budget_stats_entries: Budget entries
   budget_stats_all: Total (hours + entries)
   toggle: "show / hide"
+  no_budget_users: "We haven't found any timelog entries in this project for the given date period."
 
   # hours_count:
   # income:

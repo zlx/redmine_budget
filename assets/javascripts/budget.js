@@ -172,6 +172,8 @@ $(document).ready(function(){
     installBudgetForm($(this));
   });
 
+  // Used for example in budget#show.
+  // Usage: <a href="#" class="js-extend-row-button" data-extend-target=".users">Show/hide users</a>
   $(document).on("click", ".js-extend-row-button", function extendRow(event) {
     event.preventDefault();
     

@@ -130,28 +130,36 @@
   <br /><br />
 
   <h3><%= t(:budget_users_breakdown) %></h3>
-  <table class="list">
-    <thead>
-      <tr>
-        <th><%= t(:user) %></th>
-        <th><%= t(:real_hours_count) %></th>
-        <th><%= t(:income) %></th>
-        <th><%= t(:cost) %></th>
-        <th><%= t(:profit) %></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @budget_calculator.works_by_user.each do |row| %>
-      <tr>
-        <td><%= link_to row[:user].name, time_entries_path(user_id: row[:user].id, project_id: @project.id) %></td>
-        <td><%= row[:real_hours_count] %></td>
-        <td><%= row[:real_income] %></td>
-        <td><%= row[:real_cost] %></td>
-        <td><%= row[:real_profit] %></td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
+  <% if !@budget_calculator.works_by_user.present? %>
+    <p><%= t(:no_budget_users) %></p>
+  <% else %>
+    <table class="list">
+      <thead>
+        <tr>
+          <th><%= t(:user) %></th>
+          <th><%= t(:real_hours_count) %></th>
+          <th><%= t(:income) %></th>
+          <th><%= t(:cost) %></th>
+          <th><%= t(:profit) %></th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr>
+            <td colspan="5">
+            </td>
+          </tr>        
+          <% @budget_calculator.works_by_user.each do |row| %>
+          <tr>
+            <td><%= link_to row[:user].name, time_entries_path(user_id: row[:user].id, project_id: @project.id) %></td>
+            <td><%= row[:real_hours_count] %></td>
+            <td><%= row[:real_income] %></td>
+            <td><%= row[:real_cost] %></td>
+            <td><%= row[:real_profit] %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
 
   <br /><br />
   
