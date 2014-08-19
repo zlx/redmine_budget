@@ -32,6 +32,7 @@ pl:
   budget_stats_hours: Godziny pracy
   budget_stats_entries: Wpisy budżetu
   budget_stats_all: W sumie (godziny + wpisy)
+  toggle: "pokaż / schowaj"
 
   hours_count: Liczba godzin
   income: Dochód

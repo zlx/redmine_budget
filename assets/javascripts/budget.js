@@ -171,4 +171,11 @@ $(document).ready(function(){
   $("#budget-form").each(function(){
     installBudgetForm($(this));
   });
+
+  $(document).on("click", ".js-extend-row-button", function extendRow(event) {
+    event.preventDefault();
+    
+    var rows = $( $(event.target).data("extendTarget") );
+    rows.toggle();
+  });
 });
