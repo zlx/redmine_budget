@@ -205,18 +205,32 @@ class BudgetCalculator
   def stats_by_month
     stats = works_by_month
 
+    stats.each do |_, stat|
+      stat[:entries_cost] = 0
+      stat[:entries_income] = 0
+      stat[:hours_cost] = stat[:cost]
+      stat[:hours_income] = stat[:income]
+      stat[:hours_profit] = stat[:profit]
+    end
+
     budget_entries.select do |entry|
       !entry.planned?
     end.each do |entry|
       if stat = stats[ entry.created_on.beginning_of_month ]
         if entry.cost?
-          stat[:cost] += entry.netto_amount
+          stat[:entries_cost] += entry.netto_amount
         elsif entry.income?
-          stat[:income] += entry.netto_amount
+          stat[:entries_income] += entry.netto_amount
         end
-        
-        stat[:profit] = stat[:income] - stat[:cost]
       end
+    end
+
+    stats.each do |_, stat|
+      stat[:entries_profit] = stat[:entries_income] - stat[:entries_cost]
+
+      stat[:cost] = stat[:entries_cost] + stat[:hours_cost]
+      stat[:income] = stat[:entries_income] + stat[:hours_income]
+      stat[:profit] = stat[:entries_profit] + stat[:hours_profit]
     end
 
     stats

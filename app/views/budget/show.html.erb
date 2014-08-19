@@ -158,6 +158,18 @@
     <thead>
       <tr>
         <th><%= t(:month) %></th>
+        <th colspan="3"><%= t(:budget_stats_hours) %></th>
+        <th colspan="3"><%= t(:budget_stats_entries) %></th>
+        <th colspan="3"><%= t(:budget_stats_total) %></th>
+      </tr>
+      <tr>
+        <th></th>
+        <th><%= t(:income) %></th>
+        <th><%= t(:cost) %></th>
+        <th><%= t(:profit) %></th>
+        <th><%= t(:income) %></th>
+        <th><%= t(:cost) %></th>
+        <th><%= t(:profit) %></th>
         <th><%= t(:income) %></th>
         <th><%= t(:cost) %></th>
         <th><%= t(:profit) %></th>
@@ -167,6 +179,14 @@
       <% @budget_calculator.stats_by_month.each do |month_date, row| %>
       <tr>
         <td><%= month_name(month_date.month) + month_date.strftime(" %Y") %></td>
+        <td><%= row[:hours_income] %></td>
+        <td><%= row[:hours_cost] %></td>
+        <td><%= row[:hours_profit] %></td>
+
+        <td><%= row[:entries_income] %></td>
+        <td><%= row[:entries_cost] %></td>
+        <td><%= row[:entries_profit] %></td>
+
         <td><%= row[:income] %></td>
         <td><%= row[:cost] %></td>
         <td><%= row[:profit] %></td>
@@ -224,7 +244,7 @@
                     netto_amount: entry.netto_amount,
                     tax: entry.tax,
                     brutto_amount: entry.brutto_amount,
-                    user: (link_to(entry.user.name, user_path(entry.user)) if entry.user_id),
+                    user: (link_to(entry.user.name, user_path(entry.user)) if entry.user_id) || "-",
                     created_on: entry.created_on,
                     deposit_amount: entry.deposit_amount,
                     issue_id: (link_to("\##{entry.issue_id}", issue_path(entry.issue_id)) if entry.issue_id)
