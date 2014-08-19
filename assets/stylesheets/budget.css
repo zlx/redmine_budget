@@ -12,6 +12,7 @@ tr.invalid td { background-color: #ffe3e3; }
   display: inline-block;
   width: 20%;
   margin-bottom: 10px;
+  text-align: left;
 }
 .dl-horizontal dd {
   display: inline-block;
