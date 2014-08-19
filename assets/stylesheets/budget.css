@@ -2,7 +2,7 @@
 .inline { display: inline-block; }
 table.width-auto { width: auto; }
 tr.invalid td { background-color: #ffe3e3; }
-td.alignleft { text-align: left !important; }
+.alignleft { text-align: left !important; }
 
 /* .dl style*/
 .dl dt {

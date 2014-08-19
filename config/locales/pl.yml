@@ -27,9 +27,11 @@ pl:
   budget_roles_breakdown: Podział na role
   budget_users_breakdown: Podział na użytkowników
   budget_months_breakdown: Podział na miesiące
+  total_budget_stats: Statystyki dla całego projektu
+  real_budget_stats: Statystyki dla podanego okresu czasowego
   budget_stats_hours: Godziny pracy
   budget_stats_entries: Wpisy budżetu
-  budget_stats_total: W sumie (godziny + wpisy)
+  budget_stats_all: W sumie (godziny + wpisy)
 
   hours_count: Liczba godzin
   income: Dochód

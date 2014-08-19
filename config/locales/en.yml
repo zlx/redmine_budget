@@ -27,9 +27,11 @@ en:
   # budget_roles_breakdown:
   # budget_users_breakdown:
   # budget_months_breakdown:
+  total_budget_stats: Total budget statistics
+  real_budget_stats: Budget statistics for the given date period
   budget_stats_hours: Work hours
   budget_stats_entries: Budget entries
-  budget_stats_total: Total (hours + entries)
+  budget_stats_all: Total (hours + entries)
 
   # hours_count:
   # income:

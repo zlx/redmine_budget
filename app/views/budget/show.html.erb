@@ -19,38 +19,40 @@
     <dt><%= t(:total_hours_count) %></dt>
     <dd><%= @budget.total_hours_count %> godzin</dd>
 
-    <dt><%= t(:total_hours_income) %></dt>
-    <dd><%= @budget.total_hours_income %> <%= t(:budget_currency) %></dd>
-    
-    <dt><%= t(:total_hours_cost) %></dt>
-    <dd><%= @budget.total_hours_cost %> <%= t(:budget_currency) %></dd>
+    <table class="list">
+      <tr>
+        <th><%= t(:total_budget_stats) %></th>
+        <th><%= t(:income) %></th>
+        <th><%= t(:cost) %></th>
+        <th><%= t(:profit) %></th>
+      </tr>
+      <tr>
+        <th class="alignleft"><%= t(:budget_stats_hours) %></th>
+        <td><%= @budget.total_hours_income %> <%= t(:budget_currency) %></td>
+        <td><%= @budget.total_hours_cost %> <%= t(:budget_currency) %></td>
+        <td><%= @budget.total_hours_profit %> <%= t(:budget_currency) %></td>
+      </tr>
 
-    <dt><%= t(:total_hours_profit) %></dt>
-    <dd><%= @budget.total_hours_profit %> <%= t(:budget_currency) %></dd>
+      <tr>
+        <th class="alignleft"><%= t(:budget_stats_entries) %></th>
+        <td><%= @budget.total_entries_income %> <%= t(:budget_currency) %></td>
+        <td><%= @budget.total_entries_cost %> <%= t(:budget_currency) %></td>
+        <td><%= @budget.total_entries_profit %> <%= t(:budget_currency) %></td>
+      </tr>
 
-
-    <dt><%= t(:total_entries_income) %></dt>
-    <dd><%= @budget.total_entries_income %> <%= t(:budget_currency) %></dd>
-    
-    <dt><%= t(:total_entries_cost) %></dt>
-    <dd><%= @budget.total_entries_cost %> <%= t(:budget_currency) %></dd>
-
-    <dt><%= t(:total_entries_profit) %></dt>
-    <dd><%= @budget.total_entries_profit %> <%= t(:budget_currency) %></dd>
-
-
-    <dt><%= t(:all_total_income) %></dt>
-    <dd><%= @budget.total_income %> <%= t(:budget_currency) %></dd>
-    
-    <dt><%= t(:all_total_cost) %></dt>
-    <dd><%= @budget.total_cost %> <%= t(:budget_currency) %></dd>
-
-    <dt><%= t(:all_total_profit) %></dt>
-    <dd><%= @budget.total_profit %> <%= t(:budget_currency) %></dd>
+      <tr>
+        <th class="alignleft"><%= t(:budget_stats_all) %></th>
+        <td><%= @budget.total_income %> <%= t(:budget_currency) %></td>
+        <td><%= @budget.total_cost %> <%= t(:budget_currency) %></td>
+        <td><%= @budget.total_profit %> <%= t(:budget_currency) %></td>
+      </tr>
+    </table>
   </dl>
 
   <br />
+  <br />
   <hr />
+  <br />
   <br />
 
   <h2>
@@ -67,34 +69,34 @@
     <dt><%= t(:real_hours_count) %></dt>
     <dd><%= @budget_calculator.real_hours_count %> <%= t(:field_hours).downcase %></dd>
 
-    <dt><%= t(:real_hours_income) %></dt>
-    <dd><%= @budget_calculator.real_hours_income %> <%= t(:budget_currency) %></dd>
+    <table class="list">
+      <tr>
+        <th><%= t(:real_budget_stats) %></th>
+        <th><%= t(:income) %></th>
+        <th><%= t(:cost) %></th>
+        <th><%= t(:profit) %></th>
+      </tr>
+      <tr>
+        <th class="alignleft"><%= t(:budget_stats_hours) %></th>
+        <td><%= @budget.real_hours_income %> <%= t(:budget_currency) %></td>
+        <td><%= @budget.real_hours_cost %> <%= t(:budget_currency) %></td>
+        <td><%= @budget.real_hours_profit %> <%= t(:budget_currency) %></td>
+      </tr>
 
-    <dt><%= t(:real_hours_cost) %></dt>
-    <dd><%= @budget_calculator.real_hours_cost %> <%= t(:budget_currency) %></dd>
+      <tr>
+        <th class="alignleft"><%= t(:budget_stats_entries) %></th>
+        <td><%= @budget.real_entries_income %> <%= t(:budget_currency) %></td>
+        <td><%= @budget.real_entries_cost %> <%= t(:budget_currency) %></td>
+        <td><%= @budget.real_entries_profit %> <%= t(:budget_currency) %></td>
+      </tr>
 
-    <dt><%= t(:real_hours_profit) %></dt>
-    <dd><%= @budget_calculator.real_hours_profit %> <%= t(:budget_currency) %></dd>
-
-
-    <dt><%= t(:real_entries_income) %></dt>
-    <dd><%= @budget_calculator.real_entries_income %> <%= t(:budget_currency) %></dd>
-
-    <dt><%= t(:real_entries_cost) %></dt>
-    <dd><%= @budget_calculator.real_entries_cost %> <%= t(:budget_currency) %></dd>
-
-    <dt><%= t(:real_entries_profit) %></dt>
-    <dd><%= @budget_calculator.real_entries_profit %> <%= t(:budget_currency) %></dd>
-
-
-    <dt><%= t(:all_real_income) %></dt>
-    <dd><%= @budget_calculator.real_income %> <%= t(:budget_currency) %></dd>
-
-    <dt><%= t(:all_real_cost) %></dt>
-    <dd><%= @budget_calculator.real_cost %> <%= t(:budget_currency) %></dd>
-
-    <dt><%= t(:all_real_profit) %></dt>
-    <dd><%= @budget_calculator.real_profit %> <%= t(:budget_currency) %></dd>
+      <tr>
+        <th class="alignleft"><%= t(:budget_stats_all) %></th>
+        <td><%= @budget.real_income %> <%= t(:budget_currency) %></td>
+        <td><%= @budget.real_cost %> <%= t(:budget_currency) %></td>
+        <td><%= @budget.real_profit %> <%= t(:budget_currency) %></td>
+      </tr>
+    </table>
   </dl>
 
   <br />
@@ -160,7 +162,7 @@
         <th><%= t(:month) %></th>
         <th colspan="3"><%= t(:budget_stats_hours) %></th>
         <th colspan="3"><%= t(:budget_stats_entries) %></th>
-        <th colspan="3"><%= t(:budget_stats_total) %></th>
+        <th colspan="3"><%= t(:budget_stats_all) %></th>
       </tr>
       <tr>
         <th></th>
@@ -196,7 +198,9 @@
   </table>
 
   <br />
-  <hr>
+  <br />
+  <hr />
+  <br />
   <br />
 
   <h3 class="inline"><%= t(:budget_entries) %></h3>
@@ -252,8 +256,8 @@
                     deposit_amount: entry.deposit_amount,
                     issue_id: (link_to("\##{entry.issue_id}", issue_path(entry.issue_id)) if entry.issue_id)
                   } %>
-                  <%= t :budget_entry_details_amounts_html, t_values %> <br>
-                  <%= t :budget_entry_details_author_html, t_values %> <br>
+                  <%= t :budget_entry_details_amounts_html, t_values %> <br />
+                  <%= t :budget_entry_details_author_html, t_values %> <br />
                   <%= t :budget_entry_details_issue_html, t_values if entry.issue_id %>
 
                   <% if entry.custom_field_values.any? %>
