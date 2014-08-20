@@ -34,6 +34,9 @@ en:
   budget_stats_all: Total (hours + entries)
   toggle: "show / hide"
   no_budget_users: "We haven't found any timelog entries in this project for the given date period."
+  planned_budget: Planned budget
+  real_budget: Budget realized
+  real_budget_for_date_period: Budget realized in %{start_date} - %{end_date}
 
   # hours_count:
   # income:

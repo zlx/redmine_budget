@@ -6,9 +6,10 @@
   <h2 class="inline"><%= t(:project_budget) %></h2>
   <%= link_to t(:budget_settings), edit_project_budget_path(@project), :class => "icon icon-edit" %>
 
-  <dl class="dl dl-horizontal">
+  <dl class="dl dl-horizontal dl-nomargin">
     <dt><%= t(:project_date) %></dt>
     <dd><%= @project.custom_start_date %> - <%= @project.custom_end_date %></dd>
+  </dl>
 
   <br />
   <hr />
@@ -27,14 +28,17 @@
   <table class="list list-border">
     <thead>
       <tr>
-        <th>Planowane</th>
-        <th>Zrealizowane w <%= @budget_calculator.start_date %> - <%= @budget_calculator.end_date %></th>
+        <th><%= t(:planned_budget) %></th>
+        <th><%= t(:real_budget_for_date_period, 
+                start_date: @budget_calculator.start_date,
+                end_date: @budget_calculator.end_date
+            ) %></th>
       </tr>
     </thead>
     <tr><th colspan="2"><%= t(:budget_stats_all) %></th></tr>
     <tr>
       <td>
-        <dl class="dl dl-horizontal">
+        <dl class="dl dl-horizontal dl-nomargin">
           <dt><%= t(:income) %></dt>
           <dd><%= @budget.total_income %> <%= t(:budget_currency) %></dd>
           
@@ -46,7 +50,7 @@
         </dl>
       </td>
       <td>
-        <dl class="dl dl-horizontal">
+        <dl class="dl dl-horizontal dl-nomargin">
           <dt><%= t(:income) %></dt>
           <dd><%= @budget_calculator.real_income %> <%= t(:budget_currency) %></dd>
           
@@ -62,8 +66,11 @@
     <tr><th colspan="2"><%= t(:budget_stats_hours) %></th></tr>
     <tr>
       <td>
-        <dl class="dl dl-horizontal">
-          <dt><%= t(:hours_count) %></dt>
+        <dl class="dl dl-horizontal dl-nomargin">
+          <dt><%= t(:planned_hours_count) %></dt>
+          <dd><%= @budget_calculator.planned_hours_count %> <%= t(:field_hours).downcase %></dd>
+
+          <dt><%= t(:real_hours_count) %></dt>
           <dd><%= @budget_calculator.total_hours_count %> <%= t(:field_hours).downcase %></dd>
 
           <dt><%= t(:income) %></dt>
@@ -77,7 +84,10 @@
         </dl>
       </td>
       <td>
-        <dl class="dl dl-horizontal">
+        <dl class="dl dl-horizontal dl-nomargin">
+          <dt></dt>
+          <dd></dd>
+          
           <dt><%= t(:hours_count) %></dt>
           <dd><%= @budget_calculator.real_hours_count %> <%= t(:field_hours).downcase %></dd>
 
@@ -96,7 +106,7 @@
     <tr><th colspan="2"><%= t(:budget_stats_entries) %></th></tr>
     <tr>
       <td>
-        <dl class="dl dl-horizontal">
+        <dl class="dl dl-horizontal dl-nomargin">
           <dt><%= t(:income) %></dt>
           <dd><%= @budget.total_entries_income %> <%= t(:budget_currency) %></dd>
           
@@ -108,7 +118,7 @@
         </dl>
       </td>
       <td>
-        <dl class="dl dl-horizontal">
+        <dl class="dl dl-horizontal dl-nomargin">
           <dt><%= t(:income) %></dt>
           <dd><%= @budget_calculator.real_entries_income %> <%= t(:budget_currency) %></dd>
           
@@ -125,7 +135,7 @@
   <br />
 
   <h3><%= t(:budget_roles_breakdown) %></h3>
-  <table class="list">
+  <table class="list list-border">
     <thead>
       <tr>
         <th><%= t(:role) %></th>
@@ -156,7 +166,7 @@
   <% if !@budget_calculator.works_by_user.present? %>
     <p><%= t(:no_budget_users) %></p>
   <% else %>
-    <table class="list">
+    <table class="list list-border">
       <thead>
         <tr>
           <th><%= t(:user) %></th>
@@ -187,7 +197,7 @@
   <br /><br />
   
   <h3><%= t(:budget_months_breakdown) %></h3>
-  <table class="list">
+  <table class="list list-border">
     <thead>
       <tr>
         <th><%= t(:month) %></th>
