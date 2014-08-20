@@ -31,3 +31,7 @@ table.list caption {
 table.list-border th, table.list-border td {
   border: 1px solid #eee;
 }
+
+table.list-alignleft td {
+  text-align: left;
+}

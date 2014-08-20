@@ -6,7 +6,7 @@
   <h2 class="inline"><%= t(:project_budget) %></h2>
   <%= link_to t(:budget_settings), edit_project_budget_path(@project), :class => "icon icon-edit" %>
 
-  <dl class="dl dl-horizontal dl-nomargin">
+  <dl class="dl dl-horizontal dl-table">
     <dt><%= t(:project_date) %></dt>
     <dd><%= @project.custom_start_date %> - <%= @project.custom_end_date %></dd>
   </dl>
@@ -25,110 +25,85 @@
     </form>
   </h2>
 
-  <table class="list list-border">
+  <table class="list list-border list-alignleft">
     <thead>
       <tr>
-        <th><%= t(:planned_budget) %></th>
-        <th><%= t(:real_budget_for_date_period, 
+        <th colspan="2"><%= t(:planned_budget) %></th>
+        <th colspan="2"><%= t(:real_budget_for_date_period, 
                 start_date: @budget_calculator.start_date,
                 end_date: @budget_calculator.end_date
             ) %></th>
       </tr>
     </thead>
-    <tr><th colspan="2"><%= t(:budget_stats_all) %></th></tr>
+
+    <tr><th colspan="4"><%= t(:budget_stats_all) %></th></tr>
     <tr>
-      <td>
-        <dl class="dl dl-horizontal dl-nomargin">
-          <dt><%= t(:income) %></dt>
-          <dd><%= @budget.total_income %> <%= t(:budget_currency) %></dd>
-          
-          <dt><%= t(:cost) %></dt>
-          <dd><%= @budget.total_cost %> <%= t(:budget_currency) %></dd>
-
-          <dt><%= t(:profit) %></dt>
-          <dd><%= @budget.total_profit %> <%= t(:budget_currency) %></dd>
-        </dl>
-      </td>
-      <td>
-        <dl class="dl dl-horizontal dl-nomargin">
-          <dt><%= t(:income) %></dt>
-          <dd><%= @budget_calculator.real_income %> <%= t(:budget_currency) %></dd>
-          
-          <dt><%= t(:cost) %></dt>
-          <dd><%= @budget_calculator.real_cost %> <%= t(:budget_currency) %></dd>
-
-          <dt><%= t(:profit) %></dt>
-          <dd><%= @budget_calculator.real_profit %> <%= t(:budget_currency) %></dd>
-        </dl>
-      </td>
+      <td width="25%"><strong><%= t(:income) %></strong></td>
+      <td width="25%"><%= @budget.total_income %> <%= t(:budget_currency) %></td>
+      <td width="25%"><strong><%= t(:income) %></strong></td>
+      <td width="25%"><%= @budget_calculator.real_income %> <%= t(:budget_currency) %></td>
+    </tr>
+    <tr>
+      <td><strong><%= t(:cost) %></strong></td>
+      <td><%= @budget.total_cost %> <%= t(:budget_currency) %></td>
+      <td><strong><%= t(:cost) %></strong></td>
+      <td><%= @budget_calculator.real_cost %> <%= t(:budget_currency) %></td>
+    </tr>
+    <tr>
+      <td><strong><%= t(:profit) %></strong></td>
+      <td><%= @budget.total_profit %> <%= t(:budget_currency) %></td>
+      <td><strong><%= t(:profit) %></strong></td>
+      <td><%= @budget_calculator.real_profit %> <%= t(:budget_currency) %></td>
     </tr>
 
-    <tr><th colspan="2"><%= t(:budget_stats_hours) %></th></tr>
+    <tr><th colspan="4"><%= t(:budget_stats_hours) %></th></tr>
     <tr>
-      <td>
-        <dl class="dl dl-horizontal dl-nomargin">
-          <dt><%= t(:planned_hours_count) %></dt>
-          <dd><%= @budget_calculator.planned_hours_count %> <%= t(:field_hours).downcase %></dd>
-
-          <dt><%= t(:real_hours_count) %></dt>
-          <dd><%= @budget_calculator.total_hours_count %> <%= t(:field_hours).downcase %></dd>
-
-          <dt><%= t(:income) %></dt>
-          <dd><%= @budget.total_hours_income %> <%= t(:budget_currency) %></dd>
-          
-          <dt><%= t(:cost) %></dt>
-          <dd><%= @budget.total_hours_cost %> <%= t(:budget_currency) %></dd>
-
-          <dt><%= t(:profit) %></dt>
-          <dd><%= @budget.total_hours_profit %> <%= t(:budget_currency) %></dd>
-        </dl>
-      </td>
-      <td>
-        <dl class="dl dl-horizontal dl-nomargin">
-          <dt></dt>
-          <dd></dd>
-          
-          <dt><%= t(:hours_count) %></dt>
-          <dd><%= @budget_calculator.real_hours_count %> <%= t(:field_hours).downcase %></dd>
-
-          <dt><%= t(:income) %></dt>
-          <dd><%= @budget_calculator.real_hours_income %> <%= t(:budget_currency) %></dd>
-          
-          <dt><%= t(:cost) %></dt>
-          <dd><%= @budget_calculator.real_hours_cost %> <%= t(:budget_currency) %></dd>
-
-          <dt><%= t(:profit) %></dt>
-          <dd><%= @budget_calculator.real_hours_profit %> <%= t(:budget_currency) %></dd>
-        </dl>
-      </td>
+      <td><strong><%= t(:planned_hours_count) %></strong></td>
+      <td><%= @budget_calculator.planned_hours_count %> <%= t(:field_hours).downcase %></td>
+      <td rowspan="2"><strong><%= t(:hours_count) %></strong></td>
+      <td rowspan="2"><%= @budget_calculator.real_hours_count %> <%= t(:field_hours).downcase %></td>
+    </tr>
+    <tr>
+      <td><strong><%= t(:real_hours_count) %></strong></td>
+      <td><%= @budget_calculator.total_hours_count %> <%= t(:field_hours).downcase %></td>
+    </tr>
+    <tr>
+      <td><strong><%= t(:income) %></strong></td>
+      <td><%= @budget.total_hours_income %> <%= t(:budget_currency) %></td>
+      <td><strong><%= t(:income) %></strong></td>
+      <td><%= @budget_calculator.real_hours_income %> <%= t(:budget_currency) %></td>
+    </tr>
+    <tr>
+      <td><strong><%= t(:cost) %></strong></td>
+      <td><%= @budget.total_hours_cost %> <%= t(:budget_currency) %></td>
+      <td><strong><%= t(:cost) %></strong></td>
+      <td><%= @budget_calculator.real_hours_cost %> <%= t(:budget_currency) %></td>
+    </tr>
+    <tr>
+      <td><strong><%= t(:profit) %></strong></td>
+      <td><%= @budget.total_hours_profit %> <%= t(:budget_currency) %></td>
+      <td><strong><%= t(:profit) %></strong></td>
+      <td><%= @budget_calculator.real_hours_profit %> <%= t(:budget_currency) %></td>
     </tr>
 
-    <tr><th colspan="2"><%= t(:budget_stats_entries) %></th></tr>
+    <tr><th colspan="4"><%= t(:budget_stats_entries) %></th></tr>
     <tr>
-      <td>
-        <dl class="dl dl-horizontal dl-nomargin">
-          <dt><%= t(:income) %></dt>
-          <dd><%= @budget.total_entries_income %> <%= t(:budget_currency) %></dd>
-          
-          <dt><%= t(:cost) %></dt>
-          <dd><%= @budget.total_entries_cost %> <%= t(:budget_currency) %></dd>
-
-          <dt><%= t(:profit) %></dt>
-          <dd><%= @budget.total_entries_profit %> <%= t(:budget_currency) %></dd>
-        </dl>
-      </td>
-      <td>
-        <dl class="dl dl-horizontal dl-nomargin">
-          <dt><%= t(:income) %></dt>
-          <dd><%= @budget_calculator.real_entries_income %> <%= t(:budget_currency) %></dd>
-          
-          <dt><%= t(:cost) %></dt>
-          <dd><%= @budget_calculator.real_entries_cost %> <%= t(:budget_currency) %></dd>
-
-          <dt><%= t(:profit) %></dt>
-          <dd><%= @budget_calculator.real_entries_profit %> <%= t(:budget_currency) %></dd>
-        </dl>
-      </td>
+      <td><strong><%= t(:income) %></strong></td>
+      <td><%= @budget.total_entries_income %> <%= t(:budget_currency) %></td>
+      <td><strong><%= t(:income) %></strong></td>
+      <td><%= @budget_calculator.real_entries_income %> <%= t(:budget_currency) %></td>
+    </tr>
+    <tr>
+      <td><strong><%= t(:cost) %></strong></td>
+      <td><%= @budget.total_entries_cost %> <%= t(:budget_currency) %></td>
+      <td><strong><%= t(:cost) %></strong></td>
+      <td><%= @budget_calculator.real_entries_cost %> <%= t(:budget_currency) %></td>
+    </tr>
+    <tr>
+      <td><strong><%= t(:profit) %></strong></td>
+      <td><%= @budget.total_entries_profit %> <%= t(:budget_currency) %></td>
+      <td><strong><%= t(:profit) %></strong></td>
+      <td><%= @budget_calculator.real_entries_profit %> <%= t(:budget_currency) %></td>
     </tr>
   </table>
 
