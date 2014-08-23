@@ -33,19 +33,19 @@ class BudgetCalculator
   end
 
   def planned_hours_count
-    @planned_hours_count ||= works_by_role.map{ |r| r[:planned_hours_count] }.reduce(&:+).to_f
+    @planned_hours_count ||= works_by_role.map{ |r| r[:planned_hours_count] }.reduce(&:+).to_f.round(2)
   end
 
   def real_hours_count
-    @real_hours_count ||= works_by_role.map{ |r| r[:real_hours_count] }.reduce(&:+).to_f
+    @real_hours_count ||= works_by_role.map{ |r| r[:real_hours_count] }.reduce(&:+).to_f.round(2)
   end
 
   def real_hours_income
-    @real_hours_income ||= works_by_role.map{ |r| r[:real_income] }.reduce(&:+).to_f
+    @real_hours_income ||= works_by_role.map{ |r| r[:real_income] }.reduce(&:+).to_f.round(2)
   end
 
   def real_hours_cost
-    @real_hours_cost ||= works_by_role.map{ |r| r[:real_cost] }.reduce(&:+).to_f
+    @real_hours_cost ||= works_by_role.map{ |r| r[:real_cost] }.reduce(&:+).to_f.round(2)
   end
 
   def real_hours_profit
@@ -85,15 +85,15 @@ class BudgetCalculator
   end
 
   def total_hours_count
-    @total_hours_count ||= works_by_role.map{ |r| r[:total_hours_count] }.reduce(&:+).to_f
+    @total_hours_count ||= works_by_role.map{ |r| r[:total_hours_count] }.reduce(&:+).to_f.round(2)
   end
 
   def total_hours_income
-    @total_hours_income ||= works_by_role.map{ |r| r[:total_income] }.reduce(&:+).to_f
+    @total_hours_income ||= works_by_role.map{ |r| r[:total_income] }.reduce(&:+).to_f.round(2)
   end
 
   def total_hours_cost
-    @total_hours_cost ||= works_by_role.map{ |r| r[:total_cost] }.reduce(&:+).to_f
+    @total_hours_cost ||= works_by_role.map{ |r| r[:total_cost] }.reduce(&:+).to_f.round(2)
   end
 
   def total_hours_profit
@@ -141,14 +141,14 @@ class BudgetCalculator
           role: Role.find(role_id),
           periods: rows,
 
-          real_cost: ( real_cost = rows.map { |x| x['cost'].to_f }.reduce(&:+).to_f ),
-          real_income: ( real_income = rows.map { |x| x['income'].to_f }.reduce(&:+).to_f ),
+          real_cost: ( real_cost = rows.map { |x| x['cost'].to_f }.reduce(&:+).to_f.round(2) ),
+          real_income: ( real_income = rows.map { |x| x['income'].to_f }.reduce(&:+).to_f.round(2) ),
           real_profit: ( real_profit = real_income - real_cost ),
-          real_hours_count: ( real_hours_count = rows.map { |x| x['hours_count'].to_f }.reduce(&:+).to_f ),
+          real_hours_count: ( real_hours_count = rows.map { |x| x['hours_count'].to_f }.reduce(&:+).to_f.round(2) ),
 
-          planned_hours_count: ( planned_hours_count = planned_work[:planned_hours_count].to_f ),
-          planned_income_per_hour: ( planned_income_per_hour = planned_work[:planned_income_per_hour].to_f ),
-          planned_cost_per_hour: ( planned_cost_per_hour = planned_work[:planned_cost_per_hour].to_f ),
+          planned_hours_count: ( planned_hours_count = planned_work[:planned_hours_count].to_f.round(2) ),
+          planned_income_per_hour: ( planned_income_per_hour = planned_work[:planned_income_per_hour].to_f.round(2) ),
+          planned_cost_per_hour: ( planned_cost_per_hour = planned_work[:planned_cost_per_hour].to_f.round(2) ),
 
           remaining_hours_count: ( remaining_hours_count = [planned_hours_count - real_hours_count, 0].max ),
           remaining_income: ( remaining_income = remaining_hours_count * planned_income_per_hour ),
@@ -173,10 +173,10 @@ class BudgetCalculator
           user: User.find(user_id),
           periods: rows,
 
-          real_cost: ( real_cost = rows.map { |x| x['cost'].to_f }.reduce(&:+) ),
-          real_income: ( real_income = rows.map { |x| x['income'].to_f }.reduce(&:+) ),
+          real_cost: ( real_cost = rows.map { |x| x['cost'].to_f }.reduce(&:+).to_f.round(2) ),
+          real_income: ( real_income = rows.map { |x| x['income'].to_f }.reduce(&:+).to_f.round(2) ),
           real_profit: real_income - real_cost,
-          real_hours_count: rows.map { |x| x['hours_count'].to_f }.reduce(&:+),
+          real_hours_count: rows.map { |x| x['hours_count'].to_f }.reduce(&:+).to_f.round(2),
         }
       end
   end
@@ -192,8 +192,8 @@ class BudgetCalculator
         income: 0,
         profit: 0
       }) do |memo, row|
-        memo[:cost] += row['cost'].to_f
-        memo[:income] += row['income'].to_f
+        memo[:cost] += row['cost'].to_f.round(2)
+        memo[:income] += row['income'].to_f.round(2)
         memo
       end
       stat[:profit] = stat[:income] - stat[:cost]
@@ -272,7 +272,7 @@ class BudgetCalculator
               wage.price_per_hour
             end
 
-            row["planned_#{wages_type}_per_hour".to_sym] = price_per_hour.to_f
+            row["planned_#{wages_type}_per_hour".to_sym] = price_per_hour.to_f.round(2)
           end
 
           [row[:role_id], row]
