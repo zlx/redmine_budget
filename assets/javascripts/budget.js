@@ -152,26 +152,12 @@ $(document).ready(function(){
   });
 
 
-  // budget_entries#new, #edit
-  $("#budget_entry_category_id").on("change", function updateBudgetEntryDefaults() {
-    var actualId = + $(this).val();
-    var selectedCategory = window._budgetEntriesCategories[actualId];
-
-    if (selectedCategory) {
-      if (selectedCategory.netto_amount) {
-        $("#budget_entry_netto_amount").val( selectedCategory.netto_amount );
-      }
-      if (selectedCategory.tax) {
-        $("#budget_entry_tax").val( selectedCategory.tax );
-      }
-    }
-  }).change();
-
-
+  // budget#edit - initialize the form.
   $("#budget-form").each(function(){
     installBudgetForm($(this));
   });
 
+  
   // Used for example in budget#show.
   // Usage: <a href="#" class="js-extend-row-button" data-extend-target=".users">Show/hide users</a>
   $(document).on("click", ".js-extend-row-button", function extendRow(event) {
