@@ -34,9 +34,9 @@ pl:
   budget_stats_all: W sumie (godziny + wpisy)
   toggle: "pokaż / schowaj"
   no_budget_users: Nie znaleźliśmy żadnych wpisów w dzienniku dla tego projektu w zadanym okresie czasowym.
-  planned_budget: Planowany budżet
-  real_budget: Zrealizowany budżet
-  real_budget_for_date_period: Zrealizowany budżet w %{start_date} - %{end_date}
+  planned_budget: Budżet plaowany
+  real_budget: Budżet zrealizowany
+  real_budget_for_date_period: Budżet zrealizowany w %{start_date} - %{end_date}
 
   hours_count: Liczba godzin
   income: Dochód

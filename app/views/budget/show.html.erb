@@ -109,16 +109,16 @@
 
   <br />
 
-  <h3><%= t(:budget_roles_breakdown) %></h3>
+  <h3><%= t(:budget_roles_breakdown) %> (<%= t(:real_budget).downcase %>)</h3>
   <table class="list list-border">
     <thead>
       <tr>
-        <th><%= t(:role) %></th>
-        <th><%= t(:planned_hours_count) %></th>
-        <th><%= t(:real_hours_count) %></th>
-        <th><%= t(:income) %></th>
-        <th><%= t(:cost) %></th>
-        <th><%= t(:profit) %></th>
+        <th width="40%"><%= t(:role) %></th>
+        <th width="15%"><%= t(:planned_hours_count) %></th>
+        <th width="15%"><%= t(:real_hours_count) %></th>
+        <th width="10%"><%= t(:income) %></th>
+        <th width="10%"><%= t(:cost) %></th>
+        <th width="10%"><%= t(:profit) %></th>
       </tr>
     </thead>
     <tbody>
@@ -137,18 +137,19 @@
 
   <br /><br />
 
-  <h3><%= t(:budget_users_breakdown) %></h3>
+  <h3><%= t(:budget_users_breakdown) %> (<%= t(:real_budget).downcase %>)</h3>
   <% if !@budget_calculator.works_by_user.present? %>
     <p><%= t(:no_budget_users) %></p>
   <% else %>
     <table class="list list-border">
       <thead>
         <tr>
-          <th><%= t(:user) %></th>
-          <th><%= t(:real_hours_count) %></th>
-          <th><%= t(:income) %></th>
-          <th><%= t(:cost) %></th>
-          <th><%= t(:profit) %></th>
+          <th width="40%"><%= t(:user) %></th>
+          <th width="15%"></th>
+          <th width="15%"><%= t(:real_hours_count) %></th>
+          <th width="10%"><%= t(:income) %></th>
+          <th width="10%"><%= t(:cost) %></th>
+          <th width="10%"><%= t(:profit) %></th>
         </tr>
       </thead>
       <tbody>
@@ -159,6 +160,7 @@
           <% @budget_calculator.works_by_user.each do |row| %>
           <tr>
             <td><%= link_to row[:user].name, time_entries_path(user_id: row[:user].id, project_id: @project.id) %></td>
+            <td></td>
             <td><%= row[:real_hours_count] %></td>
             <td><%= row[:real_income] %></td>
             <td><%= row[:real_cost] %></td>
@@ -171,14 +173,15 @@
 
   <br /><br />
   
-  <h3><%= t(:budget_months_breakdown) %></h3>
+  <h3><%= t(:budget_months_breakdown) %> (<%= t(:real_budget).downcase %>)</h3>
   <table class="list list-border">
     <thead>
       <tr>
-        <th><%= t(:month) %></th>
-        <th><%= t(:income) %></th>
-        <th><%= t(:cost) %></th>
-        <th><%= t(:profit) %></th>
+        <th width="40%"><%= t(:month) %></th>
+        <th width="30%" colspan="2"></th>
+        <th width="10%"><%= t(:income) %></th>
+        <th width="10%"><%= t(:cost) %></th>
+        <th width="10%"><%= t(:profit) %></th>
       </tr>
     </thead>
     <tbody>
@@ -188,18 +191,21 @@
           <%= month_name(month_date.month) + month_date.strftime(" %Y") %>
           <a href="#" class="js-extend-row-button icon icon-zoom-in" data-extend-target=".month-<%= i %>">(<%= t(:toggle) %>)</a>
         </td>
+        <td colspan="2"></td>
         <td><%= row[:income] %></td>
         <td><%= row[:cost] %></td>
         <td><%= row[:profit] %></td>
       </tr>
       <tr class="month-<%= i %> row-sub" style="display:none">
         <td><%= t(:budget_stats_hours) %></td>
+        <td colspan="2"></td>
         <td><%= row[:hours_income] %></td>
         <td><%= row[:hours_cost] %></td>
         <td><%= row[:hours_profit] %></td>
       </tr>
       <tr class="month-<%= i %> row-sub" style="display:none">
         <td><%= t(:budget_stats_entries) %></td>
+        <td colspan="2"></td>
         <td><%= row[:entries_income] %></td>
         <td><%= row[:entries_cost] %></td>
         <td><%= row[:entries_profit] %></td>
