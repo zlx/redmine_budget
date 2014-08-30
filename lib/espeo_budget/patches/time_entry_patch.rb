@@ -9,6 +9,11 @@ module EspeoBudget::Patches::TimeEntryPatch
       validates_presence_of :role_id
 
       safe_attributes "role_id"
+
+      safe_attributes "user_id",
+        :if => lambda { |time_entry, user|
+          user.allowed_to?(:edit_time_entries, time_entry.project)
+        }
     end
   end
   

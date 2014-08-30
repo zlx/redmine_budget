@@ -1,15 +1,35 @@
 module EspeoBudget
   class Hooks < Redmine::Hook::ViewListener
 
-    # Add time_entry.role field to the timelog form.
+    # Add time_entry.role_id and time_entry.user_id fields to the timelog form.
     def view_timelog_edit_form_bottom(context = {})
       time_entry = context[:time_entry]
-      context[:roles_collection] = roles_collection_for_select_options(time_entry.user_id, time_entry.project_id)
 
       context[:controller].send(:render_to_string, {
         :partial => "timelog/form_role",
-        :locals => context
+        :locals => context.merge({
+          roles_collection: roles_collection_for_select_options(time_entry.user_id, time_entry.project_id)
+        })
       })
+      
+      if time_entry.project ? User.current.allowed_to?(:edit_time_entries, time_entry.project) : User.current.allowed_to_globally?(:edit_time_entries, {})
+        assignable_users = (
+          [User.current] + 
+          (
+            (time_entry.project ? 
+                time_entry.project.assignable_users 
+              : User.status(User::STATUS_ACTIVE) 
+            ) || []
+          )
+        ).uniq
+
+        context[:controller].send(:render_to_string, {
+          :partial => "timelog/form_user",
+          :locals => context.merge({
+            users_collection: principals_options_for_select(assignable_users, time_entry.user_id)
+          })
+        })
+      end
     end
 
     private
