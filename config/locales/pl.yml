@@ -120,3 +120,20 @@ pl:
   edit_budget_entry: Edytuj wpis budżetu
   budget_entry_successful_create: Wpis budżetu został dodany.
   budget_entry_successful_update: Wpis budżetu został zaktualizowany.
+
+  worktime:
+    edit_project_worktime: Zarządzaj czasem roboczym projektu
+    project_worktime: Czas roboczy projektu
+    field_working_hours_start: 
+    field_working_hours_end:
+    project_working_hours: Godziny robocze
+    project_working_hours_from_start_to_end_html: "Godziny robocze projektu: od %{start} do %{end}"
+    project_working_days: "Dni robocze projektu"
+    holidays: Dni wolne od pracy
+    general_settings: Ogólne ustawienia
+    add_another_project_holiday: Dodaj kolejny dzień wolny
+    no_project_holidays_yet: Ten projekt nie ma jeszcze ustawionych żadnych dni wolnych.
+    project_holiday_successful_create: Dzień wolny został dodany.
+    database_save_error: Nastąpił błąd podczas zapisu danych do bazy danych.
+    worktime_successful_update: Czas pracy projektu został zaktualizowany.
+  field_date: Data

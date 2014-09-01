@@ -1,0 +1,50 @@
+<%= stylesheet_link_tag 'budget', plugin: 'espeo_budget' %>
+
+<h2 class="inline"><%= t(:project_worktime, scope: :worktime) %></h2>
+<%= link_to t(:go_back_to_budget), project_budget_path(@project), class: "icon icon-cancel" %>
+
+<% can_update = User.current.allowed_to?({:controller => 'worktime', :action => 'update'}, @project) %>
+
+<%= labelled_form_for @budget, :url => project_worktime_path(@project) do |f| %>
+  <fieldset class="box">
+    <legend><h3><%= t(:general_settings, scope: :worktime) %></h3></legend>
+    <p>
+      <label for="budget_working_hours_start">
+        <%= t :project_working_hours_from_start_to_end_html,
+              scope: :worktime,
+              start: (f.number_field :working_hours_start, label: "", placeholder: 8, min: 0, max: 24),
+              end: (f.number_field :working_hours_end, label: "", placeholder: 16, min: 0, max: 24) %>
+      </label>
+    </p>
+    <p>
+      <%= t(:project_working_days, scope: :worktime) %>: <%= ((1..7).to_a - @budget.non_working_week_days).map { |wday| day_name(wday) }.join(", ") %>
+    </p>
+    <%= submit_tag l(:button_update) %>
+  </fieldset>
+<% end %>
+
+<h3><%= t(:holidays, scope: :worktime) %></h3>
+<% if !@project.holidays.blank? %>
+<ul>
+  <% for holiday in @project.holidays %>
+    <li>
+      <%= day_name(holiday.date.wday) + ", " + format_date(holiday.date) %>
+      (<%= link_to t(:button_delete), project_holiday_path(@project, holiday.id), class: "icon icon-del", method: :delete %>)
+    </li>
+  <% end %>
+</ul>
+<% else %>
+  <p><%= t(:no_project_holidays_yet, scope: :worktime) %></p>
+<% end %>
+
+<%= labelled_form_for @project_holiday, :url => project_holidays_path(@project) do |f| %>
+<fieldset class="box">
+  <legend><h3><%= t(:add_another_project_holiday, scope: :worktime) %></h3></legend>
+  <p>
+    <%= f.text_field :date, size: 11 %><%= calendar_for("project_holiday_date") %>
+  </p>
+  <p>
+    <%= submit_tag l(:button_add) %>
+  </p>
+</fieldset>
+<% end %>

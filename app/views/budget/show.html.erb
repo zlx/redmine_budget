@@ -5,6 +5,7 @@
 <% cache(@budget_calculator.cache_key, expires_in: 1.hour) do %>
   <h2 class="inline"><%= t(:project_budget) %></h2>
   <%= link_to t(:budget_settings), edit_project_budget_path(@project), :class => "icon icon-edit" %>
+  <%= link_to t(:edit_project_worktime, scope: :worktime), project_worktime_path(@project), :class => "icon icon-edit" %>
 
   <dl class="dl dl-horizontal dl-table">
     <dt><%= t(:project_date) %></dt>

@@ -13,10 +13,12 @@ Redmine::Plugin.register :espeo_budget do
   author_url 'http://jtom.me'
 
   project_module :budget do
-    permission :view_budget, :budget => :show
+    permission :view_budget, :budget => :show,
+                             :worktime => :show
     permission :manage_budget, :budget => [:edit, :update],
                                :budget_entries_categories => [:index, :new, :create, :edit, :update, :destroy],
-                               :budget_entries => [:new, :create, :edit, :update, :destroy]
+                               :budget_entries => [:new, :create, :edit, :update, :destroy],
+                               :worktime => [:update, :create_holiday, :destroy_holiday]
   end
   
   menu :project_menu, :budget, { :controller => 'budget', :action => 'show' }, :caption => :label_budget, param: :project_id

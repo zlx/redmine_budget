@@ -120,3 +120,9 @@ en:
   # edit_budget_entry: 
   budget_entry_successful_create: "Budget entry has been successfully created."
   budget_entry_successful_update: "Budget entry has been successfully updated."
+
+  edit_project_worktime:
+  project_worktime:
+  field_working_hours_start:
+  field_working_hours_end:
+  project_working_hours: 

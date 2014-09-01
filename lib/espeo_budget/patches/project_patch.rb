@@ -7,6 +7,7 @@ module EspeoBudget::Patches::ProjectPatch
       has_one :budget, inverse_of: :project, dependent: :destroy
       has_many :budget_entries_categories, inverse_of: :project, dependent: :delete_all
       has_many :budget_entries, inverse_of: :project, dependent: :delete_all
+      has_many :holidays, inverse_of: :project, dependent: :delete_all, class_name: "ProjectHoliday"
       has_many :project_role_budgets, inverse_of: :project, dependent: :delete_all
       has_many :wages, inverse_of: :project, dependent: :delete_all
       has_many :wage_periods, inverse_of: :project, dependent: :delete_all

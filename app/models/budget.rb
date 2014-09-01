@@ -1,9 +1,14 @@
 class Budget < ActiveRecord::Base
+  include Redmine::SafeAttributes
+  include Redmine::Utils::DateCalculation
+  
   unloadable
 
   belongs_to :project, inverse_of: :budget
 
   validates_numericality_of :warning_percent_threshold, allow_nil: true, inclusion: { greater_than: 0 }, only_integer: true
+
+  safe_attributes "working_hours_start", "working_hours_end"
 
   # Define #wages, #income_wages, #cost_wages methods.
   delegate :wages, to: :project
