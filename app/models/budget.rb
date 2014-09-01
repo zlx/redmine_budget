@@ -40,6 +40,10 @@ class Budget < ActiveRecord::Base
   delegate :total_cost, to: :calculator
   delegate :total_profit, to: :calculator
 
+  def working_days
+    (1..7).to_a - non_working_week_days
+  end
+
   def used_costs_percentage
     (real_cost.to_f / total_cost * 100).round
   end

@@ -31,6 +31,9 @@ class BudgetEntry < ActiveRecord::Base
     'custom_field_values',
     'custom_fields'
 
+  delegate :entry_type, to: :category
+  delegate :entry_type_symbol, to: :category
+
   def brutto_amount
     netto_amount * (1 + tax * 100)
   end

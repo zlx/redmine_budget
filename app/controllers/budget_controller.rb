@@ -3,11 +3,17 @@ class BudgetController < ApplicationController
 
   before_filter :find_project
   before_filter :authorize
+  accept_api_auth :show
 
   helper :custom_fields
 
   def show
     @budget_calculator = BudgetCalculator.new(@budget, budget_params)
+
+    respond_to do |format|
+      format.html
+      format.api
+    end
   end
 
   def edit

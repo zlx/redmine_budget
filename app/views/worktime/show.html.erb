@@ -17,7 +17,7 @@
       </label>
     </p>
     <p>
-      <%= t(:project_working_days, scope: :worktime) %>: <%= ((1..7).to_a - @budget.non_working_week_days).map { |wday| day_name(wday) }.join(", ") %>
+      <%= t(:project_working_days, scope: :worktime) %>: <%= @budget.working_days.map { |wday| day_name(wday) }.join(", ") %>
     </p>
     <%= submit_tag l(:button_update) %>
   </fieldset>

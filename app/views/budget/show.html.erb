@@ -60,13 +60,13 @@
     <tr><th colspan="4"><%= t(:budget_stats_hours) %></th></tr>
     <tr>
       <td><strong><%= t(:planned_hours_count) %></strong></td>
-      <td><%= @budget_calculator.planned_hours_count %> <%= t(:field_hours).downcase %></td>
+      <td><%= @budget.planned_hours_count %> <%= t(:field_hours).downcase %></td>
       <td rowspan="2"><strong><%= t(:hours_count) %></strong></td>
       <td rowspan="2"><%= @budget_calculator.real_hours_count %> <%= t(:field_hours).downcase %></td>
     </tr>
     <tr>
       <td><strong><%= t(:real_hours_count) %></strong></td>
-      <td><%= @budget_calculator.total_hours_count %> <%= t(:field_hours).downcase %></td>
+      <td><%= @budget.total_hours_count %> <%= t(:field_hours).downcase %></td>
     </tr>
     <tr>
       <td><strong><%= t(:income) %></strong></td>

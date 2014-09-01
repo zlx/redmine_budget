@@ -21,6 +21,10 @@ class BudgetEntriesCategory < ActiveRecord::Base
 
   safe_attributes 'name', 'entry_type'
 
+  def entry_type_symbol
+    BudgetEntriesCategory::ENTRY_TYPES.keys[ BudgetEntriesCategory::ENTRY_TYPES.values.find_index(entry_type) ]
+  end
+
   def planned_amount
     budget_entries.planned.map(&:netto_amount).sum
   end
