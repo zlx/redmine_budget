@@ -121,8 +121,17 @@ en:
   budget_entry_successful_create: "Budget entry has been successfully created."
   budget_entry_successful_update: "Budget entry has been successfully updated."
 
-  edit_project_worktime:
-  project_worktime:
-  field_working_hours_start:
-  field_working_hours_end:
-  project_working_hours: 
+  worktime:
+    edit_project_worktime: Manage project's worktime
+    project_worktime: Project's worktime
+    project_working_hours: Project's working hours
+    project_working_hours_from_start_to_end_html: "Working hours: from %{start} to %{end}"
+    project_working_days: Project's working days
+    holidays: Project's holidays
+    general_settings: General settings
+    add_another_project_holiday: Add new holiday
+    no_project_holidays_yet: This project hasn't any holidays set yet.
+    project_holiday_successful_create: A project holiday has been added.
+    database_save_error: There has been an error during a save to database. Try again.
+    worktime_successful_update: Project's worktime has been updated.
+  field_date: Date

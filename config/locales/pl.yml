@@ -124,8 +124,6 @@ pl:
   worktime:
     edit_project_worktime: Zarządzaj czasem roboczym projektu
     project_worktime: Czas roboczy projektu
-    field_working_hours_start: 
-    field_working_hours_end:
     project_working_hours: Godziny robocze
     project_working_hours_from_start_to_end_html: "Godziny robocze projektu: od %{start} do %{end}"
     project_working_days: "Dni robocze projektu"
