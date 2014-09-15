@@ -51,9 +51,9 @@ function installBudgetForm($form) {
 
     var $select = $(".js-project_role_budget-role_id[value=" + +roleId + "]").last();
     var hoursCount = +$select.closest("tr").find(".js-project_role_budget-hours_count").val() || 0;
-    var workedHoursCount = (+(window._rolesCalculations[roleId] || {}).real_hours_count || 0);
+    // var workedHoursCount = (+(window._rolesCalculations[roleId] || {}).real_hours_count || 0);
 
-    return Math.max(0, hoursCount - workedHoursCount);
+    return Math.max(0, hoursCount);
   }
 
   function getCurrentPricePerHourForRole(roleId, wagesType) {
@@ -101,11 +101,11 @@ function installBudgetForm($form) {
         if (roles[roleId]) {
           return 0;
         } else {
-          var workedCash = (+(window._rolesCalculations[roleId] || {})["real_" + wagesType] || 0);
+          // var workedCash = (+(window._rolesCalculations[roleId] || {})["real_" + wagesType] || 0);
           var plannedCash = getCurrentPricePerHourForRole(roleId, wagesType) * getRemainingPlannedHoursCountForRole(roleId);
 
           roles[roleId] = true;
-          return workedCash + plannedCash;
+          return plannedCash;
         }
       }), function(x, y){ return x + y; } );
 
