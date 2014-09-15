@@ -4,12 +4,12 @@
 
 <% cache(@budget_calculator.cache_key, expires_in: 1.hour) do %>
   <%
-    real_roles = Hash[@budget_calculator.works_by_role.map do |r| 
+    roles_calculations_by_role_id = Hash[@budget_calculator.works_by_role.map do |r| 
       [ r[:role].id, r ] 
     end]
   %>
   <script type="text/javascript">
-    window._realRoles = <%= real_roles.to_json.html_safe %>;
+    window._rolesCalculations = <%= roles_calculations_by_role_id.to_json.html_safe %>;
   </script>
 <% end %>
 
