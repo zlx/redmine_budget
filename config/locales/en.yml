@@ -81,6 +81,7 @@ en:
 
   error_custom_project_dates_are_required: "Before you access the project's budget, you have to fill in the project's start and end dates."
 
+  costs_usage_percentage: "Percentage of used planned costs"
   warning_percent_threshold_html: "Warn about usage of budget resources, when it exceeds %{input}% of planned costs."
   budget_threshold_warning_subject: "[%{project_name}] %{percent_threshold}% of budget costs have been used!"
   current_project_budget_stats: "Current project's budget statistics"

@@ -45,7 +45,7 @@ class Budget < ActiveRecord::Base
   end
 
   def used_costs_percentage
-    (real_cost.to_f / total_cost * 100).round
+    (real_cost.to_f / total_cost * 100).round(2) if total_cost > 0
   end
 
   def should_warn_about_threshold?

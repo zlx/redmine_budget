@@ -81,6 +81,7 @@ pl:
 
   error_custom_project_dates_are_required: Aby przejść do budżetu, musisz najpierw ustawić datę początkową i końcową projektu.
 
+  costs_usage_percentage: "Procent zużytych kosztów"
   warning_percent_threshold_html: "Powiadom o zużyciu budżetu, kiedy %{input}% planowanych kosztów zostanie wykorzystanych."
   budget_threshold_warning_subject: "[%{project_name}] %{percent_threshold}% budżetu na koszty zostało wykorzystane!"
   current_project_budget_stats: "Obecne statystyki budżetu"

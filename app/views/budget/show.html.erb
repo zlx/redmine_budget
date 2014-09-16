@@ -10,6 +10,11 @@
   <dl class="dl dl-horizontal dl-table">
     <dt><%= t(:project_date) %></dt>
     <dd><%= @project.custom_start_date %> - <%= @project.custom_end_date %></dd>
+
+    <% if @budget.used_costs_percentage %>
+      <dt><%= t(:costs_usage_percentage) %></dt>
+      <dd><%= @budget.used_costs_percentage %>%</dd>
+    <% end %>
   </dl>
 
   <br />
