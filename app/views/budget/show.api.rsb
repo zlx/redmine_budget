@@ -89,23 +89,6 @@ api.budget do
     end
   end
 
-  api.array :real_stats_by_months do
-    @budget_calculator.stats_by_month.each.with_index do |(month_date, row), i|
-      api.month do
-        api.month_date month_date.strftime("%m-%Y") 
-        api.income row[:income]
-        api.cost row[:cost]
-        api.profit row[:profit]
-        api.hours_income row[:hours_income]
-        api.hours_cost row[:hours_cost]
-        api.hours_profit row[:hours_profit]
-        api.entries_income row[:entries_income]
-        api.entries_cost row[:entries_cost]
-        api.entries_profit row[:entries_profit]
-      end
-    end
-  end
-
   api.array :budget_entries_categories do
     @budget.project.budget_entries_categories.each do |budget_entries_category|
       api.budget_entries_category do
