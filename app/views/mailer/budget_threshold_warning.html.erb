@@ -1,16 +1,2 @@
 <p><%= @subject %><br />
 <%= link_to t(:project_budget), project_budget_url(@budget.project) %></p>
-
-<h4><%= t(:current_project_budget_stats) %></h4>
-<p>
-  <% [:planned_hours_count,
-      :real_hours_count,
-      :real_income,
-      :total_income,
-      :real_cost,
-      :total_cost,
-      :real_profit,
-      :total_profit].each do |attr_name| %>
-    <strong><%= t(attr_name) %></strong>: <%= @budget.send(attr_name) %><br />
-  <% end %>
-</p>
