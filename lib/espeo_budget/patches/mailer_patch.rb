@@ -10,7 +10,7 @@ module EspeoBudget::Patches::MailerPatch
   module InstanceMethods
     # Send a warning to all members of budget.project (that can :manage_budget),
     # about the budget threshold coming to an end.
-    def budget_threshold_warning(budget)
+    def budget_threshold_warning(budget, to_users)
       redmine_headers 'Project' => budget.project.identifier
 
       @budget = budget
@@ -18,7 +18,7 @@ module EspeoBudget::Patches::MailerPatch
         project_name: budget.project.name,
         percent_threshold: budget.used_costs_percentage
 
-      mail :to => budget.users_with_manage_budget_permission.map(&:mail),
+      mail :to => to_users.map(&:mail),
            :subject => @subject
     end
   end

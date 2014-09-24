@@ -55,16 +55,17 @@ class Budget < ActiveRecord::Base
   def warn_about_threshold
     unless warned_at && warned_at + 1.day > Date.today
       if should_warn_about_threshold?
-        warn_about_threshold!
+        mail_message = warn_about_threshold!
         self.warned_at = Time.now
         self.save!
+        mail_message
       end
-    end    
+    end
   end
 
   # Send a warning about budget's usage of resources.
-  def warn_about_threshold!
-    Mailer.budget_threshold_warning(self).deliver
+  def warn_about_threshold!(to_users = self.users_with_manage_budget_permission)
+    Mailer.budget_threshold_warning(self, to_users).deliver
   end
 
   # Members of this project, that can :manage_budget
