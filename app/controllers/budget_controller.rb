@@ -3,7 +3,7 @@ class BudgetController < ApplicationController
 
   before_filter :find_project
   before_filter :authorize
-  accept_api_auth :show
+  accept_api_auth :show, :raport
 
   helper :custom_fields
 
@@ -13,6 +13,31 @@ class BudgetController < ApplicationController
     respond_to do |format|
       format.html
       format.api
+    end
+  end
+
+  def raport
+    @budget_calculator = BudgetCalculator.new(@budget, budget_params)
+
+    wages_type = params[:wages_type] || "cost"
+    budget_entries_type = params[:budget_entries_type] || "cost"
+    @raport = BudgetRaport.new(@budget_calculator, wages_type, budget_entries_type)
+
+    respond_to do |format|
+      format.html
+      format.api
+      format.csv do
+        csv_string = FCSV.generate(:col_sep => l(:general_csv_separator)) do |csv|
+          @raport.to_table.each do |row|
+            csv << row
+          end
+        end
+
+        send_data(csv_string, {
+          type: 'text/csv; header=present', 
+          filename: "budget-raport-#{@raport.wages_type.pluralize}-#{@project.identifier}-#{@raport.start_date}-#{@raport.end_date}.csv"
+        })
+      end
     end
   end
 

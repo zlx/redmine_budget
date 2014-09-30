@@ -1,0 +1,25 @@
+api.start_date @raport.calculator.start_date
+api.end_date @raport.calculator.end_date
+
+api.raport(@raport.user_raports.values.map do |user_raport|
+  user_raport[:user] = {
+    id: user_raport[:user].id,
+    name: user_raport[:user].name,
+  }
+
+  user_raport[:roles].values.map! do |role_raport|
+    role_raport[:role] = {
+      id: role_raport[:role].id,
+      name: role_raport[:role].name,
+    }
+  end
+
+  user_raport[:budget_entries_categories].values.map! do |category_raport|
+    category_raport[:category] = {
+      id: category_raport[:category].id,
+      name: category_raport[:category].name,
+    }
+  end
+
+  user_raport
+end)

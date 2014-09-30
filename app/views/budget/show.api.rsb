@@ -60,7 +60,7 @@ api.budget do
   end
 
   api.array :real_stats_by_users do
-    @budget_calculator.works_by_user.each do |row|
+    @budget_calculator.works_by_user.each do |_, row|
       api.user do
         api.user id: row[:user].id, name: row[:user].name
 

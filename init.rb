@@ -15,7 +15,7 @@ Redmine::Plugin.register :espeo_budget do
   project_module :budget do
     permission :view_budget, :budget => :show,
                              :worktime => :show
-    permission :manage_budget, :budget => [:edit, :update],
+    permission :manage_budget, :budget => [:raport, :edit, :update],
                                :budget_entries_categories => [:index, :new, :create, :edit, :update, :destroy],
                                :budget_entries => [:new, :create, :edit, :update, :destroy],
                                :worktime => [:update, :create_holiday, :destroy_holiday]

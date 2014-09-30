@@ -1,7 +1,7 @@
 class Budget < ActiveRecord::Base
   include Redmine::SafeAttributes
   include Redmine::Utils::DateCalculation
-  
+
   unloadable
 
   belongs_to :project, inverse_of: :budget
@@ -42,6 +42,11 @@ class Budget < ActiveRecord::Base
 
   def working_days
     (1..7).to_a - non_working_week_days
+  end
+
+  # In percents.
+  def hour_wage_tax_percent
+    23.0
   end
 
   def used_costs_percentage

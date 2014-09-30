@@ -136,3 +136,25 @@ pl:
     database_save_error: Nastąpił błąd podczas zapisu danych do bazy danych.
     worktime_successful_update: Czas pracy projektu został zaktualizowany.
   field_date: Data
+
+  budget_raport:
+    name: Raport budżetu
+    raport_for_dates_html: "Raport na okres %{start_date} - %{end_date}"
+    switch_to_cost_raport: Przełącz na raport z stawkami kosztowymi
+    switch_to_income_raport: Przełącz na raport z stawkami dochodowymi
+    generate_csv_file: Wygeneruj plik .csv
+
+    user: Użytkownik
+    role: Rola
+    hours_count_and_cost_wage: Liczba godzin pracy x Stawka kosztowa
+    hours_count_and_income_wage: Liczba godzin pracy x Stawka dochodowa
+    total_hours_netto_cost: Suma kosztów za przepracowany czas (netto)
+    total_hours_brutto_cost: Suma kosztów za przepracowany czas (brutto)
+    total_hours_netto_income: Suma dochodów za przepracowany czas (netto)
+    total_hours_brutto_income: Suma dochodów za przepracowany czas (brutto)
+    total_cost_entries_netto_sum: Suma kosztów za wpisy do budżetu (netto)
+    total_cost_entries_brutto_sum: Suma kosztów za wpisy do budżetu (brutto)
+    total_income_entries_netto_sum: Suma dochodów za wpisy do budżetu (netto)
+    total_income_entries_brutto_sum: Suma dochodów za wpisy do budżetu (brutto)
+    total_netto_sum: Suma (netto)
+    total_brutto_sum: Suma (brutto)

@@ -6,6 +6,7 @@
   <h2 class="inline"><%= t(:project_budget) %></h2>
   <%= link_to t(:budget_settings), edit_project_budget_path(@project), :class => "icon icon-edit" %>
   <%= link_to t(:edit_project_worktime, scope: :worktime), project_worktime_path(@project), :class => "icon icon-edit" %>
+  <%= link_to t(:name, scope: :budget_raport), project_budget_raport_path(@project), :class => "icon icon-report" %>
 
   <dl class="dl dl-horizontal dl-table">
     <dt><%= t(:project_date) %></dt>
@@ -163,7 +164,7 @@
             <td colspan="5">
             </td>
           </tr>        
-          <% @budget_calculator.works_by_user.each do |row| %>
+          <% @budget_calculator.works_by_user.each do |_, row| %>
           <tr>
             <td><%= link_to row[:user].name, time_entries_path(user_id: row[:user].id, project_id: @project.id) %></td>
             <td></td>
@@ -231,7 +232,7 @@
   <%= link_to t(:add_new_budget_entry), new_project_budget_entry_path(@project), :class => "icon icon-add" %>
 
   <% BudgetEntriesCategory::ENTRY_TYPES.keys.map(&:to_s).each do |entry_type| %>
-    <% entries_categories = @budget_calculator.entries_by_category(entry_type) %>
+    <% entries_categories = @budget_calculator.entries_categories_for_type(entry_type) %>
     <br />
 
     <table class="list list-border">

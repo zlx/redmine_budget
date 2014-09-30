@@ -1,0 +1,53 @@
+<% include_calendar_headers_tags %>
+<%= stylesheet_link_tag 'budget', plugin: 'espeo_budget' %>
+
+<h2>
+  <form method="GET">
+    <%= t(:raport_for_dates_html, 
+            scope: :budget_raport,
+            :start_date => (text_field_tag('start_date', @budget_calculator.start_date, :size => 11) +  calendar_for('start_date')),
+            :end_date => (text_field_tag('end_date', @budget_calculator.end_date, :size => 11) +  calendar_for('end_date'))
+        ) %>
+    <button type="submit"><%= t(:submit_budget_date) %></button>
+  </form>
+</h2>
+
+<%= link_to t(:go_back_to_budget), project_budget_path(@project), class: "icon icon-cancel" %>
+
+<%= link_to t(:switch_to_cost_raport, scope: :budget_raport), 
+                project_budget_raport_path(@project, 
+                                        start_date: @raport.start_date, 
+                                        end_date: @raport.end_date, 
+                                        wages_type: "cost"),
+                                        class: "icon icon-cancel" unless @raport.wages_type == "cost" %>
+
+<%= link_to t(:switch_to_income_raport, scope: :budget_raport), 
+                project_budget_raport_path(@project, 
+                                        start_date: @raport.start_date, 
+                                        end_date: @raport.end_date, 
+                                        wages_type: "income"),
+                                        class: "icon icon-reload" unless @raport.wages_type == "income" %>
+                                        
+<%= link_to t(:generate_csv_file, scope: :budget_raport), 
+                project_budget_raport_path(@project, 
+                                        start_date: @raport.start_date, 
+                                        end_date: @raport.end_date, 
+                                        wages_type: @raport.wages_type,
+                                        format: "csv"),
+                                        class: "icon icon-file" %>
+
+<br><br>
+
+<table class="list list-border list-alignleft">
+  <% @raport.to_table.each.with_index do |row, i| %>
+    <tr>
+      <% row.each.with_index do |cell, j| %>
+        <% if i == 0 || j == 0 %>
+          <th class="alignleft"><%= cell %></th>
+        <% else %>
+          <td><%= cell.is_a?(String) ? cell.gsub("\n", "<br />").html_safe : cell %></td>
+        <% end %>
+      <% end %>
+    </tr>
+  <% end %>
+</table>

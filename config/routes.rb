@@ -1,5 +1,7 @@
 get 'budget' => 'budget#show', as: :budget
 get 'projects/:project_id/budget' => 'budget#show', as: :project_budget
+get 'budget/raport' => 'budget#raport', as: :budget_raport
+get 'projects/:project_id/budget/raport' => 'budget#raport', as: :project_budget_raport
 get 'projects/:project_id/budget/settings' => 'budget#edit', as: :edit_project_budget
 post 'projects/:project_id/budget/settings' => 'budget#update'
 
