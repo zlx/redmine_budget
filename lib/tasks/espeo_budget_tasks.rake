@@ -3,7 +3,7 @@ namespace :espeo_budget do
   task :send_warnings => :environment do
     Budget.find_each do |budget|
       if mail_message = budget.warn_about_threshold
-        Rails.logger.info "[Project \##{budget.project.id}: #{budget.project.identifier}] email with warning about used budget costs sent to: #{mail_message.bcc}"
+        puts "[Project \##{budget.project.id}: #{budget.project.identifier}] email with warning about used budget costs sent to: #{mail_message.bcc}"
       end
     end
   end
