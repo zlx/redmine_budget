@@ -10,6 +10,10 @@ module EspeoBudget::Patches::TimeEntryPatch
 
       safe_attributes "role_id"
 
+      # In TimeEntry's source, :attr_protected is set as attr_protected
+      # This line removes it.
+      self._protected_attributes[:default] -= ["user_id"]
+      
       safe_attributes "user_id",
         :if => lambda { |time_entry, user|
           user.allowed_to?(:edit_time_entries, time_entry.project)
