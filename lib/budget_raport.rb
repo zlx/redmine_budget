@@ -79,22 +79,38 @@ class BudgetRaport
     maximum_member_roles_count = budget.project.members.map(&:roles).map(&:count).max
 
     rows = []
-    rows << [
-      I18n.t("user", scope: :budget_raport)
-    ] + ([
-      I18n.t("role", scope: :budget_raport),
-      I18n.t("hours_count_and_#{wages_type}_wage", scope: :budget_raport)
-    ] * maximum_member_roles_count) + [
-      I18n.t("total_hours_netto_#{wages_type}", scope: :budget_raport),
-      I18n.t("total_hours_brutto_#{wages_type}", scope: :budget_raport),
-    ] + (budget_entries_categories.map do |category|
-      "#{I18n.t("#{budget_entries_type.pluralize}_category")}: #{category.name}"
-    end) + [
-      I18n.t("total_#{budget_entries_type}_entries_netto_sum", scope: :budget_raport),
-      I18n.t("total_#{budget_entries_type}_entries_brutto_sum", scope: :budget_raport),
-      I18n.t("total_netto_sum", scope: :budget_raport),
-      I18n.t("total_brutto_sum", scope: :budget_raport),
-    ]
+    rows << 
+      [
+        I18n.t("user", scope: :budget_raport)
+      ] + ([
+        I18n.t("role", scope: :budget_raport),
+        I18n.t("hours_count_and_#{wages_type}_wage", scope: :budget_raport)
+      ] * maximum_member_roles_count) + [
+        I18n.t("total_hours_netto_#{wages_type}", scope: :budget_raport),
+        I18n.t("total_hours_brutto_#{wages_type}", scope: :budget_raport),
+      ] + (budget_entries_categories.map do |category|
+        "#{I18n.t("#{budget_entries_type.pluralize}_category")}: #{category.name}"
+      end) + [
+        I18n.t("total_#{budget_entries_type}_entries_netto_sum", scope: :budget_raport),
+        I18n.t("total_#{budget_entries_type}_entries_brutto_sum", scope: :budget_raport),
+        I18n.t("total_netto_sum", scope: :budget_raport),
+        I18n.t("total_brutto_sum", scope: :budget_raport),
+      ]
+
+    total_raport = {
+      budget_entries_categories: {}
+    }
+    user_raports.values.each do |user_raport|
+      [:total_member_hours_netto_sum, :total_member_hours_brutto_sum, :total_member_budget_entries_netto_sum, :total_member_budget_entries_brutto_sum, :total_member_netto_sum, :total_member_brutto_sum].each do |attr|
+        total_raport[attr] ||= 0
+        total_raport[attr] += (user_raport[attr] || 0)
+      end
+
+      budget_entries_categories.each do |category|
+        total_raport[:budget_entries_categories][category.id] ||= {netto_sum: 0}
+        total_raport[:budget_entries_categories][category.id][:netto_sum] += user_raport[:budget_entries_categories][category.id][:netto_sum]
+      end
+    end
 
     rows += user_raports.values.map do |user_raport|
       [
@@ -116,6 +132,21 @@ class BudgetRaport
         user_raport[:total_member_brutto_sum],
       ]
     end
+
+    rows << 
+      [
+        I18n.t("total", scope: :budget_raport)
+      ] + ([nil, nil] * maximum_member_roles_count) + [
+        total_raport[:total_member_hours_netto_sum],
+        total_raport[:total_member_hours_brutto_sum],
+      ] + (budget_entries_categories.map do |category|
+        total_raport[:budget_entries_categories][category.id][:netto_sum]
+      end.flatten) + [
+        total_raport[:total_member_budget_entries_netto_sum],
+        total_raport[:total_member_budget_entries_brutto_sum],
+        total_raport[:total_member_netto_sum],
+        total_raport[:total_member_brutto_sum],
+      ]
 
     rows[0].count.times.map do |i|
       rows.count.times.map do |j|

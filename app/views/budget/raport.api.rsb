@@ -1,7 +1,7 @@
 api.start_date @raport.calculator.start_date
 api.end_date @raport.calculator.end_date
 
-api.raport(@raport.user_raports.values.map do |user_raport|
+api.user_raports(@raport.user_raports.values.map do |user_raport|
   user_raport[:user] = {
     id: user_raport[:user].id,
     name: user_raport[:user].name,
