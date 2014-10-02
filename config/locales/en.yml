@@ -136,3 +136,25 @@ en:
     database_save_error: There has been an error during a save to database. Try again.
     worktime_successful_update: Project's worktime has been updated.
   field_date: Date
+
+  budget_raport:
+    name: Budget raport
+    raport_for_dates_html: "Budget's raport for date period %{start_date} - %{end_date}"
+    switch_to_cost_raport: Switch to costs wages
+    switch_to_income_raport: Switch to income wages
+    generate_csv_file: Generate .csv file
+
+    user: User
+    role: Role
+    hours_count_and_cost_wage: Hours count x Cost wage
+    hours_count_and_income_wage: Hours count x Income wage
+    total_hours_netto_cost: Sum of worked hours' costs (netto)
+    total_hours_brutto_cost: Sum of worked hours' costs (brutto)
+    total_hours_netto_income: Sum of worked hours' incomes (netto)
+    total_hours_brutto_income: Sum of worked hours' incomes (brutto)
+    total_cost_entries_netto_sum: Sum of budget entries' costs (netto)
+    total_cost_entries_brutto_sum: Sum of budget entries' costs (brutto)
+    total_income_entries_netto_sum: Sum of budget entries' incomes (netto)
+    total_income_entries_brutto_sum: Sum of budget entries' incomes (brutto)
+    total_netto_sum: Total sum (netto)
+    total_brutto_sum: Total sum (brutto)
