@@ -139,7 +139,7 @@ pl:
 
   budget_raport:
     name: Raport budżetu
-    raport_for_dates_html: "Raport na okres %{start_date} - %{end_date}"
+    raport_for_dates_html: "Raport budżetu na okres %{start_date} - %{end_date}"
     switch_to_cost_raport: Przełącz na raport z stawkami kosztowymi
     switch_to_income_raport: Przełącz na raport z stawkami dochodowymi
     generate_csv_file: Wygeneruj plik .csv
