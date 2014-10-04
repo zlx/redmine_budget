@@ -35,7 +35,7 @@ class BudgetEntry < ActiveRecord::Base
   delegate :entry_type_symbol, to: :category
 
   def brutto_amount
-    netto_amount * (1 + tax * 100)
+    (netto_amount * (1 + tax.to_f / 100)).round(2)
   end
 
   def cost?

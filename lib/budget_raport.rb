@@ -68,8 +68,11 @@ class BudgetRaport
         [budget_entries_category.id, category_raport]
       end]
 
-      user_raport[:total_member_netto_sum] = user_raport[:total_member_hours_netto_sum] + user_raport[:total_member_budget_entries_netto_sum]
-      user_raport[:total_member_brutto_sum] = user_raport[:total_member_hours_brutto_sum] + user_raport[:total_member_budget_entries_brutto_sum]
+      user_raport[:total_member_budget_entries_netto_sum] = user_raport[:total_member_budget_entries_netto_sum].round(2)
+      user_raport[:total_member_budget_entries_brutto_sum] = user_raport[:total_member_budget_entries_brutto_sum].round(2)
+
+      user_raport[:total_member_netto_sum] = (user_raport[:total_member_hours_netto_sum] + user_raport[:total_member_budget_entries_netto_sum]).round(2)
+      user_raport[:total_member_brutto_sum] = (user_raport[:total_member_hours_brutto_sum] + user_raport[:total_member_budget_entries_brutto_sum]).round(2)
 
       [member.user_id, user_raport]
     end]
@@ -104,6 +107,7 @@ class BudgetRaport
       [:total_member_hours_netto_sum, :total_member_hours_brutto_sum, :total_member_budget_entries_netto_sum, :total_member_budget_entries_brutto_sum, :total_member_netto_sum, :total_member_brutto_sum].each do |attr|
         total_raport[attr] ||= 0
         total_raport[attr] += (user_raport[attr] || 0)
+        total_raport[attr] = total_raport[attr].round(2)
       end
 
       budget_entries_categories.each do |category|
