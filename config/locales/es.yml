@@ -1,0 +1,161 @@
+es:
+  label_budget: Presupuesto
+  project_module_budget: Presupuesto
+
+  permission_view_budget: Ver presupuesto
+  permission_manage_budget: Gestionar presupuesto
+
+  # income_wages:
+  # cost_wages:
+
+  budget_settings: Establecer horas de presupuesto
+  go_back_to_budget: Volver a presupuesto
+  roles_hour_budgets: Horas planeadas para roles
+  in_summary: En sumario
+  # summary:
+  wage_price_per_hour: Precio por hora
+  wage_start_date: Fechas de inicio de salario
+  wage_end_date: Fechas de fin de salario
+  budget_currency: €
+  # planned_profit:
+  # role:
+  # user:
+
+  project_budget: Presupuesto del proyecto
+  budget_state_for_dates_html: "Estado de presupuesto entre %{start_date} - %{end_date}"
+  submit_budget_date: "Cambiar fecha"
+  # budget_roles_breakdown:
+  # budget_users_breakdown:
+  # budget_months_breakdown:
+  total_budget_stats: Estadística total del presupuesto
+  real_budget_stats: Estadística del presupuesto según fechas
+  budget_stats_hours: Horas de trabajo
+  budget_stats_entries: Entradas de presupuesto
+  budget_stats_all: Total (horas + entradas)
+  toggle: "ver / ocultar"
+  no_budget_users: "No hemos encontrado ninguna entrada en el registro de tiempo en este proyecto para el período seleccionado."
+  planned_budget: Presupuesto planificado
+  real_budget: Presupuesto completado
+  real_budget_for_date_period: Presupuesto completado en %{start_date} - %{end_date}
+
+  # hours_count:
+  # income:
+  # cost:
+  # profit:
+  # month:
+  # incomes:
+  # costs:
+
+  # planned_hours_count:
+  # planned_income:
+  # planned_cost:
+  # planned_profit:
+
+  # real_hours_count:
+  real_hours_income: El ingreso real (las entradas de registro de tiempo)
+  real_hours_cost: Costo real (las entradas de registro de tiempo)
+  real_hours_profit: Beneficio real (las entradas de registro de tiempo)
+  real_entries_income: El ingreso real (partidas presupuestarias)
+  real_entries_cost: Costo real (partidas presupuestarias)
+  real_entries_profit: Beneficio real (partidas presupuestarias)
+  real_income: El ingreso real
+  real_cost: Coste real
+  real_profit: Beneficio real
+  all_real_income: Ingreso total real
+  all_real_cost: Coste total real
+  all_real_profit: Beneficio total real
+
+  # total_hours_count:
+  total_hours_income: El total de ingresos (entradas de registro de tiempo)
+  total_hours_cost: Coste total (entradas de registro de tiempo)
+  total_hours_profit: El beneficio total (entradas de registro de tiempo)
+  total_entries_income: Los ingresos totales (partidas presupuestarias)
+  total_entries_cost: Coste total (partidas presupuestarias)
+  total_entries_profit: El beneficio total (partidas presupuestarias)
+  total_income: El ingreso real
+  total_cost: Coste real
+  total_profit: Beneficio real
+  all_total_income: Ingreso real (Todas)
+  all_total_cost: Coste real (Todas)
+  all_total_profit: Beneficio total (Todas)
+
+  error_custom_project_dates_are_required: "Antes de acceder a el presupuesto del proyecto, que tiene que rellenar las fechas de inicio y finalización del proyecto."
+
+  costs_usage_percentage: "Porcentaje de costos planificados utilizados"
+  warning_percent_threshold_html: "Advertir sobre el uso de los recursos presupuestarios, cuando excede de %{input}% los costes previstos."
+  budget_threshold_warning_subject: "[%{project_name}] %{percent_threshold}% del coste de presupuesto ha sido usado!"
+  current_project_budget_stats: "Estadísticas presupuestarias del proyecto actual"
+
+  # budget_entries:
+  add_new_budget_entry: Añadir nueva entrada de presupuesto
+  # add_new_income:
+  # add_new_cost:
+  budget_entries_categories: "Categorías de entradas de presupuesto"
+  # costs_category:
+  # incomes_category:
+  manage_budget_entries_categories: "Gestionar categorías"
+  # cost_entries_categories:
+  # income_entries_categories:
+  # add_new_category:
+  go_back_to_budget_entries_categories: Volver a categorías
+  # default_values:
+  no_entries_categories_yet: Este presupuesto de proyecto no tienen categorías para las entradas. Cree una primero.
+  budget_entries_category_default_values: "%{netto_amount} € neto + %{tax}% impuesto"
+  budget_entry_details_amounts_html: "<strong>%{netto_amount} € neto</strong>."
+  budget_entry_details_author_html: "Creado por %{user} en %{created_on}."
+  budget_entry_details_issue_html: "Relacionada con esta petición %{issue_id}."
+  toggle_budget_entries: "Mostrar/Ocultar entradas"
+  # actions:
+
+  # new_budget_entries_category:
+  # edit_budget_entries_category:
+  field_netto_amount: Neto [€]
+  field_tax: Porcentaje de impuesto [%]
+  field_deposit_amount: Depósito [€]
+  field_planned: Entrada planificada
+  # budget_entry_type:
+  budget_entries_category_successful_create: "La categoría de presupuesto ha sido creada."
+  budget_entries_category_successful_update: "La categoría de entrada de presupuesto ha sido creada."
+
+  # new_budget_entry:
+  # edit_budget_entry:
+  budget_entry_successful_create: "Partida presupuestaria se ha creado con éxito."
+  budget_entry_successful_update: "Partida presupuestaria se ha actualizado correctamente."
+
+  worktime:
+    edit_project_worktime: Administrar el tiempo de trabajo del proyecto
+    project_worktime: Tiempo de trabajo del Proyecto
+    project_working_hours: Horas de trabajo del proyecto
+    project_working_hours_from_start_to_end_html: "Horas de trabajo: de %{start} hasta %{end}"
+    project_working_days: Días de trabajo del proyecto
+    holidays: Días de fiesta del Proyecto
+    general_settings: Configuración general
+    add_another_project_holiday: Añadir un nuevo día de fiesta
+    no_project_holidays_yet: Este proyecto no tiene días de fiesta definidos.
+    project_holiday_successful_create: Un día de fiesta de proyecto ha sido añadido.
+    database_save_error: Se ha producido un error durante una operación de salvar a la base de datos. Inténtalo de nuevo.
+    worktime_successful_update: El tiempo de trabajo del proyecto se ha actualizado.
+  field_date: Fecha
+
+  budget_raport:
+    name: Informe de presupuesto
+    raport_for_dates_html: "Informe de presupuesto de las fechas %{start_date} - %{end_date}"
+    switch_to_cost_raport: Cambiar a importes de costes
+    switch_to_income_raport: Cambiar a importe de ingreso
+    generate_csv_file: Generar fichero .csv
+
+    user: Usuario
+    role: Rol
+    hours_count_and_cost_wage: Número de horas x importe coste
+    hours_count_and_income_wage: Número de horas x importe ingresos
+    total_hours_netto_cost: Suma de horas trabajadas' costes (neto)
+    total_hours_brutto_cost: Suma de horas trabajadas' costes (bruto)
+    total_hours_netto_income: Suma de horas trabajadas' ingresos (neto)
+    total_hours_brutto_income: suma de horas trabajadas' ingresos (bruto)
+    total_cost_entries_netto_sum: Suma de entradas de presupuesto' costos (neto)
+    total_cost_entries_brutto_sum: Suma de entradas de presupuesto' costos (bruto)
+    total_income_entries_netto_sum: Suma de entradas de presupuesto' ingresos (neto)
+    total_income_entries_brutto_sum: Suma de entradas de presupuesto' ingresos (bruto)
+    total_netto_sum: Suma total (Neto)
+    total_brutto_sum: Suma total (Bruto)
+    total: Total
