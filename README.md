@@ -6,7 +6,7 @@ Plan the budget of your project - plan its' roles, manhours, costs and incomes, 
 
 ### Description
 
-In polish for now only, sorry.
+Description below is in polish for now only, sorry. (however: plugin is fully supported in both polish and english locales!)
 
 > Projekt -> Budżet
   * nowa zakładka na stronie projektu - "Budżet"
