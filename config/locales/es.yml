@@ -140,22 +140,22 @@ es:
   budget_raport:
     name: Informe de presupuesto
     raport_for_dates_html: "Informe de presupuesto de las fechas %{start_date} - %{end_date}"
-    switch_to_cost_raport: Switch to costs wages
-    switch_to_income_raport: Switch to income wages
+    switch_to_cost_raport: Cambiar a importes de costes
+    switch_to_income_raport: Cambiar a importe de ingreso
     generate_csv_file: Generar fichero .csv
 
     user: Usuario
     role: Rol
-    hours_count_and_cost_wage: Hours count x Cost wage
-    hours_count_and_income_wage: Hours count x Income wage
-    total_hours_netto_cost: Sum of worked hours' costs (netto)
-    total_hours_brutto_cost: Sum of worked hours' costs (brutto)
-    total_hours_netto_income: Sum of worked hours' incomes (netto)
-    total_hours_brutto_income: Sum of worked hours' incomes (brutto)
-    total_cost_entries_netto_sum: Sum of budget entries' costs (netto)
-    total_cost_entries_brutto_sum: Sum of budget entries' costs (brutto)
-    total_income_entries_netto_sum: Sum of budget entries' incomes (netto)
-    total_income_entries_brutto_sum: Sum of budget entries' incomes (brutto)
+    hours_count_and_cost_wage: Número de horas x importe coste
+    hours_count_and_income_wage: Número de horas x importe ingresos
+    total_hours_netto_cost: Suma de horas trabajadas' costes (neto)
+    total_hours_brutto_cost: Suma de horas trabajadas' costes (bruto)
+    total_hours_netto_income: Suma de horas trabajadas' ingresos (neto)
+    total_hours_brutto_income: suma de horas trabajadas' ingresos (bruto)
+    total_cost_entries_netto_sum: Suma de entradas de presupuesto' costos (neto)
+    total_cost_entries_brutto_sum: Suma de entradas de presupuesto' costos (bruto)
+    total_income_entries_netto_sum: Suma de entradas de presupuesto' ingresos (neto)
+    total_income_entries_brutto_sum: Suma de entradas de presupuesto' ingresos (bruto)
     total_netto_sum: Suma total (Neto)
     total_brutto_sum: Suma total (Bruto)
     total: Total
