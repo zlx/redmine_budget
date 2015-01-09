@@ -14,7 +14,7 @@ class Wage < ActiveRecord::Base
 
   validates_presence_of :project, :role, :price_per_hour, :type
   validates_inclusion_of :type, :in => TYPES.values
-  validates_numericality_of :price_per_hour, inclusion: { greater_than: 0 }
+  validates_numericality_of :price_per_hour, greater_than: 0
   validate :assert_start_date_is_before_end_date
   validate :assert_date_doesnt_intercept_other_wages
   validate :assert_date_fits_project_date
@@ -74,7 +74,7 @@ class Wage < ActiveRecord::Base
     end
 
     def assert_start_date_is_before_end_date
-      if start_date && end_date && start_date > end_date 
+      if start_date && end_date && start_date > end_date
         errors.add(:end_date, "must be after start date.")
       end
     end

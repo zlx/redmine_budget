@@ -1,6 +1,6 @@
 class BudgetEntry < ActiveRecord::Base
   include Redmine::SafeAttributes
-  
+
   unloadable
 
   belongs_to :project, inverse_of: :budget_entries
@@ -11,7 +11,7 @@ class BudgetEntry < ActiveRecord::Base
   acts_as_customizable
 
   validates_presence_of :project, :category, :name
-  validates_numericality_of :tax, :deposit_amount, inclusion: { greater_than: 0 }
+  validates_numericality_of :tax, :deposit_amount, greater_than: 0
   validate :assert_date_fits_project_date
 
   after_initialize :set_defaults, if: -> { new_record? }
@@ -19,14 +19,14 @@ class BudgetEntry < ActiveRecord::Base
   scope :planned, -> { where(planned: true) }
   scope :real, -> { where(planned: false) }
 
-  safe_attributes 'name', 
-    'netto_amount', 
-    'tax', 
-    'deposit_amount', 
-    'user_id', 
-    'created_on', 
-    'category_id', 
-    'issue_id', 
+  safe_attributes 'name',
+    'netto_amount',
+    'tax',
+    'deposit_amount',
+    'user_id',
+    'created_on',
+    'category_id',
+    'issue_id',
     'planned',
     'custom_field_values',
     'custom_fields'

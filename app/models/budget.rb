@@ -6,7 +6,7 @@ class Budget < ActiveRecord::Base
 
   belongs_to :project, inverse_of: :budget
 
-  validates_numericality_of :warning_percent_threshold, allow_nil: true, inclusion: { greater_than: 0 }, only_integer: true
+  validates_numericality_of :warning_percent_threshold, allow_nil: true, greater_than: 0, only_integer: true
 
   safe_attributes "working_hours_start", "working_hours_end"
 
