@@ -39,43 +39,43 @@ pl:
   real_budget_for_date_period: Budżet zrealizowany w %{start_date} - %{end_date}
 
   hours_count: Liczba godzin
-  income: Dochód
+  income: Przychód
   cost: Koszt
   profit: Zysk
   month: Miesiąc
-  incomes: Dochody
+  incomes: Przychody
   costs: Koszty
 
   planned_hours_count: Planowana liczba godzin
-  planned_income: Planowany dochód
+  planned_income: Planowany przychód
   planned_cost: Planowany koszt
   planned_profit: Planowany zysk
 
   real_hours_count: Realna liczba godzin
-  real_hours_income: Realny dochód (z godzin pracy) 
+  real_hours_income: Realny przychód (z godzin pracy)
   real_hours_cost: Realny koszt (z godzin pracy)
   real_hours_profit: Realny zysk (z godzin pracy)
-  real_entries_income: Realny dochód (z wpisów budżetu)
+  real_entries_income: Realny przychód (z wpisów budżetu)
   real_entries_cost: Realny koszt (z wpisów budżetu)
   real_entries_profit: Realny zysk (z wpisów budżetu)
-  real_income: Realny dochód
+  real_income: Realny przychód
   real_cost: Realny koszt
   real_profit: Realny zysk
-  all_real_income: Realny dochód całkowity
+  all_real_income: Realny przychód całkowity
   all_real_cost: Realny koszt całkowity
   all_real_profit: Realny zysk całkowity
 
   total_hours_count: Całkowita liczba godzin
-  total_hours_income: Całkowity dochód (z godzin pracy) 
+  total_hours_income: Całkowity przychód (z godzin pracy)
   total_hours_cost: Całkowity koszt (z godzin pracy)
   total_hours_profit: Całkowity zysk (z godzin pracy)
-  total_entries_income: Całkowity dochód (z wpisów budżetu)
+  total_entries_income: Całkowity przychód (z wpisów budżetu)
   total_entries_cost: Całkowity koszt (z wpisów budżetu)
   total_entries_profit: Całkowity zysk (z wpisów budżetu)
-  total_income: Całkowity dochód
+  total_income: Całkowity przychód
   total_cost: Całkowity koszt
   total_profit: Całkowity zysk
-  all_total_income: Całkowity dochód
+  all_total_income: Całkowity przychód
   all_total_cost: Całkowity koszt
   all_total_profit: Całkowity zysk
 
@@ -88,14 +88,14 @@ pl:
 
   budget_entries: Wpisy budżetu
   add_new_budget_entry: Dodaj nowy wpis
-  add_new_income: Dodaj nowy dochód
+  add_new_income: Dodaj nowy przychód
   add_new_cost: Dodaj nowy koszt
   budget_entries_categories: Kategorie wpisów budżetu
   costs_category: Kategoria kosztów
-  incomes_category: Kategoria zysków
+  incomes_category: Kategoria przychodów
   manage_budget_entries_categories: Zarządzaj kategoriami
   cost_entries_categories: Kategorie kosztów
-  income_entries_categories: Kategorie zysków
+  income_entries_categories: Kategorie przychodów
   add_new_category: Dodaj nową kategorię
   go_back_to_budget_entries_categories: Wróć do kategorii
   default_values: Domyślne wartości
@@ -141,21 +141,21 @@ pl:
     name: Raport budżetu
     raport_for_dates_html: "Raport budżetu na okres %{start_date} - %{end_date}"
     switch_to_cost_raport: Przełącz na raport z stawkami kosztowymi
-    switch_to_income_raport: Przełącz na raport z stawkami dochodowymi
+    switch_to_income_raport: Przełącz na raport z stawkami przychodowymi
     generate_csv_file: Wygeneruj plik .csv
 
     user: Użytkownik
     role: Rola
     hours_count_and_cost_wage: Liczba godzin pracy x Stawka kosztowa
-    hours_count_and_income_wage: Liczba godzin pracy x Stawka dochodowa
+    hours_count_and_income_wage: Liczba godzin pracy x Stawka przychodowa
     total_hours_netto_cost: Suma kosztów za przepracowany czas (netto)
     total_hours_brutto_cost: Suma kosztów za przepracowany czas (brutto)
-    total_hours_netto_income: Suma dochodów za przepracowany czas (netto)
-    total_hours_brutto_income: Suma dochodów za przepracowany czas (brutto)
+    total_hours_netto_income: Suma przychodów za przepracowany czas (netto)
+    total_hours_brutto_income: Suma przychodów za przepracowany czas (brutto)
     total_cost_entries_netto_sum: Suma kosztów za wpisy do budżetu (netto)
     total_cost_entries_brutto_sum: Suma kosztów za wpisy do budżetu (brutto)
-    total_income_entries_netto_sum: Suma dochodów za wpisy do budżetu (netto)
-    total_income_entries_brutto_sum: Suma dochodów za wpisy do budżetu (brutto)
+    total_income_entries_netto_sum: Suma przychodów za wpisy do budżetu (netto)
+    total_income_entries_brutto_sum: Suma przychodów za wpisy do budżetu (brutto)
     total_netto_sum: Suma (netto)
     total_brutto_sum: Suma (brutto)
     total: Razem
