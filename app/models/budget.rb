@@ -17,6 +17,15 @@ class Budget < ActiveRecord::Base
   end
 
   delegate :planned_hours_count, to: :calculator
+  delegate :planned_hours_income, to: :calculator
+  delegate :planned_hours_cost, to: :calculator
+  delegate :planned_hours_profit, to: :calculator
+  delegate :planned_entries_income, to: :calculator
+  delegate :planned_entries_cost, to: :calculator
+  delegate :planned_entries_profit, to: :calculator
+  delegate :planned_income, to: :calculator
+  delegate :planned_cost, to: :calculator
+  delegate :planned_profit, to: :calculator
 
   delegate :real_hours_count, to: :calculator
   delegate :real_hours_income, to: :calculator
@@ -50,7 +59,7 @@ class Budget < ActiveRecord::Base
   end
 
   def used_costs_percentage
-    (real_cost.to_f / total_cost * 100).round(2) if total_cost > 0
+    (total_cost.to_f / planned_cost * 100).round(2) if total_cost > 0
   end
 
   def should_warn_about_threshold?

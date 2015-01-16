@@ -25,15 +25,59 @@ class BudgetCalculator
 
     [
       budget.project.cache_key,
-      budget.cache_key, 
-      start_date, 
-      end_date, 
+      budget.cache_key,
+      start_date,
+      end_date,
       (recent_project_time_entry.updated_on if recent_project_time_entry)
     ].join("#")
   end
 
   def planned_hours_count
     @planned_hours_count ||= works_by_role.map{ |r| r[:planned_hours_count] }.reduce(&:+).to_f.round(2)
+  end
+
+  def planned_hours_income
+    @planned_hours_income ||= works_by_role.map{ |r| r[:planned_income] }.reduce(&:+).to_f.round(2)
+  end
+
+  def planned_hours_cost
+    @planned_hours_cost ||= works_by_role.map{ |r| r[:planned_cost] }.reduce(&:+).to_f.round(2)
+  end
+
+  def planned_hours_profit
+    (planned_hours_income - planned_hours_cost).round(2)
+  end
+
+  def planned_entries_income
+    budget_entries.joins(:category)
+      .where("budget_entries_categories.entry_type = ?", BudgetEntriesCategory::ENTRY_TYPES[:income])
+      .planned
+      .map(&:netto_amount)
+      .sum
+  end
+
+  def planned_entries_cost
+    budget_entries.joins(:category)
+      .where("budget_entries_categories.entry_type = ?", BudgetEntriesCategory::ENTRY_TYPES[:cost])
+      .planned
+      .map(&:netto_amount)
+      .sum
+  end
+
+  def planned_entries_profit
+    (planned_entries_income - planned_entries_cost).round(2)
+  end
+
+  def planned_income
+    (planned_hours_income + planned_entries_income).round(2)
+  end
+
+  def planned_cost
+    (planned_hours_cost + planned_entries_cost).round(2)
+  end
+
+  def planned_profit
+    (planned_income - planned_cost).round(2)
   end
 
   def real_hours_count
@@ -150,16 +194,19 @@ class BudgetCalculator
           planned_hours_count: ( planned_hours_count = planned_work[:planned_hours_count].to_f.round(2) ),
           planned_income_per_hour: ( planned_income_per_hour = planned_work[:planned_income_per_hour].to_f.round(2) ),
           planned_cost_per_hour: ( planned_cost_per_hour = planned_work[:planned_cost_per_hour].to_f.round(2) ),
+          planned_income: ( planned_income = planned_hours_count * planned_income_per_hour ).round(2),
+          planned_cost: ( planned_cost = planned_hours_count * planned_cost_per_hour ).round(2),
+          planned_profit: ( planned_profit = planned_income - planned_cost ).round(2),
 
           remaining_hours_count: ( remaining_hours_count = [planned_hours_count - real_hours_count, 0].max ).round(2),
           remaining_income: ( remaining_income = remaining_hours_count * planned_income_per_hour ).round(2),
           remaining_cost: ( remaining_cost = remaining_hours_count * planned_cost_per_hour ).round(2),
           remaining_profit: ( remaining_profit = remaining_income - remaining_cost ).round(2),
 
-          total_hours_count: ( real_hours_count + remaining_hours_count ).round(2), 
-          total_income: ( real_income + remaining_income ).round(2), 
-          total_cost: ( real_cost + remaining_cost ).round(2), 
-          total_profit: ( real_profit + remaining_profit ).round(2), 
+          total_hours_count: ( real_hours_count + remaining_hours_count ).round(2),
+          total_income: ( real_income + remaining_income ).round(2),
+          total_cost: ( real_cost + remaining_cost ).round(2),
+          total_profit: ( real_profit + remaining_profit ).round(2),
         }
       end
   end
@@ -292,9 +339,9 @@ class BudgetCalculator
   private
 
     # For all given roles, get current cost and income wages (for the [start_date, end_date] period).
-    # Returns Hash(:role_id => {:role_id, 
-    #                           :planned_hours_count, 
-    #                           :planned_cost_per_hour, 
+    # Returns Hash(:role_id => {:role_id,
+    #                           :planned_hours_count,
+    #                           :planned_cost_per_hour,
     #                           :planned_income_per_hour}).
     def planned_works_by_role
       @planned_works_by_role ||= begin
@@ -346,7 +393,7 @@ class BudgetCalculator
           #{"AND te.spent_on >= ':start_date'" if @start_date}
           #{"AND te.spent_on <= ':end_date'" if @end_date}
 
-        WHERE 
+        WHERE
           wp.project_id = :project_id
 
         GROUP BY wp.id, te.id

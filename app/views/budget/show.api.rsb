@@ -5,7 +5,7 @@ api.budget do
     api.id @budget.project.id
     api.start_date @budget.project.custom_start_date
     api.end_date @budget.project.custom_end_date
-  end 
+  end
 
   api.worktime do
     api.working_hours_start @budget.working_hours_start
@@ -14,20 +14,19 @@ api.budget do
     api.holidays @budget.project.holidays.map(&:date)
   end
 
-  api.total_stats do
-    api.total_income @budget.total_income
-    api.total_cost @budget.total_cost
-    api.total_profit @budget.total_profit
+  api.planned_stats do
+    api.planned_income @budget.planned_income
+    api.planned_cost @budget.planned_cost
+    api.planned_profit @budget.planned_profit
 
     api.planned_hours_count @budget.planned_hours_count
-    api.total_hours_count @budget.total_hours_count
-    api.total_hours_income @budget.total_hours_income
-    api.total_hours_cost @budget.total_hours_cost
-    api.total_hours_profit @budget.total_hours_profit
+    api.planned_hours_income @budget.planned_hours_income
+    api.planned_hours_cost @budget.planned_hours_cost
+    api.planned_hours_profit @budget.planned_hours_profit
 
-    api.total_entries_income @budget.total_entries_income
-    api.total_entries_cost @budget.total_entries_cost
-    api.total_entries_profit @budget.total_entries_profit
+    api.planned_entries_income @budget.planned_entries_income
+    api.planned_entries_cost @budget.planned_entries_cost
+    api.planned_entries_profit @budget.planned_entries_profit
   end
 
   api.real_stats do
@@ -43,6 +42,22 @@ api.budget do
     api.real_entries_income @budget_calculator.real_entries_income
     api.real_entries_cost @budget_calculator.real_entries_cost
     api.real_entries_profit @budget_calculator.real_entries_profit
+  end
+
+  api.total_stats do
+    api.total_income @budget.total_income
+    api.total_cost @budget.total_cost
+    api.total_profit @budget.total_profit
+
+    api.planned_hours_count @budget.planned_hours_count # deprecated, it's in planned_stats now
+    api.total_hours_count @budget.total_hours_count
+    api.total_hours_income @budget.total_hours_income
+    api.total_hours_cost @budget.total_hours_cost
+    api.total_hours_profit @budget.total_hours_profit
+
+    api.total_entries_income @budget.total_entries_income
+    api.total_entries_cost @budget.total_entries_cost
+    api.total_entries_profit @budget.total_entries_profit
   end
 
   api.array :real_stats_by_roles do
@@ -75,7 +90,7 @@ api.budget do
   api.array :real_stats_by_months do
     @budget_calculator.stats_by_month.each.with_index do |(month_date, row), i|
       api.month do
-        api.month_date month_date.strftime("%m-%Y") 
+        api.month_date month_date.strftime("%m-%Y")
         api.income row[:income]
         api.cost row[:cost]
         api.profit row[:profit]

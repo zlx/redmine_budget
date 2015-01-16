@@ -24,7 +24,7 @@
 
   <h2>
     <form method="GET">
-      <%= t(:budget_state_for_dates_html, 
+      <%= t(:budget_state_for_dates_html,
               :start_date => (text_field_tag('start_date', @budget_calculator.start_date, :size => 11) +  calendar_for('start_date')),
               :end_date => (text_field_tag('end_date', @budget_calculator.end_date, :size => 11) +  calendar_for('end_date'))
           ) %>
@@ -36,7 +36,7 @@
     <thead>
       <tr>
         <th colspan="2"><%= t(:planned_budget) %></th>
-        <th colspan="2"><%= t(:real_budget_for_date_period, 
+        <th colspan="2"><%= t(:real_budget_for_date_period,
                 start_date: @budget_calculator.start_date,
                 end_date: @budget_calculator.end_date
             ) %></th>
@@ -46,19 +46,19 @@
     <tr><th colspan="4"><%= t(:budget_stats_all) %></th></tr>
     <tr>
       <td width="25%"><strong><%= t(:income) %></strong></td>
-      <td width="25%"><%= @budget.total_income %> <%= t(:budget_currency) %></td>
+      <td width="25%"><%= @budget.planned_income %> <%= t(:budget_currency) %></td>
       <td width="25%"><strong><%= t(:income) %></strong></td>
       <td width="25%"><%= @budget_calculator.real_income %> <%= t(:budget_currency) %></td>
     </tr>
     <tr>
       <td><strong><%= t(:cost) %></strong></td>
-      <td><%= @budget.total_cost %> <%= t(:budget_currency) %></td>
+      <td><%= @budget.planned_cost %> <%= t(:budget_currency) %></td>
       <td><strong><%= t(:cost) %></strong></td>
       <td><%= @budget_calculator.real_cost %> <%= t(:budget_currency) %></td>
     </tr>
     <tr>
       <td><strong><%= t(:profit) %></strong></td>
-      <td><%= @budget.total_profit %> <%= t(:budget_currency) %></td>
+      <td><%= @budget.planned_profit %> <%= t(:budget_currency) %></td>
       <td><strong><%= t(:profit) %></strong></td>
       <td><%= @budget_calculator.real_profit %> <%= t(:budget_currency) %></td>
     </tr>
@@ -76,19 +76,19 @@
     </tr>
     <tr>
       <td><strong><%= t(:income) %></strong></td>
-      <td><%= @budget.total_hours_income %> <%= t(:budget_currency) %></td>
+      <td><%= @budget.planned_hours_income %> <%= t(:budget_currency) %></td>
       <td><strong><%= t(:income) %></strong></td>
       <td><%= @budget_calculator.real_hours_income %> <%= t(:budget_currency) %></td>
     </tr>
     <tr>
       <td><strong><%= t(:cost) %></strong></td>
-      <td><%= @budget.total_hours_cost %> <%= t(:budget_currency) %></td>
+      <td><%= @budget.planned_hours_cost %> <%= t(:budget_currency) %></td>
       <td><strong><%= t(:cost) %></strong></td>
       <td><%= @budget_calculator.real_hours_cost %> <%= t(:budget_currency) %></td>
     </tr>
     <tr>
       <td><strong><%= t(:profit) %></strong></td>
-      <td><%= @budget.total_hours_profit %> <%= t(:budget_currency) %></td>
+      <td><%= @budget.planned_hours_profit %> <%= t(:budget_currency) %></td>
       <td><strong><%= t(:profit) %></strong></td>
       <td><%= @budget_calculator.real_hours_profit %> <%= t(:budget_currency) %></td>
     </tr>
@@ -96,19 +96,19 @@
     <tr><th colspan="4"><%= t(:budget_stats_entries) %></th></tr>
     <tr>
       <td><strong><%= t(:income) %></strong></td>
-      <td><%= @budget.total_entries_income %> <%= t(:budget_currency) %></td>
+      <td><%= @budget.planned_entries_income %> <%= t(:budget_currency) %></td>
       <td><strong><%= t(:income) %></strong></td>
       <td><%= @budget_calculator.real_entries_income %> <%= t(:budget_currency) %></td>
     </tr>
     <tr>
       <td><strong><%= t(:cost) %></strong></td>
-      <td><%= @budget.total_entries_cost %> <%= t(:budget_currency) %></td>
+      <td><%= @budget.planned_entries_cost %> <%= t(:budget_currency) %></td>
       <td><strong><%= t(:cost) %></strong></td>
       <td><%= @budget_calculator.real_entries_cost %> <%= t(:budget_currency) %></td>
     </tr>
     <tr>
       <td><strong><%= t(:profit) %></strong></td>
-      <td><%= @budget.total_entries_profit %> <%= t(:budget_currency) %></td>
+      <td><%= @budget.planned_entries_profit %> <%= t(:budget_currency) %></td>
       <td><strong><%= t(:profit) %></strong></td>
       <td><%= @budget_calculator.real_entries_profit %> <%= t(:budget_currency) %></td>
     </tr>
@@ -163,7 +163,7 @@
           <tr>
             <td colspan="5">
             </td>
-          </tr>        
+          </tr>
           <% @budget_calculator.works_by_user.each do |_, row| %>
           <tr>
             <td><%= link_to row[:user].name, time_entries_path(user_id: row[:user].id, project_id: @project.id) %></td>
@@ -179,7 +179,7 @@
   <% end %>
 
   <br /><br />
-  
+
   <h3><%= t(:budget_months_breakdown) %> (<%= t(:real_budget).downcase %>)</h3>
   <table class="list list-border">
     <thead>
@@ -217,7 +217,7 @@
         <td><%= row[:entries_cost] %></td>
         <td><%= row[:entries_profit] %></td>
       </tr>
-      <% end %>      
+      <% end %>
     </tbody>
   </table>
 
